@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<aop>
+
+  <aspect class="no.conduct.util.test.MockAspect" scope="PER_VM"/>
+
+  <!-- Bind a pointcut to the factory method returning an interface   -->
+  <bind pointcut="execution(* no.schibstedsok.*.*Factory->getInstance())">
+    <advice name="replaceWithMockResult" aspect="no.conduct.util.test.MockAspect"/>
+  </bind>
+  
+  <!-- Bind a pointcut to the myMethod method using a mock method instead -->
+  <bind pointcut="execution(* no.schibstedsok.*.*CompanyImpl->findStatus(..))">
+    <advice name="getMethod" aspect="no.conduct.util.test.MockAspect"/>
+  </bind>
+</aop>
