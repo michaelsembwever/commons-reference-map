@@ -11,7 +11,7 @@
     </organization>
     <inceptionYear>2005</inceptionYear>
     <package>no.schibstedsok.persistence</package>
-    <currentVersion>2.3.0-SNAPSHOT</currentVersion>
+    <currentVersion>1.0.0-SNAPSHOT</currentVersion>
     <shortDescription>Persistence model for Schibsted Soks catalogue.</shortDescription>
     <description>This is the project for Schibsted Sok's catalogue persistence model.</description>
     <url>https://dev.schibstedsok.no/maven/sites/admin/persistence/catalogue</url>
