@@ -6,7 +6,7 @@ package no.schibstedsok.security.domain.authentication.onetime;
  * @author Lars Preben S&oslash;rsdahl &lt;lars.preben@conduct.no&gt;
  * @version $Revision$
  */
-public class MaxAttemtsExceededException extends Exception {
+public class MaxAttemptsExceededException extends Exception {
 
     /** Serial version UID. */
     private static final long serialVersionUID = 7793100228069336761L;
