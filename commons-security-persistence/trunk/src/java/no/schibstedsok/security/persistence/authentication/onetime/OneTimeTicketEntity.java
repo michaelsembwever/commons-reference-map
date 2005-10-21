@@ -17,21 +17,6 @@ public interface OneTimeTicketEntity {
     Long getId();
 
     /**
-     * Returns the identifier type field.
-     * 
-     * @return the identifier
-     */
-    String getIdentifierType();
-
-    /**
-     * Sets the identifier type field.
-     * 
-     * @param identifierType
-     *            the identifier type
-     */
-    void setIdentifierType(String identifierType);
-
-    /**
      * Returns the identifier.
      * 
      * @return the identifier
@@ -63,6 +48,7 @@ public interface OneTimeTicketEntity {
 
     /**
      * Returns the creation date field.
+     * 
      * @return the creation date
      */
     Date getCreationDate();
@@ -70,32 +56,54 @@ public interface OneTimeTicketEntity {
     /**
      * Sets the creation date field.
      * 
-     * @param creationDate the creation date
+     * @param creationDate
+     *            the creation date
      */
     void setCreationDate(Date creationDate);
 
     /**
      * Returns the used date field.
+     * 
      * @return the date the ticked was used
      */
     Date getUsedDate();
 
     /**
      * Sets the used date field.
-     * @param usedDate the used date
+     * 
+     * @param usedDate
+     *            the used date
      */
     void setUsedDate(Date usedDate);
 
     /**
-     * Returns the ticket code field. 
+     * Returns the ticket code field.
+     * 
      * @return the code
      */
     String getCode();
 
     /**
      * Sets the ticket code field.
-     * @param code the code
+     * 
+     * @param code
+     *            the code
      */
     void setCode(String code);
+
+    /**
+     * Returns the ticket counter field.
+     * 
+     * @return
+     */
+    Integer getCount();
+
+    /**
+     * Sets the ticket count field.
+     * 
+     * @param count
+     *            the count value
+     */
+    void setCount(Integer count);
 
 }

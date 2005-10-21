@@ -16,9 +16,6 @@ public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
     /** Unique ticket id. */
     private Long id;
 
-    /** Target identifier type. */
-    private String identifierType;
-
     /** Target identifier. */
     private String identifier;
 
@@ -34,6 +31,9 @@ public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
     /** Ticket identifier. */
     private String code;
 
+    /** Ticket counter. */
+    private Integer count;
+
     /**
      * @see OneTimeTicketEntity#getId()
      * @hibernate.id generator-class="native" not-null="true"
@@ -43,23 +43,9 @@ public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
     }
 
     /**
-     * @see OneTimeTicketEntity#getIdentifierType()
-     * @hibernate.property not-null="true" length="50"
-     */
-    public String getIdentifierType() {
-        return identifierType;
-    }
-
-    /**
-     * @see OneTimeTicketEntity#setIdentifierType(String)
-     */
-    public void setIdentifierType(final String identifierType) {
-        this.identifierType = identifierType;
-    }
-
-    /**
      * @see OneTimeTicketEntity#getIdentifier()
      * @hibernate.property not-null="true" length="100"
+     * @unique="true"
      */
     public String getIdentifier() {
         return identifier;
@@ -132,4 +118,17 @@ public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
         this.code = code;
     }
 
+    /**
+     * @see OneTimeTicketEntity#getCount()
+     */
+    public Integer getCount() {
+        return count;
+    }
+
+    /**
+     * @see OneTimeTicketEntity#setCount(Integer)
+     */
+    public void setCount(final Integer count) {
+        this.count = count;
+    }
 }
