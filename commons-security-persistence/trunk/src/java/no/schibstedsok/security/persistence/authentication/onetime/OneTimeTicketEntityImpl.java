@@ -7,11 +7,11 @@ import java.util.Date;
  * @hibernate.cache usage = "read-write"
  * 
  * @hibernate.query name =
- *                  "no.schibstedsok.admin.persistence.security.authentication.onetime.findByCode"
+ *                  "no.schibstedsok.security.persistence.authentication.onetime.OneTimeTicketPersistenceManager.findByIdentifier"
  *                  query = "from OneTimeTicketEntityImpl ticket where
- *                  person.code = ?"
+ *                  ticket.identifier = ?"
  */
-public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
+public class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
 
     /** Unique ticket id. */
     private Long id;
@@ -43,9 +43,18 @@ public final class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
     }
 
     /**
+     * Sets the id field.
+     * 
+     * @param id
+     *            the id to set
+     */
+    void setId(final Long id) {
+        this.id = id;
+    }
+
+    /**
      * @see OneTimeTicketEntity#getIdentifier()
-     * @hibernate.property not-null="true" length="100"
-     * @unique="true"
+     * @hibernate.property not-null="true" length="100" unique="true"
      */
     public String getIdentifier() {
         return identifier;
