@@ -99,7 +99,7 @@ public class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
 
     /**
      * @see OneTimeTicketEntity#getUsedDate()
-     * @hibernate.property not-null="true"
+     * @hibernate.property
      */
     public Date getUsedDate() {
         return usedDate;
@@ -129,6 +129,7 @@ public class OneTimeTicketEntityImpl implements OneTimeTicketEntity {
 
     /**
      * @see OneTimeTicketEntity#getCount()
+     * @hibernate.property
      */
     public Integer getCount() {
         return count;
