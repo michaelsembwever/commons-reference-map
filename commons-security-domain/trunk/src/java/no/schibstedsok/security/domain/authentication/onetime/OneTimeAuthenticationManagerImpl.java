@@ -1,6 +1,7 @@
 package no.schibstedsok.security.domain.authentication.onetime;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 
 import no.schibstedsok.common.persistence.dal.ServiceLocatorFactory;
@@ -40,7 +41,11 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
         }
         
         // Fetch existing (id)
-        OneTimeTicketEntity existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
+        OneTimeTicketEntity existingTicket = null;
+        Collection result = ticketMgr.findByIdentifier(identifier);
+        if(result.iterator().hasNext()){
+        	existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
+        }
         // Create
         OneTimeTicketEntity updatedTicket = createTicket(identifier, ttl, ticketLength, maxTickets, existingTicket);
         // Save
@@ -87,6 +92,7 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
 
             if (limit.getTime().compareTo(ticket.getCreationDate()) == 1) {
                 ticket.setCount(new Integer(0));
+                ticket.setCreationDate(now.getTime());
             }
         }
 
@@ -98,6 +104,7 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
         ticket.setCount(new Integer(ticket.getCount().intValue() + 1));
         ticket.setExpiryDate(expires.getTime());
         ticket.setCode(PasswordGenerator.generateAlphaNumericString(ticketLength));
+        ticket.setUsedDate(null);
 
         return ticket;
     }
@@ -107,7 +114,11 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
      */
     public boolean authenticate(final String identifier, final String ticketCode) throws TicketTimeoutException {
         // Find ticket
-        OneTimeTicketEntity existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
+        OneTimeTicketEntity existingTicket = null;
+        Collection result = ticketMgr.findByIdentifier(identifier);
+        if(result.iterator().hasNext()){
+        	existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
+        }
         // validate
         if (validateTicket(identifier, ticketCode, existingTicket)) {
             ticketMgr.update(existingTicket);
