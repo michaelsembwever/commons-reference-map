@@ -3,8 +3,10 @@ package no.schibstedsok.security.domain.authentication.onetime;
 import java.util.Calendar;
 import java.util.Date;
 
+import no.schibstedsok.common.persistence.dal.ServiceLocatorFactory;
 import no.schibstedsok.security.persistence.authentication.onetime.OneTimeTicketEntity;
 import no.schibstedsok.security.persistence.authentication.onetime.OneTimeTicketEntityManagerImpl;
+import no.schibstedsok.security.persistence.authentication.onetime.OneTimeTicketPersistenceManager;
 
 /**
  * @see no.schibstedsok.security.domain.authentication.onetime.OneTimeAuthenticationManager
@@ -15,13 +17,36 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
 
     /** Maximum length of ticket code. */
     public final static int MAX_TICKET_LENGTH = 100;
+    
+    /** Number of hours before the ticket counter is reset. */
+    private final static int TTL_CYCLE_PERIOD = -24;
+
+    /** Ticket persistence manager. */
+    private OneTimeTicketPersistenceManager ticketMgr;
+
+    /**
+     * Constructor.
+     */
+    public OneTimeAuthenticationManagerImpl() {
+        ticketMgr = (OneTimeTicketPersistenceManager) ServiceLocatorFactory.getInstance().getDomainObjectManager(
+                OneTimeTicketPersistenceManager.class);
+    }
 
     public String generateTicket(String identifier, int ttl, int ticketLength, int maxTickets)
             throws MaxAttemptsExceededException {
+        
+        if (identifier.equals("")) {
+            throw new IllegalArgumentException("Identifier must be a non-empty string.");
+        }
+        
         // Fetch existing (id)
+        OneTimeTicketEntity existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
         // Create
+        OneTimeTicketEntity updatedTicket = createTicket(identifier, ttl, ticketLength, maxTickets, existingTicket);
+        // Save
+        ticketMgr.update(updatedTicket);        
         // Return created
-        return null;
+        return updatedTicket.getCode();
     }
 
     OneTimeTicketEntity createTicket(final String identifier, final int ttl, final int ticketLength,
@@ -50,27 +75,27 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
         OneTimeTicketEntity ticket;
 
         if (persistedTicket == null) {
-            ticket = new OneTimeTicketEntityManagerImpl().newOneTimeTicket();            
+            ticket = new OneTimeTicketEntityManagerImpl().newOneTimeTicket();
             ticket.setIdentifier(identifier);
             ticket.setCreationDate(now.getTime());
             ticket.setCount(new Integer(0));
         } else {
             ticket = persistedTicket;
-            
+
             Calendar limit = (Calendar) now.clone();
-            limit.add(Calendar.HOUR, -24);
-            
+            limit.add(Calendar.HOUR, TTL_CYCLE_PERIOD);
+
             if (limit.getTime().compareTo(ticket.getCreationDate()) == 1) {
                 ticket.setCount(new Integer(0));
             }
-        }                
-        
+        }
+
         /* Max number of tickets */
         if (ticket.getCount().intValue() >= maxTickets) {
             throw new MaxAttemptsExceededException();
-        }        
+        }
 
-        ticket.setCount(new Integer(ticket.getCount().intValue()+1));
+        ticket.setCount(new Integer(ticket.getCount().intValue() + 1));
         ticket.setExpiryDate(expires.getTime());
         ticket.setCode(PasswordGenerator.generateAlphaNumericString(ticketLength));
 
@@ -82,9 +107,15 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
      */
     public boolean authenticate(final String identifier, final String ticketCode) throws TicketTimeoutException {
         // Find ticket
+        OneTimeTicketEntity existingTicket = (OneTimeTicketEntity) ticketMgr.findByIdentifier(identifier).iterator().next();
         // validate
+        if (validateTicket(identifier, ticketCode, existingTicket)) {
+            ticketMgr.update(existingTicket);
+            return true;
+        } else {
+            return false;
+        }
         // hvis true, lagre i databasen
-        return false;
     }
 
     boolean validateTicket(final String identifier, final String ticketCode, OneTimeTicketEntity persistedTicket)
@@ -97,24 +128,29 @@ public final class OneTimeAuthenticationManagerImpl implements OneTimeAuthentica
         if (ticketCode.equals("")) {
             throw new IllegalArgumentException("Ticket code must be a non-empty string.");
         }
-        
+
         /* Ticket existence */
         if (persistedTicket == null) {
             return false;
         }
-        
+
         /* Unused */
         if (persistedTicket.getUsedDate() != null) {
             return false;
         }
-        
+
         /* Expired */
         if (new Date().compareTo(persistedTicket.getExpiryDate()) == 1) {
             throw new TicketTimeoutException();
         }
-        
+
         /* Validate code and id */
-        return persistedTicket.getCode().equals(ticketCode) && persistedTicket.getIdentifier().equals(identifier);
+        if (persistedTicket.getCode().equals(ticketCode) && persistedTicket.getIdentifier().equals(identifier)) {
+            persistedTicket.setUsedDate(new Date());
+            return true;
+        } else {
+            return false;
+        }
     }
-    
+
 }
