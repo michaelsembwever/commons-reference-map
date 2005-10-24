@@ -46,11 +46,11 @@ public interface OneTimeTicketPersistenceManager extends Manager {
     OneTimeTicketEntityImpl findByPrimaryKey(Long id);
 
     /**
-     * Find a ticket by it's unique code.
+     * Find a ticket by it's unique identifier.
      * 
-     * @param code
-     *            the code of the ticket to find
-     * @return an instance of the ticked with the given code
+     * @param identifier
+     *            the identifier of the ticket to find
+     * @return an instance of the ticked with the given identifier
      */
-    Collection findTicketByCode(String code);
+    Collection findByIdentifier(String identifier);
 }
