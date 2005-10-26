@@ -6,13 +6,13 @@
 
     <!-- Required services -->
     <depends>jboss.jca:service=RARDeployer</depends>
-    <depends>jboss.jca:name=SchibstedYP2-DS,service=DataSourceBinding</depends>
+    <depends>jboss.jca:name=SchibstedDS,service=DataSourceBinding</depends>
 
     <!-- Bind the Hibernate service to JNDI -->
     <attribute name="JndiName">java:/hibernate/YP2-SessionFactory</attribute>
 
     <!-- Datasource settings -->
-    <attribute name="Datasource">java:/SchibstedYP2-DS</attribute>
+    <attribute name="Datasource">java:/SchibstedDS</attribute>
     <attribute name="Dialect">org.hibernate.dialect.MySQLDialect</attribute>
 
 
@@ -37,7 +37,7 @@
 
     <!-- Mapping files -->
     <attribute name="MapResources">
-    		no/schibstedsok/security/persistence/authentication/onetime/OneTimeTicketEntityImpl.hbm.xml    	    
+
     </attribute>
 
 <!--
