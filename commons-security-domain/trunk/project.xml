@@ -155,7 +155,7 @@
     </dependencies>
     <build>
         <sourceDirectory>src/java</sourceDirectory>
-        <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
+        <!-- <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
         <unitTest>
             <includes>
                 <include>**/*Test.java</include>
@@ -170,7 +170,7 @@
                     <filtering>false</filtering>
                 </resource>
             </resources>
-        </unitTest>
+        </unitTest> -->
     </build>
 </project>
 
