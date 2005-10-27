@@ -15,43 +15,6 @@
         <mkdir dir="${maven.build.dir}/test-logs"/>
     </postGoal>
 
-    <preGoal name="test:compile">
-        <mkdir dir="${maven.build.dir}/generated-sources/java"/>
-
-        <path
-            id="project.extra.src.set"
-            location="${maven.build.dir}/generated-sources/java"/>
-        <m:addPath
-            id="maven.compile.src.set"
-            refid="project.extra.src.set"/>
-
-        <!-- Generate mockobjects -->
-        <ant:taskdef name="mockmaker" classname="mockmaker.AntTask">
-            <ant:classpath>
-                <ant:pathelement location="${plugin.getDependencyPath('mockmaker:mockmaker')}"/>
-                <ant:path refid="maven.dependency.classpath"/>
-            </ant:classpath>
-        </ant:taskdef>
-        <mockmaker srcdir="${maven.src.dir}" destdir="${maven.build.dir}/generated-sources/java"/>
-        <attainGoal name="java:compile"/>
-    </preGoal>
-
-    <postGoal name="test:compile">
-        <ant:path id="aop.classpath">
-            <ant:pathelement location="${plugin.getDependencyPath('jboss:jboss-aop')}"/>
-            <ant:path refid="maven.dependency.classpath"/>
-            <pathelement path="target/classes"/>
-            <pathelement path="target/test-classes"/>
-        </ant:path>
-
-        <ant:taskdef name="aopc" classname="org.jboss.aop.ant.AopC" classpathref="aop.classpath"/>
-        <!--ant:aopc compilerclasspathref="aop.classpath" classpathref="aop.classpath" verbose="true">
-            <ant:classpath refid="aop.classpath"/>
-            <ant:src path="target/classes;target/test-classes"/>
-            <ant:aoppath path="src/test/conf/jboss-aop.xml"/>
-        </ant:aopc-->
-    </postGoal>
-
     <goal name="jboss:deploy"
         description="Deploys artifact to JBoss">
         <attainGoal name="jar"/>
