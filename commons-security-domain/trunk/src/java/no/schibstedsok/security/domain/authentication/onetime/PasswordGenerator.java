@@ -17,9 +17,19 @@ public class PasswordGenerator {
 		String pw = "";
 		
 		for (int j = 0; j < numberOfCharacters; j++) {
-			int randomInt = getRandomNumber(ASCII_TABLE_INDEX_START, ASCII_TABLE_INDEX_END);
-			char ch = (char)randomInt;
-			pw += ch;
+             int letterOrDigit = getRandomNumber(0,2);
+             if (letterOrDigit == 0) {
+                 int randomInt = getRandomNumber(ASCII_TABLE_INDEX_START, ASCII_TABLE_INDEX_END);
+                 if (randomInt == 79) {
+                     randomInt += getRandomNumber(1,10);
+                 }
+                 char ch = (char)randomInt;
+                 
+                 pw += ch;
+             } else {
+                 int randomInt = getRandomNumber(1,10);
+                 pw += randomInt;
+             }
 		}
 		
 		return pw;	
