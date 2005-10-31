@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- $Id$ -->
+
+
+<project
+    xmlns:ant="jelly:ant"
+    xmlns:j="jelly:core"
+    xmlns:m="jelly:maven"
+    xmlns:u="jelly:util"
+    default="jar">
+
+    <postGoal
+        name="test:prepare-filesystem">
+        <mkdir dir="${maven.build.dir}/test-logs"/>
+    </postGoal>
+
+    <goal name="jboss:deploy"
+        description="Deploys artifact to JBoss">
+        <attainGoal name="jar"/>
+        <copy todir="${maven.jboss.home}/${maven.jboss.deploy.dir}" file="${maven.build.dir}/${maven.final.name}.jar"/>
+    </goal>
+    
+    <goal name="source"
+        description="Generate zip containing source java files.">
+        <attainGoal name="java:prepare-filesystem"/>
+        <j:set var="source.zip" value="${maven.build.dir}/${maven.final.name}.zip"/>
+        <delete file="${source.zip}"/>
+        <ant:zip zipfile="${source.zip}">
+            <ant:zipfileset dir="${maven.src.dir}" includes="**/*.java"/>
+        </ant:zip>
+    </goal>
+
+    <goal name="source:install"
+        description="Install source zip in repository.">
+        <attainGoal name="source"/>
+        <j:set var="source.zip" value="${maven.build.dir}/${maven.final.name}.zip"/>
+        <copy todir="${maven.repo.local}/${pom.groupId}/src" file="${source.zip}"/>
+    </goal>
+    
+    <preGoal name="jar:install">
+	    	<attainGoal name="source:install"/>
+    	</preGoal>
+
+    <!-- Multiproject Goal -->
+    <goal name="admin:build">
+	<attainGoal name="jboss:deploy" />
+   </goal>
+
+</project>
