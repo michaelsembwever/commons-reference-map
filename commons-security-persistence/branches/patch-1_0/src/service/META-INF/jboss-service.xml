@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<server>
+
+<mbean code="org.hibernate.jmx.HibernateService"
+    name="jboss.jca:service=HibernateFactory,name=YP2-HibernateFactory">
+
+    <!-- Required services -->
+    <depends>jboss.jca:service=RARDeployer</depends>
+    <depends>jboss.jca:name=SchibstedDS,service=DataSourceBinding</depends>
+
+    <!-- Bind the Hibernate service to JNDI -->
+    <attribute name="JndiName">java:/hibernate/YP2-SessionFactory</attribute>
+
+    <!-- Datasource settings -->
+    <attribute name="Datasource">java:/SchibstedDS</attribute>
+    <attribute name="Dialect">org.hibernate.dialect.MySQLDialect</attribute>
+
+
+    <!-- Transaction integration -->
+    <attribute name="TransactionStrategy">
+        org.hibernate.transaction.JTATransactionFactory</attribute>
+    <attribute name="TransactionManagerLookupStrategy">
+        org.hibernate.transaction.JBossTransactionManagerLookup</attribute>
+    <attribute name="FlushBeforeCompletionEnabled">false</attribute>
+    <attribute name="AutoCloseSessionEnabled">false</attribute>
+
+    <!-- Fetching options -->
+    <attribute name="MaximumFetchDepth">1</attribute>
+
+    <!-- Second-level caching -->
+    <attribute name="SecondLevelCacheEnabled">true</attribute>
+    <attribute name="QueryCacheEnabled">true</attribute>
+    <attribute name="CacheProviderClass">org.hibernate.cache.EhCacheProvider</attribute>
+
+    <!-- Logging -->
+    <attribute name="ShowSqlEnabled">false</attribute>
+
+    <!-- Mapping files -->
+    <attribute name="MapResources">
+
+    </attribute>
+
+<!--
+
+ To browse the contents of a second-level or query cache region, use the Statistics  API:
+
+Map cacheEntries = sessionFactory.getStatistics()
+        .getSecondLevelCacheStatistics(regionName)
+        .getEntries();
+
+You'll need to enable statistics, and, optionally, force Hibernate to keep the cache entries in a more human-understandable format:
+
+hibernate.generate_statistics true
+hibernate.cache.use_structured_entries true
+
+-->
+
+</mbean>
+
+</server>
