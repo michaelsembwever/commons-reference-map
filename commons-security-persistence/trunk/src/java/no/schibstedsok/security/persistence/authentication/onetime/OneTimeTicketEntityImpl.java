@@ -4,8 +4,7 @@ import java.util.Date;
 
 /**
  * @hibernate.class table="authticket" mutable="true"
- * @hibernate.cache usage = "read-write"
- * 
+ * @hibernate.cache usage = "transactional"
  * @hibernate.query name =
  *                  "no.schibstedsok.security.persistence.authentication.onetime.OneTimeTicketPersistenceManager.findByIdentifier"
  *                  query = "from OneTimeTicketEntityImpl ticket where
