@@ -7,8 +7,7 @@
     xmlns:ant="jelly:ant"
     xmlns:j="jelly:core"
     xmlns:m="jelly:maven"
-    xmlns:u="jelly:util"
-    default="jar">
+    xmlns:u="jelly:util">
 
     <postGoal
         name="test:prepare-filesystem">
