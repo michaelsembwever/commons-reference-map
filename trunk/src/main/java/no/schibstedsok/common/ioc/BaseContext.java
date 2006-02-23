@@ -9,10 +9,13 @@
 
 package no.schibstedsok.common.ioc;
 
-/**
+/** The Base Context all contexts describing a class's contextual 'inversion-of-control' (dependencies) must extend.
+ * This interface does not enforce any behaviour. It is only used so BasicInvocationHandler deals with contexts
+ * as a known BaseContext rather than just as Objects. That is it provides some type-safety.
+ *
  * @version $Id$
  * @author <a href="mailto:mick@wever.org">Michael Semb Wever</a>
  */
 public interface BaseContext {
-    
+
 }
