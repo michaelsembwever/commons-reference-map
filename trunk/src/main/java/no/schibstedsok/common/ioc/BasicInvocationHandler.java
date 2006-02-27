@@ -100,7 +100,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                     }
                 }
             }  catch (NoSuchMethodException ex) {
-                LOG.debug(DEBUG_NOT_FOUND
+                LOG.trace(DEBUG_NOT_FOUND
                         + DEBUG_LOOKING_IN + cxt.getClass().getName()
                         + DEBUG_LOOKING_FOR + method.getName() + sb);
             }
@@ -110,8 +110,6 @@ final class BasicInvocationHandler implements InvocationHandler {
         it = contexts.iterator();
         while (it.hasNext()) {
             final BaseContext cxt = (BaseContext) it.next();
-
-            LOG.debug(DEBUG_LOOKING_IN + cxt.getClass().getName() + DEBUG_LOOKING_FOR + method.getName() + sb);
 
             final Method[] methods = cxt.getClass().getMethods();
             for (int j = 0; j < methods.length; ++j) {
@@ -125,13 +123,19 @@ final class BasicInvocationHandler implements InvocationHandler {
                         assignableFrom = cArr[k].isAssignableFrom(paramSignature[k]);
                     }
                     if (assignableFrom) {
-                        LOG.debug(DEBUG_FOUND);
+                        LOG.debug(DEBUG_FOUND
+                            + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                            + DEBUG_LOOKING_FOR + method.getName() + sb);
                         try  {
                             m.setAccessible(true);
                             return m.invoke(cxt, objArr);
                         }  finally  {
                             m.setAccessible(false);
                         }
+                    }else{
+                        LOG.trace(DEBUG_NOT_FOUND
+                        + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                        + DEBUG_LOOKING_FOR + method.getName() + sb);
                     }
                 }
             }
