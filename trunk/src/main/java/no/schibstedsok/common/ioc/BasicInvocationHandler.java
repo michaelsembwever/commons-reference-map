@@ -34,10 +34,10 @@ final class BasicInvocationHandler implements InvocationHandler {
     private final List/*<BaseContext>*/ contexts;
 
     private static final String ERR_METHOD_NOT_IN_INTERFACE = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
-    private static final String DEBUG_LOOKING_FOR = "Looking for ";
+    private static final String DEBUG_LOOKING_FOR = " Looking for ";
     private static final String DEBUG_LOOKING_IN = "Looking in ";
-    private static final String DEBUG_FOUND = "Found method.";
-    private static final String DEBUG_NOT_FOUND = "Not found.";
+    private static final String DEBUG_FOUND = "Found method while: ";
+    private static final String DEBUG_NOT_FOUND = "Did not found method while: ";
 
    // Static --------------------------------------------------------
 
@@ -62,13 +62,13 @@ final class BasicInvocationHandler implements InvocationHandler {
    // Public --------------------------------------------------------
 
    // InvocationHandler implementation ----------------------------------------------
-    
+
 
     /** {@inheritDoc}
      */
     public Object invoke(
             final Object object,
-            final Method method, 
+            final Method method,
             final Object[] objArr) throws Throwable {
 
         // construct method's parameter signature
@@ -84,13 +84,14 @@ final class BasicInvocationHandler implements InvocationHandler {
         while (it.hasNext()) {
             final BaseContext cxt = (BaseContext) it.next();
 
-            LOG.debug(DEBUG_LOOKING_IN + cxt.getClass().getName());
-            LOG.debug(DEBUG_LOOKING_FOR + method.getName() + sb);
+
             try  {
 
                 final Method m = cxt.getClass().getMethod(method.getName(), paramSignature);
                 if (m != null) {
-                    LOG.debug(DEBUG_FOUND);
+                    LOG.debug(DEBUG_FOUND
+                            + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                            + DEBUG_LOOKING_FOR + method.getName() + sb);
                     try  {
                         m.setAccessible(true);
                         return m.invoke(cxt, objArr);
@@ -99,7 +100,9 @@ final class BasicInvocationHandler implements InvocationHandler {
                     }
                 }
             }  catch (NoSuchMethodException ex) {
-                LOG.debug(DEBUG_NOT_FOUND);
+                LOG.debug(DEBUG_NOT_FOUND
+                        + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                        + DEBUG_LOOKING_FOR + method.getName() + sb);
             }
         }
 
@@ -108,8 +111,7 @@ final class BasicInvocationHandler implements InvocationHandler {
         while (it.hasNext()) {
             final BaseContext cxt = (BaseContext) it.next();
 
-            LOG.debug(DEBUG_LOOKING_IN + cxt.getClass().getName());
-            LOG.debug(DEBUG_LOOKING_FOR + method.getName() + sb);
+            LOG.debug(DEBUG_LOOKING_IN + cxt.getClass().getName() + DEBUG_LOOKING_FOR + method.getName() + sb);
 
             final Method[] methods = cxt.getClass().getMethods();
             for (int j = 0; j < methods.length; ++j) {
@@ -138,7 +140,7 @@ final class BasicInvocationHandler implements InvocationHandler {
         final String errMsg = ERR_METHOD_NOT_IN_INTERFACE + method.getName();
         LOG.error(errMsg);
         throw new NoSuchMethodException(errMsg);
-    }    
+    }
 
    // Package protected ---------------------------------------------
 
