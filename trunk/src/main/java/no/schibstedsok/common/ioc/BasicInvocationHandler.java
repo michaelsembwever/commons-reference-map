@@ -75,22 +75,21 @@ final class BasicInvocationHandler implements InvocationHandler {
         final Class[] paramSignature = new Class[objArr == null ? 0 : objArr.length];
         final StringBuffer sb = new StringBuffer();
         for (int i = 0; i < paramSignature.length; ++i) {
-            paramSignature[i] = objArr[i].getClass();
-            sb.append("\n" + objArr[i].getClass().getName());
+            paramSignature[i] = objArr[i] == null ? null : objArr[i].getClass();
+            sb.append("\n" + (objArr[i] == null ? "null" : objArr[i].getClass().getName()));
         }
 
         // first pass is to find an exact signature match
         Iterator it = contexts.iterator();
         while (it.hasNext()) {
-            final BaseContext cxt = (BaseContext) it.next();
-
-
+            final BaseContext cxt = (BaseContext) it.next();            
+            final Class cls = cxt.getClass();
             try  {
 
-                final Method m = cxt.getClass().getMethod(method.getName(), paramSignature);
+                final Method m = cls.getMethod(method.getName(), paramSignature);
                 if (m != null) {
-                    LOG.debug(DEBUG_FOUND
-                            + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                    LOG.trace(DEBUG_FOUND
+                            + DEBUG_LOOKING_IN + cls.getName()
                             + DEBUG_LOOKING_FOR + method.getName() + sb);
                     try  {
                         m.setAccessible(true);
@@ -101,7 +100,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                 }
             }  catch (NoSuchMethodException ex) {
                 LOG.trace(DEBUG_NOT_FOUND
-                        + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                        + DEBUG_LOOKING_IN + cls.getName()
                         + DEBUG_LOOKING_FOR + method.getName() + sb);
             }
         }
@@ -110,8 +109,8 @@ final class BasicInvocationHandler implements InvocationHandler {
         it = contexts.iterator();
         while (it.hasNext()) {
             final BaseContext cxt = (BaseContext) it.next();
-
-            final Method[] methods = cxt.getClass().getMethods();
+            final Class cls = cxt.getClass();
+            final Method[] methods = cls.getMethods();
             for (int j = 0; j < methods.length; ++j) {
 
                 final Method m = methods[j];
@@ -120,11 +119,11 @@ final class BasicInvocationHandler implements InvocationHandler {
                     final Class[] cArr = m.getParameterTypes();
                     boolean assignableFrom = true;
                     for (int k = 0; assignableFrom && k < cArr.length; ++k) {
-                        assignableFrom = cArr[k].isAssignableFrom(paramSignature[k]);
+                        assignableFrom = paramSignature[k] == null || cArr[k].isAssignableFrom(paramSignature[k]);
                     }
                     if (assignableFrom) {
                         LOG.debug(DEBUG_FOUND
-                            + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                            + DEBUG_LOOKING_IN + cls.getName()
                             + DEBUG_LOOKING_FOR + method.getName() + sb);
                         try  {
                             m.setAccessible(true);
@@ -134,7 +133,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                         }
                     }else{
                         LOG.trace(DEBUG_NOT_FOUND
-                        + DEBUG_LOOKING_IN + cxt.getClass().getName()
+                        + DEBUG_LOOKING_IN + cls.getName()
                         + DEBUG_LOOKING_FOR + method.getName() + sb);
                     }
                 }
