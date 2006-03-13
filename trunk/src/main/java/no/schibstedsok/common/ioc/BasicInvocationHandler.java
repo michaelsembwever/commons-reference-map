@@ -76,7 +76,7 @@ final class BasicInvocationHandler implements InvocationHandler {
         final StringBuffer sb = new StringBuffer();
         for (int i = 0; i < paramSignature.length; ++i) {
             paramSignature[i] = objArr[i] == null ? null : objArr[i].getClass();
-            sb.append("\n" + (objArr[i] == null ? "null" : objArr[i].getClass().getName()));
+            sb.append((objArr[i] == null ? "null" : objArr[i].getClass().getName()) + ", ");
         }
 
         // first pass is to find an exact signature match
