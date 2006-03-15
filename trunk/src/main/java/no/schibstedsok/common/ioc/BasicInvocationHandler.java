@@ -70,43 +70,50 @@ final class BasicInvocationHandler implements InvocationHandler {
             final Object object,
             final Method method,
             final Object[] objArr) throws Throwable {
+        
+        // XXX This is one of the applications performance hotspots.
+        //  It could be benefit to keep a weak reference map to remember what method to use.
 
+        boolean paramsNotNull = true;
         // construct method's parameter signature
         final Class[] paramSignature = new Class[objArr == null ? 0 : objArr.length];
         final StringBuffer sb = new StringBuffer();
         for (int i = 0; i < paramSignature.length; ++i) {
             paramSignature[i] = objArr[i] == null ? null : objArr[i].getClass();
+            paramsNotNull &= paramSignature[i] != null;
             sb.append((objArr[i] == null ? "null" : objArr[i].getClass().getName()) + ", ");
         }
 
-        // first pass is to find an exact signature match
-        Iterator it = contexts.iterator();
-        while (it.hasNext()) {
-            final BaseContext cxt = (BaseContext) it.next();            
-            final Class cls = cxt.getClass();
-            try  {
+        // first pass is to find an exact signature match, we can skip if any of the params were null.
+        if( paramsNotNull ){
+            final Iterator it = contexts.iterator();
+            while (it.hasNext()) {
+                final BaseContext cxt = (BaseContext) it.next();            
+                final Class cls = cxt.getClass();
+                try {
 
-                final Method m = cls.getMethod(method.getName(), paramSignature);
-                if (m != null) {
-                    LOG.trace(DEBUG_FOUND
+                    final Method m = cls.getMethod(method.getName(), paramSignature);
+                    if (m != null) {
+                        LOG.trace(DEBUG_FOUND
+                                + DEBUG_LOOKING_IN + cls.getName()
+                                + DEBUG_LOOKING_FOR + method.getName() + sb);
+                        try  {
+                            m.setAccessible(true);
+                            return m.invoke(cxt, objArr);
+                        }  finally  {
+                            m.setAccessible(false);
+                        }
+                    }
+                }  catch (NoSuchMethodException ex) {
+                    LOG.trace(DEBUG_NOT_FOUND
                             + DEBUG_LOOKING_IN + cls.getName()
                             + DEBUG_LOOKING_FOR + method.getName() + sb);
-                    try  {
-                        m.setAccessible(true);
-                        return m.invoke(cxt, objArr);
-                    }  finally  {
-                        m.setAccessible(false);
-                    }
                 }
-            }  catch (NoSuchMethodException ex) {
-                LOG.trace(DEBUG_NOT_FOUND
-                        + DEBUG_LOOKING_IN + cls.getName()
-                        + DEBUG_LOOKING_FOR + method.getName() + sb);
             }
         }
 
         // second pass is look for superclasses to the parameter types
-        it = contexts.iterator();
+        final Iterator it = contexts.iterator();
         while (it.hasNext()) {
             final BaseContext cxt = (BaseContext) it.next();
             final Class cls = cxt.getClass();
