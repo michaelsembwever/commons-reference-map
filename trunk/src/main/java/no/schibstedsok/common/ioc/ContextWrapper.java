@@ -36,12 +36,12 @@ public final class ContextWrapper {
      * It will proxy all methods to the first identical
      * method found in the list of Contexts.
      */
-    public static BaseContext wrap(
-            final Class/*<? extends BaseContext>*/ context,
-            final BaseContext[] cxts) {
+    public static <T extends BaseContext> T wrap(
+            final Class<T> context,
+            final BaseContext... cxts) {
 
         final BasicInvocationHandler handler = new BasicInvocationHandler(cxts);
-        return (BaseContext) Proxy.newProxyInstance(context.getClassLoader(), new Class[]{context}, handler);
+        return (T)Proxy.newProxyInstance(context.getClassLoader(), new Class[]{context}, handler);
     }
 
    // Z implementation ----------------------------------------------
