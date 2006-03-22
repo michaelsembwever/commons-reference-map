@@ -139,6 +139,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                     }
+                    method.setAccessible(true);
                     addToCache(method, paramSignature, m, cxt);
                     return invoke(m, cxt, objArr);
 
@@ -182,6 +183,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
+                        method.setAccessible(true);
                         addToCache(method, paramSignature, m, cxt);
                         return invoke(m, cxt, objArr);
                         
@@ -209,12 +211,7 @@ final class BasicInvocationHandler implements InvocationHandler {
             final Object[] objArr) 
                 throws IllegalAccessException, InvocationTargetException{
         
-        try  {
-            method.setAccessible(true);
-            return method.invoke(cxt, objArr);
-        }  finally  {
-            method.setAccessible(false);
-        }
+        return method.invoke(cxt, objArr);
     }
     
     /** Check the cache incase this method has already been called once.
