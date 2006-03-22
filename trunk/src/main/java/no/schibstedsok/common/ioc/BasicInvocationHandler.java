@@ -13,10 +13,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -139,7 +137,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                     }
-                    method.setAccessible(true);
+
                     addToCache(method, paramSignature, m, cxt);
                     return invoke(m, cxt, objArr);
 
@@ -183,7 +181,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
-                        method.setAccessible(true);
+                        
                         addToCache(method, paramSignature, m, cxt);
                         return invoke(m, cxt, objArr);
                         
@@ -211,6 +209,7 @@ final class BasicInvocationHandler implements InvocationHandler {
             final Object[] objArr) 
                 throws IllegalAccessException, InvocationTargetException{
         
+        method.setAccessible(true);
         return method.invoke(cxt, objArr);
     }
     
