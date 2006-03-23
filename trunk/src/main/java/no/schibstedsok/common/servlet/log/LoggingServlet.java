@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -26,7 +25,7 @@ import org.apache.log4j.Logger;
  * Also allows editing of the logger's level at runtime.
  *
  * This Servlet is shared between projects so it is essential that it does not use/import other schibsted classes.
- * THIS FILE IS A SVN:EXTERNALS FROM THE search-front-config project.
+ * THIS FILE IS A SVN:EXTERNALS FROM THE schibsted-commons project.
  * https://dev.schibstedsok.no/svn/search-front-config/trunk/src/main/java/no/schibstedsok/common/servlet/log/LoggingServlet.java
  *
  * Requires Log4J 1.2.13
@@ -76,20 +75,18 @@ public final class LoggingServlet extends HttpServlet {
 
             Logger log;
             // Sort first
-            final HashMap/*<String,Level>*/ unsorted = new HashMap/*<String,Level>*/();
+            final HashMap<String,Level> unsorted = new HashMap<String,Level>();
             while (en.hasMoreElements()) {
                 log = (Logger) en.nextElement();
                 unsorted.put(log.getName(), log.getEffectiveLevel());
             }
-            final List/*<String>*/ sortedList = new ArrayList/*<String>*/(unsorted.keySet());
-            final /*StringBuilder*/StringBuffer buffer = new /*StringBuilder*/StringBuffer();
+            final List<String> sortedList = new ArrayList<String>(unsorted.keySet());
+            final StringBuilder buffer = new StringBuilder();
             Collections.sort(sortedList);
 
             try  {
 
-                //for( String key : sortedList ){
-                for (Iterator it = sortedList.iterator(); it.hasNext();) {
-                    final String key = (String) it.next();
+                for( String key : sortedList ){
                     Level level = (Level) unsorted.get(key);
                     String value = level.toString();
 
@@ -102,13 +99,16 @@ public final class LoggingServlet extends HttpServlet {
                         level = newLevel;
                         value = param;
                     }
-                    // output html
-                    final int option = getOption(level.toInt());
-                    final String[] values = new String[]{"", "", "", "", "", "", "",""};
-                    values[option] = SELECTED;
-                    // The MessageFormat constant does not support synchronous usage.
-                    synchronized (OPTIONS) {
-                        buffer.append("<tr><td><b>" + key + "</b></td><td><select size=\"1\" name=\"" + key + "\">" + OPTIONS.format(values) + "</select></td></tr>");
+                    // output html (if it's a schibstedsok logger). 
+                    // developers will get the hang of how to change the non-displayed loggers if they want.
+                    if( key.startsWith("no.schibstedsok.") ){
+                        final int option = getOption(level.toInt());
+                        final String[] values = new String[]{"", "", "", "", "", "", "", ""};
+                        values[option] = SELECTED;
+                        // The MessageFormat constant does not support synchronous usage.
+                        synchronized (OPTIONS) {
+                            buffer.append("<tr><td><b>" + key + "</b></td><td><select size=\"1\" name=\"" + key + "\">" + OPTIONS.format(values) + "</select></td></tr>");
+                        }
                     }
                 }
 
@@ -157,6 +157,10 @@ public final class LoggingServlet extends HttpServlet {
                 break;
         }
         return option;
+    }
+
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        doGet(req, resp);
     }
 
 
