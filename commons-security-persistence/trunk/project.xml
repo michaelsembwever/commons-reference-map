@@ -4,7 +4,7 @@
     <pomVersion>3</pomVersion>
     <name>Schibsted Sok Persistence</name>
     <groupId>schibstedsok</groupId>
-    <artifactId>security-persistence</artifactId>
+    <artifactId>commons-security-persistence</artifactId>
     <organization>
         <name>Schibsted Sok AS</name>
         <url>http://www.schibstedsok.no/</url>
