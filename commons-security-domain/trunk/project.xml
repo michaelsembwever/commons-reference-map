@@ -154,7 +154,7 @@
         <!-- Testing -->
     </dependencies>
     <build>
-        <sourceDirectory>src/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>
         <!-- <unitTestSourceDirectory>src/test/java</unitTestSourceDirectory>
         <unitTest>
             <includes>
