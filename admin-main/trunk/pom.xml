@@ -12,6 +12,14 @@
   <dependencies>
 
     <!-- Local apps -->
+   
+    <dependency>
+      <groupId>schibstedsok</groupId>
+      <artifactId>keywordadmin-domain</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>schibstedsok</groupId>
       <artifactId>security-persistence</artifactId>
