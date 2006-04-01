@@ -7,7 +7,7 @@ Sun Checks (Eclipse) - with these modifications:
   (*) magicNumbers: Ignore
   (*) avoidInlineConditionals: Ignore
   (*) finalLocalVariable: Warning (local variables that are never changed, should be declared final)
-  (*) hiddenField: accepts hidden fields to allow "normal" set-ers
+  (*) hiddenField: accepts hidden fields in setters and constructors
 -->
 
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
@@ -105,10 +105,10 @@ Sun Checks (Eclipse) - with these modifications:
     </module>
     <module name="EqualsHashCode">
     </module>
-    <!--
     <module name="HiddenField">
+      <property name="ignoreConstructorParameter" value="true"/>
+      <property name="ignoreSetter" value="true"/>
     </module>
-    -->
     <module name="IllegalInstantiation">
     </module>
     <module name="InnerAssignment">
