@@ -175,7 +175,6 @@
       <groupId>xdoclet</groupId>
       <artifactId>xjavadoc</artifactId>
       <version>1.5</version>
-      <scope>runtime</scope>
     </dependency>
 
 
