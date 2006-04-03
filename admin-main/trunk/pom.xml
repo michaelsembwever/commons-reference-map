@@ -175,6 +175,7 @@
       <groupId>xdoclet</groupId>
       <artifactId>xjavadoc</artifactId>
       <version>1.5</version>
+      <scope>runtime</scope>
     </dependency>
 
 
@@ -226,7 +227,7 @@
     <dependency>
       <groupId>javax.transaction</groupId>
       <artifactId>jta</artifactId>
-      <version>1.0.1B</version>
+      <version>1.0.1b</version>
       <scope>provided</scope>
     </dependency>
     
