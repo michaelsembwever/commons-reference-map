@@ -41,6 +41,7 @@ final class BasicInvocationHandler implements InvocationHandler {
     private static final Logger LOG = Logger.getLogger(BasicInvocationHandler.class);
     
     private static final String ERR_METHOD_NOT_IN_INTERFACE = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
+    private static final String ERR_METHOD_NOT_IN_EXACT_INTERFACE = "No exact signature to the contexts associated to this BasicInvocationHandler for ";
     private static final String DEBUG_LOOKING_FOR = " Looking for ";
     private static final String DEBUG_LOOKING_IN = "Looking in ";
     private static final String DEBUG_FOUND = "Found method while: ";
@@ -150,9 +151,7 @@ final class BasicInvocationHandler implements InvocationHandler {
                 }
             }
         }
-        final NoSuchMethodException e = new NoSuchMethodException(ERR_METHOD_NOT_IN_INTERFACE + method.getName());
-        LOG.error("",e);
-        throw e;
+        throw new NoSuchMethodException(ERR_METHOD_NOT_IN_EXACT_INTERFACE + method.getName());
     }
     
     /** Look for an signature matching any superclasses to the argument objects passed in.
