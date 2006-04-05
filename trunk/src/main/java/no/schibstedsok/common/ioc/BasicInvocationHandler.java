@@ -150,9 +150,9 @@ final class BasicInvocationHandler implements InvocationHandler {
                 }
             }
         }
-        final String errMsg = ERR_METHOD_NOT_IN_INTERFACE + method.getName();
-        LOG.error(errMsg);
-        throw new NoSuchMethodException(errMsg);
+        final NoSuchMethodException e = new NoSuchMethodException(ERR_METHOD_NOT_IN_INTERFACE + method.getName());
+        LOG.error("",e);
+        throw e;
     }
     
     /** Look for an signature matching any superclasses to the argument objects passed in.
@@ -195,9 +195,9 @@ final class BasicInvocationHandler implements InvocationHandler {
                 }
             }
         }
-        final String errMsg = ERR_METHOD_NOT_IN_INTERFACE + method.getName();
-        LOG.error(errMsg);
-        throw new NoSuchMethodException(errMsg);
+        final NoSuchMethodException e = new NoSuchMethodException(ERR_METHOD_NOT_IN_INTERFACE + method.getName());
+        LOG.error("",e);
+        throw e;
     }
     
     /** A method has been found in a BaseContext.
