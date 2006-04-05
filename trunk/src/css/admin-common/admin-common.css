@@ -1,0 +1,163 @@
+/*
+======================================================================
+Common CSS for the Schibsted Sok admin systems.
+
+In this file we define common styles like body, h1, h2, ..., lists,
+tables etc. Nice, reusable styles can also be defined here.
+======================================================================
+*/
+
+* {
+    font-family: arial, sans-serif;
+	font-size: 11px;
+}
+
+body {
+	margin: 0px 0px 0px 0px;
+}
+
+h1 {
+    font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+form {
+	padding: 0px;
+}
+
+a {
+    color: #206CCC;
+}
+
+/*
+The class "datatable" can be used as a general table to list 
+search results etc.
+*/
+table.datatable {
+	border: none;
+	border-collapse: collapse;
+}
+
+table.datatable th {
+	background-color: #D3D3D3;
+	text-align: left;
+	padding: 2px 2px 2px 2px;
+}
+
+table.datatable td {
+	vertical-align: middle;
+	border-bottom: 1px solid #D3D3D3;
+	padding: 0px 2px 0px 2px;
+}
+
+table.datatable tr:hover,table.datatable  tr:hover {
+	background: #F3F3F3;
+}
+
+/*
+General class to use on tables to display data. It's nice to seperate
+information into blocks.
+*/
+table.infotable {
+}
+
+table.infotable th {
+	text-align: left;
+	font-weight: bold;
+	background-color: #D3D3D3;
+	padding: 2px;
+}
+
+table.infotable td {
+	background-color: #F3F3F3;
+	padding: 2px;
+}
+
+table.infotable td.white {
+	background-color: #ffffff;
+}
+
+/*
+The class "input" can be used as a general class for boxes where you 
+want inputs, like search fields, input fields.
+*/
+table.input {
+	border: 1px solid #D3D3D3;
+	background: #F3F3F3;
+}
+
+table.input th {
+	padding: 2px;
+	text-align: left;
+}
+
+table.input td {
+	padding: 2px;
+	text-align: left;
+}
+
+/*
+Class that defines Sesam's company color.
+*/
+.companyColor {
+	background: #914DA2
+}
+
+/*
+Class for error messages.
+*/
+.errorMessage {
+    color: #D80000;
+	font-weight: bold;
+}
+
+.bigWarning {
+    color: #D80000;
+	font-weight: bold;
+	font-size: 13px;
+}
+
+/*
+Box for info messages.
+*/
+.infoBox { 
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #546269;
+	background-color: #eeeeee;
+}
+
+/*
+Box for error messages.
+*/
+.errorBox { 
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 2px;
+	border-color: #D80000;
+	background-color: #FFEEEE;
+}
+
+/*
+Box for feedback messages.
+*/
+.feedbackBox { 
+	margin-top: 5px;
+	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-right: 0px;
+	padding: 5px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #00CC33;
+	background-color: #EEFFEE;
+}
