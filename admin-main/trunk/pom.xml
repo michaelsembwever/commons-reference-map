@@ -362,6 +362,15 @@
         <scope>test</scope>
     </dependency>
 
+   <!-- jboss implementation of dom4j -->
+  <!--  merge this with dom4j -->
+    <dependency>
+      <groupId>jboss</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <groupId>dom4j</groupId>
       <artifactId>dom4j</artifactId>
