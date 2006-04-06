@@ -122,7 +122,7 @@ Box for info messages.
 */
 .infoBox { 
 	margin-top: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding: 5px;
@@ -137,7 +137,7 @@ Box for error messages.
 */
 .errorBox { 
 	margin-top: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding: 5px;
@@ -152,7 +152,7 @@ Box for feedback messages.
 */
 .feedbackBox { 
 	margin-top: 5px;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
 	margin-left: 0px;
 	margin-right: 0px;
 	padding: 5px;
