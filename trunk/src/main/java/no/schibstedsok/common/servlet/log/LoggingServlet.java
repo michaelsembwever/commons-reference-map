@@ -14,8 +14,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -34,7 +32,7 @@ import org.apache.log4j.Logger;
  */
 public final class LoggingServlet extends HttpServlet {
 
-    private static final Log LOG = LogFactory.getLog(LoggingServlet.class);
+    private static final Logger LOG = Logger.getLogger(LoggingServlet.class);
     private static final MessageFormat OPTIONS = new MessageFormat("<option value=\"ALL\" {0}>ALL</option><option value=\"TRACE\" {1}>TRACE</option><option value=\"DEBUG\" {2}>DEBUG</option><option value=\"INFO\" {3}>INFO</option><option value=\"WARN\"{4}>WARN</option><option value=\"ERROR\" {5}>ERROR</option><option value=\"FATAL\" {6}>FATAL</option><option value=\"OFF\"{7}>OFF</option>");
     private static final String SELECTED = "selected";
 
