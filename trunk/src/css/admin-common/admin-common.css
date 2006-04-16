@@ -108,20 +108,20 @@ Class that defines Sesam's company color.
 Class for error messages.
 */
 .errorMessage {
-    color: #D80000;
+  color: #D80000;
 	font-weight: bold;
 }
 
 .bigWarning {
-    color: #D80000;
+  color: #D80000;
 	font-weight: bold;
 	font-size: 13px;
 }
 
 /*
-Box for info messages.
-*/
-.infoBox { 
+ Common for all boxes
+ */
+.infoBox, .errorBox, .feedbackBox {
 	margin-top: 5px;
 	margin-bottom: 15px;
 	margin-left: 0px;
@@ -129,6 +129,12 @@ Box for info messages.
 	padding: 5px;
 	border-style: solid;
 	border-width: 1px;
+}
+
+/*
+Box for info messages.
+*/
+.infoBox { 
 	border-color: #546269;
 	background-color: #eeeeee;
 }
@@ -137,12 +143,6 @@ Box for info messages.
 Box for error messages.
 */
 .errorBox { 
-	margin-top: 5px;
-	margin-bottom: 15px;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding: 5px;
-	border-style: solid;
 	border-width: 2px;
 	border-color: #D80000;
 	background-color: #FFEEEE;
@@ -152,13 +152,6 @@ Box for error messages.
 Box for feedback messages.
 */
 .feedbackBox { 
-	margin-top: 5px;
-	margin-bottom: 15px;
-	margin-left: 0px;
-	margin-right: 0px;
-	padding: 5px;
-	border-style: solid;
-	border-width: 1px;
 	border-color: #00CC33;
 	background-color: #EEFFEE;
 }
