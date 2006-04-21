@@ -139,7 +139,11 @@
        <version>1.0.5</version>
       </dependency> 
 
-
+     <dependency>
+      <artifactId>jcaptcha</artifactId>
+      <groupId>jcaptcha</groupId>
+      <version>all-1.0-RC3-cvs-20060215</version>
+    </dependency>
 
       <!-- SOAP communication to JIRA -->
      <dependency>
@@ -251,6 +255,13 @@
       <groupId>xdoclet</groupId>
       <artifactId>xjavadoc</artifactId>
       <version>1.5</version>
+    </dependency>
+
+    <dependency>
+      <groupId>javamail</groupId>
+      <artifactId>mailapi</artifactId>
+      <version>1.3.2</version>
+      <scope>provided</scope>
     </dependency>
 
     <!-- JSF -->
