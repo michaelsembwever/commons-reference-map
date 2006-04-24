@@ -25,7 +25,14 @@
       <scope>provided</scope>
     </dependency>
      
-     <dependency>
+    <dependency>
+      <groupId>schibstedsok</groupId>
+      <artifactId>security-domain</artifactId>
+      <version>1.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
       <groupId>schibstedsok</groupId>
       <artifactId>ypadmin-application</artifactId>
       <version>2.4.0-SNAPSHOT</version>
@@ -55,7 +62,7 @@
      <dependency>
       <groupId>schibstedsok</groupId>
       <artifactId>common-utilities</artifactId>
-      <version>1.0.0</version>
+      <version>1.1</version>
      </dependency>
 
      <!-- jboss -->    
