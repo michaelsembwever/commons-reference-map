@@ -4,7 +4,7 @@
   <artifactId>admin-main</artifactId>
   <packaging>pom</packaging>
   <name>Admin Main POM</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1.0</version>
 
   <!--
    |
@@ -113,7 +113,7 @@
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>ypadmin-persistence</artifactId>
-        <version>2.6.0</version>
+        <version>2.6.1</version>
         <scope>provided</scope>
       </dependency>
       <!-- YES -->
