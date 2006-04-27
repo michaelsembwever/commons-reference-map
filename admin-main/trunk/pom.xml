@@ -4,7 +4,7 @@
   <artifactId>admin-main</artifactId>
   <packaging>pom</packaging>
   <name>Admin Main POM</name>
-  <version>1.1.0</version>
+  <version>1.1.1-SNAPSHOT</version>
 
   <!--
    |
