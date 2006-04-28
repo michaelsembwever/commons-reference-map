@@ -7,7 +7,7 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    <name>Schibstedsok Commons Inversion-of-Control library</name>
+    <name>IOC library</name>
     <groupId>schibstedsok</groupId> 
     <artifactId>commons-ioc</artifactId>
     <version>2.1-SNAPSHOT</version>
