@@ -1,6 +1,6 @@
 // Copyright (2005-2006) Schibsted Søk AS
 
-package no.schibstedsok.common.servlet.log;
+package no.schibstedsok.log4j;
 
 import java.io.IOException;
 import java.text.MessageFormat;
