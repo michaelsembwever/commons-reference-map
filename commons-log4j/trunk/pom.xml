@@ -6,7 +6,7 @@
   <artifactId>commons-log4j</artifactId>
   <packaging>jar</packaging>
   <version>1.2-SNAPSHOT</version>
-  <name>Schibstedsok Commons Logging</name>
+  <name>Schibstedsøk Commons Log4j</name>
   
 <issueManagement>
         <system>JIRA</system>
