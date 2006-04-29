@@ -28,7 +28,7 @@
             <notifier>
               <type>mail</type>
               <configuration>
-                <address>commits-front@schibstedsok.no</address>
+                <address>commits-commons@schibstedsok.no</address>
               </configuration>
             </notifier>
         </notifiers>
