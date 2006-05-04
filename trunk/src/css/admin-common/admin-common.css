@@ -42,13 +42,13 @@ table.datatable {
 table.datatable th {
 	background-color: #D3D3D3;
 	text-align: left;
-	padding: 2px 2px 2px 2px;
+	padding: 2px 4px 2px 4px;
 }
 
 table.datatable td {
 	vertical-align: middle;
 	border-bottom: 1px solid #D3D3D3;
-	padding: 0px 2px 0px 2px;
+	padding: 0px 4px 0px 4px;
 }
 
 table.datatable tr:hover,table.datatable  tr:hover {
