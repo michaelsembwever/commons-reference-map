@@ -8,6 +8,7 @@ Sun Checks (Eclipse) - with these modifications:
   (*) avoidInlineConditionals: Ignore
   (*) finalLocalVariable: Warning (local variables that are never changed, should be declared final)
   (*) hiddenField: accepts hidden fields in setters and constructors
+  (*) designForExtension: Ignore
 -->
 
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
@@ -126,6 +127,7 @@ Sun Checks (Eclipse) - with these modifications:
     <module name="SimplifyBooleanReturn">
     </module>
     <module name="DesignForExtension">
+      <property name="severity" value="ignore"/>
     </module>
     <module name="FinalClass">
     </module>
