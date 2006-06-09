@@ -57,8 +57,20 @@
     <dependencies>
 
       <dependency>
-        <groupId>jboss</groupId>
+        <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam</artifactId>
+        <version>1.0.0.CR3</version>
+      </dependency>
+    
+      <dependency>
+        <groupId>jboss-seam</groupId>
+        <artifactId>jboss-seam-ui</artifactId>
+        <version>1.0.0.CR3</version>
+      </dependency>
+
+      <dependency>
+        <groupId>jboss-seam</groupId>
+        <artifactId>jboss-seam-debug</artifactId>
         <version>1.0.0.CR3</version>
       </dependency>
 
