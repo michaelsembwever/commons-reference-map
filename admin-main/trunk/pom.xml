@@ -82,13 +82,6 @@
       </dependency>
 
       <dependency>
-        <groupId>bsh</groupId>
-        <artifactId>bsh</artifactId>
-        <version>1.3.0</version>
-        <scope>provided</scope>
-      </dependency>
-
-      <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>keywordadmin-domain</artifactId>
         <version>1.0</version>
