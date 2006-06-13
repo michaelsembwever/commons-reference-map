@@ -43,10 +43,8 @@
     </licenses>
  
     <scm>
-        <developerConnection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-ioc/trunk</developerConnection>
-         <!--
+        <connection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-ioc/trunk</connection>
         <url>https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-ioc/trunk</url>
-         -->
     </scm>
     
     <organization>
