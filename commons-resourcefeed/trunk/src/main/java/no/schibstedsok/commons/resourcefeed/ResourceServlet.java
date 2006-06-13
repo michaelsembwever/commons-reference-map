@@ -128,9 +128,7 @@ public final class ResourceServlet extends HttpServlet {
                     LOG.trace(DEBUG_CLIENT_IP + ipAddr);
 
                     if (RESTRICTED.contains(extension)
-                            && !(ipAddr.startsWith("80.91.33.")
-                                || ipAddr.startsWith("127.")
-                                || ipAddr.startsWith("10."))) {
+                            && !isIpAllowed(ipAddr)) {
 
                         response.setContentType("text/html;charset=UTF-8");
                         os.print(ERR_RESTRICTED_AREA);
@@ -174,7 +172,18 @@ public final class ResourceServlet extends HttpServlet {
             }
         }
     }
-
+    
+    /**
+     * Returns wether we allow the ipaddress or not.
+     * @param ipAddr
+     */
+    private boolean isIpAllowed(String ipAddr) {
+	     return ipAddr.startsWith("80.91.33.")
+         || ipAddr.startsWith("127.")
+         || ipAddr.startsWith("10.")
+         || ipAddr.equals("0:0:0:0:0:0:0:1%0");
+    }
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** {@inheritDoc}
      */
