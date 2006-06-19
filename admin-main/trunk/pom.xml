@@ -57,6 +57,27 @@
     <dependencies>
 
       <dependency>
+        <groupId>jboss-portal</groupId>
+        <artifactId>portal-core-lib</artifactId>
+        <version>2.4.0-BETA1</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>jboss-portal</groupId>
+        <artifactId>portal-portlet-lib</artifactId>
+        <version>2.4.0-BETA1</version>
+        <scope>provided</scope>
+      </dependency>
+      
+      <dependency>
+        <groupId>jboss-portal</groupId>
+        <artifactId>portlet-api-lib</artifactId>
+        <version>2.4.0-BETA1</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam</artifactId>
         <version>1.0.0</version>
