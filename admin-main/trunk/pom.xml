@@ -94,6 +94,12 @@
         <artifactId>jboss-seam-debug</artifactId>
         <version>1.0.0</version>
       </dependency>
+      
+      <dependency>
+        <groupId>jboss-seam</groupId>
+        <artifactId>jboss-ejb3-all</artifactId>
+        <version>1.0.0.CR2</version>
+      </dependency>
 
       <dependency>
         <groupId>bsh</groupId>
@@ -270,7 +276,7 @@
       <dependency>
         <groupId>ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>1.2beta4</version>
+        <version>1.2.1RC</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
@@ -464,12 +470,21 @@
         <version>1.10.0</version>
         <scope>test</scope>
       </dependency>
+
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>3.8.1</version>
         <scope>test</scope>
       </dependency>
+
+      <dependency>
+        <groupId>org.testng</groupId>
+        <artifactId>testng</artifactId>
+        <version>4.7-jdk15</version>
+        <scope>test</scope>
+      </dependency>
+
       <dependency>
         <groupId>qdox</groupId>
         <artifactId>qdox</artifactId>
