@@ -78,6 +78,14 @@
       </dependency>
 
       <dependency>
+        <groupId>jboss-EJB-3_0-Embeddable</groupId> 
+        <artifactId>all</artifactId>
+        <type>pom</type>
+        <version>ALPHA_7</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam</artifactId>
         <version>1.0.0</version>
