@@ -109,7 +109,7 @@
         <version>1.0.1</version>
       </dependency>
       
-      <!- This is the ejb3 implementation wich i shipped with jboss-seam for 
+      <!-- This is the ejb3 implementation wich i shipped with jboss-seam for 
            running embedded server -->
       <dependency>
         <groupId>jboss-seam</groupId>
