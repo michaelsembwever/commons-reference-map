@@ -151,8 +151,12 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.13</version>
+            <version>1.2.8</version>
             <type>jar</type>
+            <!-- We can't package this because JBoss dictates the world to you,
+              -  And they're lazy bastards that haven't upgraded to log4j-1.2.13 yet.
+              -->
+            <scope>provided</scope>
         </dependency>
         
     </dependencies>
@@ -190,15 +194,10 @@
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>surefire-report-maven-plugin</artifactId>
             </plugin>
-            <!--
-            Uncomment when
-            http://jira.codehaus.org/browse/MEV-362
-            is resolved
             <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>changelog-maven-plugin</artifactId>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>changelog-maven-plugin</artifactId>
             </plugin>
-            -->
         </plugins>
     </reporting>
     

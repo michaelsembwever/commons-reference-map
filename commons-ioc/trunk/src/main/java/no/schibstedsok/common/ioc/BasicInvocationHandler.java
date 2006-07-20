@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /** InvocationHandler implementation to be used by ContextWrapper.
@@ -39,6 +40,7 @@ final class BasicInvocationHandler implements InvocationHandler {
    // Static --------------------------------------------------------
 
     private static final Logger LOG = Logger.getLogger(BasicInvocationHandler.class);
+    private static final Level TRACE = Level.toLevel("TRACE");
 
     private static final String ERR_METHOD_NOT_IN_INTERFACE = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
     private static final String ERR_METHOD_NOT_IN_EXACT_INTERFACE = "No exact signature to the contexts associated to this BasicInvocationHandler for ";
@@ -93,7 +95,7 @@ final class BasicInvocationHandler implements InvocationHandler {
         //  It is a benefit to keep a cache to remember what method to use.
         final Method cachedMethod = checkCache(method, paramSignature);
         if(cachedMethod != null){
-            LOG.trace(DEBUG_CACHE_USED_FOR + method);
+            LOG.log(TRACE, DEBUG_CACHE_USED_FOR + method);
             return invoke(cachedMethod, getContextFromCache(method,paramSignature), objArr);
         }
 
@@ -104,7 +106,7 @@ final class BasicInvocationHandler implements InvocationHandler {
 
             }  catch (NoSuchMethodException ex) {
                 // handled exception
-                LOG.trace(ex);
+                LOG.log(TRACE, ex);
             }
         }
 
@@ -133,8 +135,8 @@ final class BasicInvocationHandler implements InvocationHandler {
 
                 final Method m = cls.getMethod(method.getName(), paramSignature.toArray(new Class[paramSignature.size()]));
                 if (m != null) {
-                    if(LOG.isTraceEnabled()){
-                        LOG.trace(DEBUG_FOUND
+                    if(LOG.isEnabledFor(TRACE)){
+                        LOG.log(TRACE, DEBUG_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                     }
@@ -144,8 +146,8 @@ final class BasicInvocationHandler implements InvocationHandler {
 
                 }
             }  catch (NoSuchMethodException ex) {
-                if(LOG.isTraceEnabled()){
-                    LOG.trace(DEBUG_NOT_FOUND
+                if(LOG.isEnabledFor(TRACE)){
+                    LOG.log(TRACE, DEBUG_NOT_FOUND
                             + DEBUG_LOOKING_IN + cls.getName()
                             + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                 }
@@ -175,8 +177,8 @@ final class BasicInvocationHandler implements InvocationHandler {
                         assignableFrom = paramSignature.get(k) == null || cArr[k].isAssignableFrom(paramSignature.get(k));
                     }
                     if (assignableFrom) {
-                        if(LOG.isTraceEnabled()){
-                            LOG.debug(DEBUG_FOUND
+                        if(LOG.isEnabledFor(TRACE)){
+                            LOG.log(TRACE, DEBUG_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
@@ -185,8 +187,8 @@ final class BasicInvocationHandler implements InvocationHandler {
                         return invoke(m, cxt, objArr);
 
                     }else{
-                        if(LOG.isTraceEnabled()){
-                            LOG.trace(DEBUG_NOT_FOUND
+                        if(LOG.isEnabledFor(TRACE)){
+                            LOG.log(TRACE, DEBUG_NOT_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
@@ -244,7 +246,7 @@ final class BasicInvocationHandler implements InvocationHandler {
             final Method methodTo,
             final BaseContext contextTo){
 
-        LOG.trace(DEBUG_ADD_TO_CACHE + methodTo);
+        LOG.log(TRACE, DEBUG_ADD_TO_CACHE + methodTo);
 
         Map<List<Class>,Method> methodMap = methodCache.get(methodFrom);
         if(methodMap == null){
