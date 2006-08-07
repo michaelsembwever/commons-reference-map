@@ -57,7 +57,7 @@ Sun Checks (Eclipse) - with these modifications:
     <module name="TabCharacter"></module>
     <module name="ModifierOrder"></module>
     <module name="RedundantModifier"></module>
-    <module name="AvoidNestedBlocks"></module>
+    <!--module name="AvoidNestedBlocks"></module--><!-- For what reason? Keeping variables to a smaller scope is a good idea. -->
     <module name="EmptyBlock"></module>
     <module name="LeftCurly"></module>
     <module name="NeedBraces"></module>
