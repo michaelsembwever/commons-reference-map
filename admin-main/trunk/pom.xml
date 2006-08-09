@@ -261,12 +261,6 @@
         <version>1.1</version>
       </dependency>
       <dependency>
-        <groupId>opensymphony</groupId>
-        <artifactId>xwork</artifactId>
-        <version>1.0.5</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
         <groupId>jcaptcha</groupId>
         <artifactId>jcaptcha</artifactId>
         <version>all-1.0-RC3-cvs-20060215</version>
@@ -304,7 +298,7 @@
       <dependency>
         <groupId>ehcache</groupId>
         <artifactId>ehcache</artifactId>
-        <version>1.2.1RC</version>
+        <version>1.2</version>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
@@ -356,11 +350,6 @@
         <artifactId>commons-logging</artifactId>
         <version>1.0.4</version>
         <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>ehcache</groupId>
-        <artifactId>ehcache</artifactId>
-        <version>1.2beta4</version>
       </dependency>
       <dependency>
         <groupId>xdoclet</groupId>
