@@ -4,11 +4,11 @@
   <artifactId>admin-main</artifactId>
   <packaging>pom</packaging>
   <name>Admin Main POM</name>
-  <version>1.1.2-SNAPSHOT</version>
+  <version>1.1.2</version>
   <scm>
-    <developerConnection>scm:svn:https://dev.schibstedsok.no/svn/${artifactId}/trunk</developerConnection>
-    <connection>scm:svn:https://dev.schibstedsok.no/svn/${artifactId}/trunk/</connection>
-    <url>https://dev.schibstedsok.no/websvn/listing.php?repname=admin-main&amp;path=%2F&amp;sc=0</url>
+    <connection>scm:svn:https://dev.schibstedsok.no/svn/${artifactId}/tags/admin-main-1.1.2</connection>
+    <developerConnection>scm:svn:https://dev.schibstedsok.no/svn/${artifactId}/tags/admin-main-1.1.2</developerConnection>
+    <url>https://dev.schibstedsok.no/websvn/listing.php?repname=admin-main&amp;path=%2F&amp;sc=0/tags/admin-main-1.1.2?repname=admin-main&amp;path=%2F&amp;sc=0</url>
   </scm>
   <build>
     <finalName>${project.artifactId}</finalName>
@@ -28,10 +28,6 @@
             <jbossHome>${jboss.home}</jbossHome>
           </configuration>
         </plugin>
-        <!--plugin>
-          <artifactId>maven-ejb3-plugin</artifactId>
-          <version>1.0</version>
-        </plugin-->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.0-beta-4-SCHIBSTED</version>
@@ -55,77 +51,63 @@
     </plugins>
   </reporting>
   <dependencyManagement>
-    
     <dependencies>
-
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portal-core-lib</artifactId>
         <version>2.4.0-BETA1</version>
         <scope>provided</scope>
       </dependency>
-      
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portal-portlet-lib</artifactId>
         <version>2.4.0-BETA1</version>
         <scope>provided</scope>
       </dependency>
-      
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portlet-api-lib</artifactId>
         <version>2.4.0-BETA1</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
-        <groupId>jboss-EJB-3_0-Embeddable</groupId> 
+        <groupId>jboss-EJB-3_0-Embeddable</groupId>
         <artifactId>all</artifactId>
-        <type>pom</type>
         <version>ALPHA_7</version>
+        <type>pom</type>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>jboss</groupId>
         <artifactId>jbpm</artifactId>
         <version>3.1.1</version>
       </dependency>
-
       <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam</artifactId>
         <version>1.0.1</version>
       </dependency>
-    
       <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam-ui</artifactId>
         <version>1.0.1</version>
       </dependency>
-
       <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam-debug</artifactId>
         <version>1.0.1</version>
       </dependency>
-      
-      <!-- This is the ejb3 implementation wich i shipped with jboss-seam for 
-           running embedded server -->
       <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-ejb3-all</artifactId>
         <version>1.0.0.CR2</version>
       </dependency>
-
       <dependency>
         <groupId>bsh</groupId>
         <artifactId>bsh</artifactId>
         <version>1.3.0</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>schibstedsok-commons-filters</artifactId>
@@ -235,14 +217,12 @@
         <artifactId>trove</artifactId>
         <version>1.0.2</version>
       </dependency>
-
       <dependency>
         <groupId>commons-fileupload</groupId>
         <artifactId>commons-fileupload</artifactId>
         <version>1.0</version>
         <scope>provided</scope>
-     </dependency>
-
+      </dependency>
       <dependency>
         <groupId>commons-httpclient</groupId>
         <artifactId>commons-httpclient</artifactId>
@@ -488,55 +468,47 @@
         <version>1.10.0</version>
         <scope>test</scope>
       </dependency>
-
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
         <version>3.8.1</version>
         <scope>test</scope>
       </dependency>
-
       <dependency>
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>4.7</version>
         <scope>test</scope>
       </dependency>
-
       <dependency>
         <groupId>qdox</groupId>
         <artifactId>qdox</artifactId>
         <version>1.1</version>
         <scope>test</scope>
       </dependency>
-     <!--faces -->
-     <dependency>
+      <dependency>
         <groupId>myfaces</groupId>
         <artifactId>tomahawk</artifactId>
         <version>1.1.1</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>myfaces</groupId>
         <artifactId>myfaces-impl</artifactId>
         <version>1.1.1</version>
         <scope>provided</scope>
       </dependency>
-    
       <dependency>
         <groupId>myfaces</groupId>
         <artifactId>myfaces-api</artifactId>
         <version>1.1.1</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>commons-net</groupId>
         <artifactId>commons-net</artifactId>
         <version>1.4.1</version>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
   <distributionManagement>
