@@ -34,7 +34,6 @@ public class DateFormatNorwayTest extends TestCase {
     }
 
     private GregorianCalendar getCalendar() {
-        logger.debug("getCalendar");
         final Locale localeNorway = new Locale("no", "NO");
         final TimeZone timeZoneNorway = TimeZone.getTimeZone("Europe/Oslo");
         return new GregorianCalendar(timeZoneNorway, localeNorway);
