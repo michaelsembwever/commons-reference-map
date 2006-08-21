@@ -55,6 +55,10 @@
       <artifactId>hibernate-tools</artifactId>
     </dependency>
     <dependency>
+      <groupId>ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+    </dependency>
+    <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
     </dependency>
