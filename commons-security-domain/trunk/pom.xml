@@ -38,6 +38,10 @@
       <artifactId>hibernate</artifactId>
     </dependency>
     <dependency>
+      <groupId>ehcache</groupId>
+      <artifactId>ehcache</artifactId>
+    </dependency>
+    <dependency>
       <groupId>schibstedsok</groupId>
       <artifactId>commons-persistence-dal</artifactId>
     </dependency>
