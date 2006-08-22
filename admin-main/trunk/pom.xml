@@ -52,31 +52,57 @@
   </reporting>
   <dependencyManagement>
     <dependencies>
+      <!-- Portlets -->
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portal-core-lib</artifactId>
-        <version>2.4.0-BETA1</version>
+        <version>2.4.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portal-portlet-lib</artifactId>
-        <version>2.4.0-BETA1</version>
+        <version>2.4.0</version>
         <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>jboss-portal</groupId>
         <artifactId>portlet-api-lib</artifactId>
-        <version>2.4.0-BETA1</version>
+        <version>2.4.0</version>
         <scope>provided</scope>
       </dependency>
-      <dependency>
+
+    <!-- Jboss Embeddable -->
+   <dependency>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId>
+      <artifactId>hibernate-all</artifactId>
+      <version>ALPHA_8</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId>
+      <artifactId>jboss-ejb3-all</artifactId>
+      <version>ALPHA_8</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId>
+      <artifactId>thirdparty-all</artifactId>
+      <version>ALPHA_8</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <!-- Deprecated -->
+    <dependency>
         <groupId>jboss-EJB-3_0-Embeddable</groupId>
         <artifactId>all</artifactId>
         <version>ALPHA_7</version>
         <type>pom</type>
         <scope>provided</scope>
       </dependency>
+
       <dependency>
         <groupId>jboss</groupId>
         <artifactId>jbpm</artifactId>
