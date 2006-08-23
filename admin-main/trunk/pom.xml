@@ -108,10 +108,12 @@
         <artifactId>jbpm</artifactId>
         <version>3.1.1</version>
       </dependency>
+     <!-- Must only be included in the ear file , NOT in html/WEB-INF/lib -->
       <dependency>
         <groupId>jboss-seam</groupId>
         <artifactId>jboss-seam</artifactId>
         <version>1.0.1</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>jboss-seam</groupId>
@@ -320,6 +322,7 @@
         <groupId>ehcache</groupId>
         <artifactId>ehcache</artifactId>
         <version>1.2.2</version>
+        <scope>provided</scope>
       </dependency>
       <dependency>
         <groupId>mysql</groupId>
@@ -513,6 +516,7 @@
         <groupId>org.testng</groupId>
         <artifactId>testng</artifactId>
         <version>4.7</version>
+        <classifier>jdk15</classifier>
         <scope>test</scope>
       </dependency>
       <dependency>
@@ -539,12 +543,31 @@
         <version>1.1.1</version>
         <scope>provided</scope>
       </dependency>
+
       <dependency>
         <groupId>commons-net</groupId>
         <artifactId>commons-net</artifactId>
         <version>1.4.1</version>
       </dependency>
+
+       <!-- Mock frameworks -->   
+       <dependency>
+        <groupId>easygloss</groupId>
+        <artifactId>easygloss</artifactId>
+        <version>1.0</version>
+        <scope>test</scope>
+      </dependency>
+  
+      <dependency>
+        <groupId>easymock</groupId>
+        <artifactId>easymock</artifactId>
+        <version>2.2</version>
+        <scope>test</scope>
+      </dependency>
+
+
     </dependencies>
+
   </dependencyManagement>
   <distributionManagement>
     <repository>
