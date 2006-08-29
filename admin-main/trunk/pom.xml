@@ -561,6 +561,12 @@
         <version>novell-devel-20060220</version>
         <type>jar</type>
       </dependency>
+      <dependency>
+        <groupId>schibstedsok</groupId>
+        <artifactId>schibstedsok-ldap</artifactId>
+        <version>1.0.0-SNAPSHOT</version>
+        <type>jar</type>
+      </dependency>
 
        <!-- Mock frameworks -->   
        <dependency>
