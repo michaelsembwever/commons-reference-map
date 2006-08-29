@@ -104,10 +104,13 @@ public final class ResourceServlet extends HttpServlet {
 
         ServletOutputStream os = null;
         InputStream is = null;
+        
         try  {
             request.setCharacterEncoding("UTF-8"); // correct encoding
             os = response.getOutputStream();
-            final String configName = request.getPathInfo();
+            
+            // Get resource name. Also strip the version number out of the resource
+            final String configName = request.getPathInfo().replaceAll("/(\\d)+/","/");
             
             if( configName != null && configName.trim().length() > 0 ){
                 
@@ -127,8 +130,7 @@ public final class ResourceServlet extends HttpServlet {
                     // ok, check configuration resources are private.
                     LOG.trace(DEBUG_CLIENT_IP + ipAddr);
 
-                    if (RESTRICTED.contains(extension)
-                            && !isIpAllowed(ipAddr)) {
+                    if (RESTRICTED.contains(extension) && !isIpAllowed(ipAddr)) {
 
                         response.setContentType("text/html;charset=UTF-8");
                         os.print(ERR_RESTRICTED_AREA);
@@ -141,7 +143,7 @@ public final class ResourceServlet extends HttpServlet {
                          * The defaultLastModified timestamp must be overridden at the same time.
                          * See getLastModified method.
                          **/
-                        is = getClass().getResourceAsStream("/" + configName);
+                        is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
 
                         if (is != null) {
 
