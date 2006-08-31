@@ -55,12 +55,12 @@
         <repository>
             <id>Sesam</id>
             <name>Schibsted Søk's repository</name>
-            <url>scpexe://localhost/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
+            <url>scpexe://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
         </repository>
         <site>
             <id>dev443</id>
             <name>Schibsted Søk's maven sites</name>
-            <url>scpexe://localhost/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven/sites/commons-ioc</url>
+            <url>scpexe://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven/sites/commons-ioc</url>
         </site>
     </distributionManagement>
 
