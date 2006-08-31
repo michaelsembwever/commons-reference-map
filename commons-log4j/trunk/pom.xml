@@ -4,7 +4,7 @@
   <groupId>schibstedsok</groupId>
   <artifactId>commons-log4j</artifactId>
   <packaging>jar</packaging>
-  <version>1.3-SNAPSHOT</version>
+  <version>1.3</version>
   <name>Schibstedsøk Commons Log4j</name>
   
 <issueManagement>
@@ -34,8 +34,8 @@
     </licenses>
  
     <scm>
-        <connection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-log4j/tags/commons-log4j-1.2</connection>
-        <url>https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-log4j/tags/commons-log4j-1.2</url>
+        <connection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-log4j/tags/commons-log4j-1.3</connection>
+        <url>https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-log4j/tags/commons-log4j-1.3</url>
     </scm>
     
     <organization>
@@ -47,12 +47,12 @@
         <repository>
             <id>Sesam</id>
             <name>Schibsted Søk's repository</name>
-            <url>scp://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
+            <url>scpexe://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
         </repository>
         <site>
             <id>dev443</id>
             <name>Schibsted Søk's maven sites</name>
-            <url>scp://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven/sites/commons-log4j</url>
+            <url>scpexe://sch-login01.osl.basefarm.net/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven/sites/commons-log4j</url>
         </site>
     </distributionManagement>  
   
@@ -66,6 +66,11 @@
           <encoding>UTF-8</encoding>
         </configuration>
       </plugin>
+      <!--plugin>
+        <groupId>org.apache.maven.wagon</groupId>
+        <artifactId>wagon-ssh-external</artifactId>
+        <version>1.0-beta-1</version>
+      </plugin-->
    </plugins>
   </build>
     
