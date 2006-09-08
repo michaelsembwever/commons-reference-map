@@ -7,29 +7,6 @@ tables etc. Nice, reusable styles can also be defined here.
 ======================================================================
 */
 
-* {
-    font-family: arial, sans-serif;
-	font-size: 11px;
-}
-
-body {
-	margin: 0px 0px 0px 0px;
-}
-
-h1 {
-    font-size: 1.5em;
-	margin-bottom: 10px;
-}
-
-form {
-	margin: 0px 0px 0px 0px;
-	padding: 0px;
-}
-
-a {
-    color: #206CCC;
-}
-
 /*
 The class "datatable" can be used as a general table to list 
 search results etc.
@@ -102,6 +79,13 @@ Class that defines Sesam's company color.
 */
 .companyColor {
 	background: #914DA2
+}
+
+/*
+Class used ie on required stars.
+*/
+.required {
+  color: #D80000;
 }
 
 /*

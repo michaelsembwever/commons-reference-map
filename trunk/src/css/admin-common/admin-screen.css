@@ -7,6 +7,29 @@ rendring. In example this includes how menues are shown etc.
 ======================================================================
 */
 
+* {
+    font-family: arial, sans-serif;
+	font-size: 11px;
+}
+
+body {
+	margin: 0px 0px 0px 0px;
+}
+
+h1 {
+    font-size: 1.5em;
+	margin-bottom: 10px;
+}
+
+form {
+	margin: 0px 0px 0px 0px;
+	padding: 0px;
+}
+
+a {
+    color: #206CCC;
+}
+
 #Logo {
     padding-top: 0px;
 	padding-bottom: 0px;
