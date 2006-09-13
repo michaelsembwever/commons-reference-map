@@ -71,6 +71,12 @@
         <version>2.4.0</version>
         <scope>provided</scope>
       </dependency>
+      <dependency>
+        <groupId>jboss-portal-cms</groupId>
+        <artifactId>portal-cms-lib</artifactId>
+        <version>2.4.0</version>
+        <scope>provided</scope>
+      </dependency>
 
     <!-- Jboss Embeddable -->
    <dependency>
