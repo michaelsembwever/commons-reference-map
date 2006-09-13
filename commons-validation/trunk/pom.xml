@@ -16,9 +16,18 @@
 
   <dependencies>
     <dependency>
-      <groupId>jboss-EJB-3_0-Embeddable</groupId>
-      <artifactId>all</artifactId>
-      <type>pom</type>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId> 
+      <artifactId>hibernate-all</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId> 
+      <artifactId>jboss-ejb3-all</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jboss-EJB-3_0_Embeddable</groupId> 
+      <artifactId>thirdparty-all</artifactId>
     </dependency>
 
     <dependency>
