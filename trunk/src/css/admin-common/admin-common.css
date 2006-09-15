@@ -19,11 +19,13 @@ table.datatable {
 table.datatable th {
 	background-color: #D3D3D3;
 	text-align: left;
+	vertical-align: top;
 	padding: 2px 4px 2px 4px;
 }
 
 table.datatable td {
-	vertical-align: middle;
+	text-align: left;
+	vertical-align: top;
 	border-bottom: 1px solid #D3D3D3;
 	padding: 0px 4px 0px 4px;
 }
@@ -41,12 +43,15 @@ table.infotable {
 
 table.infotable th {
 	text-align: left;
+	vertical-align: top;
 	font-weight: bold;
 	background-color: #D3D3D3;
 	padding: 2px;
 }
 
 table.infotable td {
+	text-align: left;
+	vertical-align: top;
 	background-color: #F3F3F3;
 	padding: 2px;
 }
@@ -67,11 +72,13 @@ table.input {
 table.input th {
 	padding: 2px;
 	text-align: left;
+	vertical-align: top;
 }
 
 table.input td {
 	padding: 2px;
 	text-align: left;
+	vertical-align: top;
 }
 
 /*
