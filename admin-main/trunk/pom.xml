@@ -54,7 +54,7 @@
     <dependencies>
       <!-- Portlets -->
       <dependency>
-        <groupId>jboss-portlet</groupId>
+        <groupId>jboss-portal</groupId>
         <artifactId>jboss-portlet-api-lib</artifactId>
         <version>2.4.0</version>
         <scope>provided</scope>
