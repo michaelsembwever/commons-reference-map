@@ -24,7 +24,7 @@ import org.hibernate.validator.ValidatorClass;
 public @interface ValidPassword {
 
     /** Error message for the validator. */
-    String message() default "Not a legal password (must be at least 8 characters long and consist of " +
-        "numbers, uppercase and lowercase letters)";
+    String message() default "Not a legal password (must be at least 8 characters long and have at least "
+        + "one special character)";
 
 }

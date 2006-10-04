@@ -38,31 +38,22 @@ public class ValidPasswordValidator implements Validator<ValidPassword>, Propert
      * @return the validation result
      */
     public boolean isValid(final Object value) {
-        if (value == null || !(value instanceof String) || value.toString().trim().length() < 5) {
+        if (value == null || !(value instanceof String) || value.toString().trim().length() < 8) {
             return false;
         }
 
         final String str = ((String) value).trim();
         Character c;
-        boolean containsLowercase = false;
-        boolean containsUppercase = false;
-        boolean containsDigit = false;
 
         for (int i = 0; i < str.length(); i++) {
             c = str.charAt(i);
 
-            if (Character.isDigit(c)) {
-                containsDigit = true;
-            }
-            if (Character.isLowerCase(c)) {
-                containsLowercase = true;
-            }
-            if (Character.isUpperCase(c)) {
-                containsUppercase = true;
+            if (!Character.isLetter(c)) {
+                return true;
             }
         }
 
-        return (containsLowercase && containsUppercase && containsDigit);
+        return false;
     }
 
     /**
