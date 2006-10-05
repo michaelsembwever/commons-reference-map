@@ -23,8 +23,17 @@ import org.hibernate.validator.ValidatorClass;
 @Documented
 public @interface ValidPassword {
 
+    // TODO: Change this to use resource bundle?
+
+    /** Norwegian message for illegal password. */
+    String INVALID_PASSWORD_MESSAGE_NO =
+        "Ikke gyldig (må være minst 8 tegn og inneholde minst et spesialtegn)";
+
+    /** English message for illegal password. */
+    String INVALID_PASSWORD_MESSAGE_EN =
+        "Not a legal password (must be at least 8 characters long and have at least one special character)";
+
     /** Error message for the validator. */
-    String message() default "Not a legal password (must be at least 8 characters long and have at least "
-        + "one special character)";
+    String message() default INVALID_PASSWORD_MESSAGE_NO;
 
 }
