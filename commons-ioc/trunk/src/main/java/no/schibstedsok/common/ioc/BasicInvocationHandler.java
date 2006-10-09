@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
@@ -30,8 +31,13 @@ import org.apache.log4j.Logger;
  */
 final class BasicInvocationHandler implements InvocationHandler {
 
-    private final Map<Method,Map<List<Class>,Method>> methodCache = new HashMap<Method,Map<List<Class>,Method>>();
-    private final Map<Method,Map<List<Class>,BaseContext>> contextCache = new HashMap<Method,Map<List<Class>,BaseContext>>();
+    private final Map<Method,Map<List<Class>,Method>> methodCache 
+            = new HashMap<Method,Map<List<Class>,Method>>();
+    private final Map<Method,Map<List<Class>,BaseContext>> contextCache 
+            = new HashMap<Method,Map<List<Class>,BaseContext>>();
+    
+    /** threading lock to the cache maps since they are not synchronised, and it's overkill to mke them Hashtables. **/
+    private final ReentrantReadWriteLock cacheGate = new ReentrantReadWriteLock();
 
    // Attributes ----------------------------------------------------
 
@@ -217,25 +223,41 @@ final class BasicInvocationHandler implements InvocationHandler {
     /** Check the cache incase this method has already been called once.
      ***/
     private Method checkCache(final Method method, final List<Class> paramSignature){
-
-        Method cachedMethod = null;
-        final Map<List<Class>,Method> map = methodCache.get(method);
-        if(map != null){
-            cachedMethod = map.get(paramSignature);
+        
+        try{
+            cacheGate.readLock().lock();
+        
+            Method cachedMethod = null;
+            final Map<List<Class>,Method> map = methodCache.get(method);
+            if(map != null){
+                cachedMethod = map.get(paramSignature);
+            }
+            return cachedMethod;
+        
+        }finally{
+            cacheGate.readLock().unlock();
         }
-        return cachedMethod;
     }
 
     /** Get from the cache the BaseContext the method comes from.
+     * Presumed that checkCache(..) has been called and was successfull.
      **/
     private BaseContext getContextFromCache(final Method method, final List<Class> paramSignature){
 
-        BaseContext cachedContext = null;
-        final Map<List<Class>,BaseContext> map = contextCache.get(method);
-        if(map != null){
-            cachedContext = map.get(paramSignature);
+        try{
+            cacheGate.readLock().lock();
+        
+            final Map<List<Class>,BaseContext> map = contextCache.get(method);
+            assert map != null;
+
+            final BaseContext cachedContext = map.get(paramSignature);
+            assert cachedContext != null;
+
+            return cachedContext;
+        
+        }finally{
+            cacheGate.readLock().unlock();
         }
-        return cachedContext;
     }
 
     /** Add to the cache the methodTo and contextTo to use for calls for methodFrom and paramSignature.
@@ -248,20 +270,26 @@ final class BasicInvocationHandler implements InvocationHandler {
 
         LOG.log(TRACE, DEBUG_ADD_TO_CACHE + methodTo);
 
-        Map<List<Class>,Method> methodMap = methodCache.get(methodFrom);
-        if(methodMap == null){
-            methodMap = new HashMap<List<Class>,Method>();
-            methodCache.put(methodFrom, methodMap);
-        }
-        methodMap.put(paramSignature, methodTo);
+        try{
+            cacheGate.writeLock().lock();
+        
+            Map<List<Class>,Method> methodMap = methodCache.get(methodFrom);
+            if(methodMap == null){
+                methodMap = new HashMap<List<Class>,Method>();
+                methodCache.put(methodFrom, methodMap);
+            }
+            methodMap.put(paramSignature, methodTo);
 
-        Map<List<Class>,BaseContext> contextMap = contextCache.get(methodFrom);
-        if(contextMap == null){
-            contextMap = new HashMap<List<Class>,BaseContext>();
-            contextCache.put(methodFrom, contextMap);
-        }
-        contextMap.put(paramSignature, contextTo);
+            Map<List<Class>,BaseContext> contextMap = contextCache.get(methodFrom);
+            if(contextMap == null){
+                contextMap = new HashMap<List<Class>,BaseContext>();
+                contextCache.put(methodFrom, contextMap);
+            }
+            contextMap.put(paramSignature, contextTo);
 
+        }finally{
+            cacheGate.writeLock().unlock();
+        }
     }
 
     /** Get a string representation of paramSignature.
