@@ -14,6 +14,8 @@ import org.apache.log4j.Logger;
  * Date formatter that handles Norwegian time zone and doesn't use
  * fuzzy logic that converts year 80 to 0080 etc.
  *
+ * Uses the format: dd.MM.yyyy
+ *
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
