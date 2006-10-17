@@ -19,11 +19,11 @@ import org.hibernate.validator.ValidatorClass;
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@ValidatorClass(ValidDateNorwayValidator.class)
+@ValidatorClass(ValidDateStringNorwayValidator.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ValidDateNorway {
+public @interface ValidDateStringNorway {
 
     /** Date used to validate against a minDate. Defaults to none. */
     String minDate() default "";

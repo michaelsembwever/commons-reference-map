@@ -19,10 +19,10 @@ import org.hibernate.validator.Validator;
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, PropertyConstraint {
+public class ValidDateStringNorwayValidator implements Validator<ValidDateStringNorway>, PropertyConstraint {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(ValidDateNorwayValidator.class);
+    private static Logger logger = Logger.getLogger(ValidDateStringNorwayValidator.class);
 
     /** The date formatter used by this validator. */
     private DateFormatNorway dateFormat = new DateFormatNorway();
@@ -38,7 +38,7 @@ public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, Pro
      *
      * @param parameters the arguments sent to the validator
      */
-    public void initialize(final ValidDateNorway parameters) {
+    public void initialize(final ValidDateStringNorway parameters) {
         final String minDateString = parameters.minDate();
 
         if (minDateString != null && minDateString.length() > 0) {
