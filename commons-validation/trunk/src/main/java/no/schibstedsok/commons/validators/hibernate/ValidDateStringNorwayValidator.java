@@ -45,7 +45,7 @@ public class ValidDateStringNorwayValidator implements Validator<ValidDateString
             try {
                 minDate = dateFormat.parse(minDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal minDate for ValidDateNorwayValidator.");
+                throw new RuntimeException("Illegal minDate for ValidDateStringNorwayValidator.");
             }
         }
 
@@ -55,7 +55,7 @@ public class ValidDateStringNorwayValidator implements Validator<ValidDateString
             try {
                 maxDate = dateFormat.parse(maxDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal maxDate for ValidDateNorwayValidator.");
+                throw new RuntimeException("Illegal maxDate for ValidDateStringNorwayValidator.");
             }
         }
     }
