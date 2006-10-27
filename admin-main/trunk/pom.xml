@@ -620,7 +620,7 @@
       </dependency>
       <dependency>
         <groupId>schibstedsok</groupId>
-        <artifactId>schibstedsok-ldap</artifactId>
+        <artifactId>commons-ldap</artifactId>
         <version>1.0.0-SNAPSHOT</version>
         <type>jar</type>
       </dependency>
