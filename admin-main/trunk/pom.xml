@@ -68,7 +68,14 @@
     <snapshots/>
     </repository>
   </repositories>
-   
+
+  <pluginRepositories>
+    <pluginRepository>
+     <id>schdevrepoplugins</id>
+     <name>SchibstedSok Plugins</name>
+     <url>https://dev.schibstedsok.no/maven2</url>
+    </pluginRepository>
+  </pluginRepositories>
 
   <reporting>
     <plugins>
