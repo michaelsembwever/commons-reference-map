@@ -16,6 +16,7 @@
     <finalName>${project.artifactId}</finalName>
   </build>
     <modules>
+      <module>admin-main</module> 
       <module>commons-filters</module> 
       <module>commons-ioc</module>
       <module>commons-ldap</module>
