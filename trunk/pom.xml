@@ -4,7 +4,7 @@
   <groupId>schibstedsok</groupId>
   <artifactId>commons-build</artifactId>
   <packaging>pom</packaging>
-  <name>Commons Build</name>
+  <name>Schibstedsok Commons Build</name>
   <version>1.0-SNAPSHOT</version>
 
 
