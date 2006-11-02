@@ -655,7 +655,7 @@
     <snapshotRepository>
       <id>schdevreposnapshots</id>
       <name>Schibsted Sok Snapshot</name>
-      <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2-snapshots</url>
+      <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
     </snapshotRepository>
   </distributionManagement>
 </project>
