@@ -57,13 +57,12 @@ public class ValidPasswordValidator implements Validator<ValidPassword>, Propert
     }
 
     /**
-     * Method you have to implement for <code>PropertyConstraint</code>.
-     * Does it get invoked?
+     * Method that is invoked when the validator is applied to an attribute.
      *
      * @param property the property
      */
     public void apply(final Property property) {
-        logger.debug("ValidPasswordValidator.apply: " + property.getName());
+        // Does nothing...
     }
 
 }
