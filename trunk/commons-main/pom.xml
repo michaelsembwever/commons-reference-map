@@ -13,7 +13,7 @@
   <artifactId>commons-main</artifactId>
   <packaging>pom</packaging>
   <name>Schibstedsok Commons Main</name>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.0-SNAPSHOT</version>
 
   <!-- Default Scm Paths.. 
      The applications that inherits this pom must set groupId and artifatId so they
@@ -49,9 +49,11 @@
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <configuration>
-            <!--
+        <!--
             <tagBase>https://dev.schibstedsok.no/svn/schibstedsok-commons/tags</tagBase>
-            -->
+         -->
+            <tagBase>../tags</tagBase>
+
             <generateReleasePom>false</generateReleasePom>
             <testmode>false</testmode>
           </configuration>
