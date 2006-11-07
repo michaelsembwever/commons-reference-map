@@ -49,11 +49,7 @@
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <configuration>
-        <!--
             <tagBase>https://dev.schibstedsok.no/svn/schibstedsok-commons/tags</tagBase>
-         -->
-            <tagBase>../tags</tagBase>
-
             <generateReleasePom>false</generateReleasePom>
             <testmode>false</testmode>
           </configuration>
