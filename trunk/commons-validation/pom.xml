@@ -11,7 +11,7 @@
   <groupId>schibstedsok</groupId>
   <artifactId>commons-validation</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Schibstedsok Commons Validators</name>
 
   <dependencies>
