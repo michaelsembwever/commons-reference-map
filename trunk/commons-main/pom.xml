@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!--
-  This file defines generic properties for commons, like scm , svn connections.
+  This file defines all packages and versionnumbers and generic properties for commons, like scm , svn connections.
+  However, you can override version by setting them in the local pom file
   Author: Ola <ola@sesam.no>
+  Author: Endre <endre@sesam.no>
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -12,6 +14,11 @@
   <packaging>pom</packaging>
   <name>Schibstedsok Commons Main</name>
   <version>1.0-SNAPSHOT</version>
+
+  <!-- Default Scm Paths.. 
+     The applications that inherits this pom must set groupId and artifatId so they
+     match the subversion paths... 
+  -->
 
   <scm>
     <connection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/trunk</connection>
@@ -30,6 +37,7 @@
             <target>1.5</target>
           </configuration>
         </plugin>
+
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>jboss-maven-plugin</artifactId>
@@ -37,6 +45,7 @@
             <jbossHome>${env.JBOSS_HOME}</jbossHome>
           </configuration>
         </plugin>
+
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <version>2.0-beta-4-SCHIBSTED</version>
@@ -83,6 +92,7 @@
       </plugin>
     </plugins>
   </reporting>
+
   <dependencyManagement>
     <dependencies>
       <!-- Portlets -->
