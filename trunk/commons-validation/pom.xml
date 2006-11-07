@@ -10,7 +10,7 @@
   <groupId>schibstedsok</groupId>
   <artifactId>commons-validation</artifactId>
   <packaging>jar</packaging>
-  <version>1.0</version>
+  <version>1.0-SNAPSHOT</version>
   <name>Schibstedsok Commons Validation</name>
 
   <dependencies>
@@ -64,11 +64,4 @@
       </plugin>
     </plugins>
   </reporting>
-
-s
-  <scm>
-    <connection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-validation/tags/commons-validation-1.0</connection>
-    <developerConnection>scm:svn:https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-validation/tags/commons-validation-1.0</developerConnection>
-    <url>https://dev.schibstedsok.no/svn/schibstedsok-commons/commons-validation/tags/commons-validation-1.0</url>
-  </scm>
 </project>
