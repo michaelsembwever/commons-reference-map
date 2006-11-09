@@ -14,11 +14,14 @@
   <packaging>pom</packaging>
   <name>Schibstedsok Commons</name>
   <version>1.1-SNAPSHOT</version>
+  <url>http://dev.schibstedsok.no/maven2/SITE/schibstedsok</url>
 
-  <!-- Default Scm Paths.. 
-     The applications that inherits this pom must set groupId and artifatId so they
-     match the subversion paths... 
+  <!-- 
+   |  Default Scm Paths.. 
+   |  The applications that inherits this pom must set groupId and artifatId so they
+   |  match the subversion paths... 
   -->
+
   <description> All common utilities for Schibstedsok  </description>
   <organization>
     <name>Schibsted Søk AS</name>
@@ -33,7 +36,9 @@
 
     <modules>
       <module>commons-filters</module>
+    <!--
       <module>commons-ioc</module>
+      -->
       <module>commons-ldap</module>
       <module>commons-ldap-sar</module>
       <module>commons-log4j</module>
@@ -49,6 +54,7 @@
     <finalName>${project.artifactId}</finalName>
     <pluginManagement>
       <plugins>
+
         <plugin>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
@@ -74,6 +80,36 @@
             <testmode>false</testmode>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <executions>
+            <execution>
+              <goals>
+                <goal>jar</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugin</groupId>
+          <artifactId>maven-source-plugin</artifactId>
+          <configuration>
+            <attach>true</attach>
+          </configuration>
+        </plugin>
+
+         <plugin>
+          <inherited>true</inherited>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-deploy-plugin</artifactId>
+
+          <configuration>
+            <updateReleaseInfo>true</updateReleaseInfo>
+          </configuration>
+         </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -94,6 +130,7 @@
   </repositories>
 
   <pluginRepositories>
+
     <pluginRepository>
      <id>schdevrepoplugins</id>
      <name>SchibstedSok Plugins</name>
@@ -236,19 +273,7 @@
         <version>1.0</version>
         <scope>provided</scope>
       </dependency>
-      <dependency>
-        <groupId>schibstedsok.keywordadmin</groupId>
-        <artifactId>keywordadmin-domain</artifactId>
-        <version>1.2</version>
-        <scope>provided</scope>
-      </dependency>
-      <dependency>
-        <groupId>schibstedsok.keywordadmin</groupId>
-        <artifactId>keywordadmin-persistence</artifactId>
-        <version>1.2</version>
-        <type>jar</type>
-        <scope>provided</scope>
-      </dependency>
+
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-security-persistence</artifactId>
@@ -677,6 +702,7 @@
     </dependencies>
   </dependencyManagement>
 
+
   <distributionManagement>
 
     <site>
@@ -696,5 +722,24 @@
       <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
     </snapshotRepository>
   </distributionManagement>
+
+ <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jxr-maven-plugin</artifactId>
+      </plugin>      
+
+       <plugin>
+        <artifactId>maven-clover-plugin</artifactId>
+      </plugin>
+    
+    </plugins>
+  </reporting>
+
 </project>
 
