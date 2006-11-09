@@ -34,21 +34,30 @@
     <url>https://dev.schibstedsok.no/svn/schibstedsok-commons/trunk</url>
   </scm>  
 
-    <modules>
-      <module>commons-filters</module>
-    <!--
-      <module>commons-ioc</module>
-      -->
-      <module>commons-ldap</module>
-      <module>commons-ldap-sar</module>
-      <module>commons-log4j</module>
-      <module>commons-persistence-dal</module>
-      <module>commons-resourcefeed</module>
-      <module>commons-security-domain</module>
-      <module>commons-security-persistence</module>
-      <module>commons-utilities</module>
-      <module>commons-validation</module>
-   </modules>
+   <profiles>
+      <profile>
+         <activation>
+           <property>
+            <name>all</name>
+            </property>
+          </activation> 
+        <modules>
+          <module>commons-filters</module>
+          <!--
+          <module>commons-ioc</module>
+          -->
+          <module>commons-ldap</module>
+          <module>commons-ldap-sar</module>
+          <module>commons-log4j</module>
+          <module>commons-persistence-dal</module>
+          <module>commons-resourcefeed</module>
+          <module>commons-security-domain</module>
+          <module>commons-security-persistence</module>
+          <module>commons-utilities</module>
+          <module>commons-validation</module>
+       </modules>
+     </profile>
+  </profiles>
 
   <build>
     <finalName>${project.artifactId}</finalName>
