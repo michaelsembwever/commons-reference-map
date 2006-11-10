@@ -21,8 +21,9 @@
    |  The applications that inherits this pom must set groupId and artifatId so they
    |  match the subversion paths... 
   -->
-
+  
   <description> All common utilities for Schibstedsok  </description>
+  
   <organization>
     <name>Schibsted Søk AS</name>
    <url>http://www.sesam.no/</url>
@@ -61,10 +62,10 @@
 
   <build>
     <finalName>${project.artifactId}</finalName>
-    <pluginManagement>
       <plugins>
-
+        <!-- Set the source to UTF 8 -->
         <plugin>
+          <inherited>true</inherited>
           <artifactId>maven-compiler-plugin</artifactId>
           <configuration>
             <source>1.5</source>
@@ -73,6 +74,7 @@
           </configuration>
         </plugin>
 
+        <!-- Set JBOSS_HOME,,, not strictly necessary -->
         <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>jboss-maven-plugin</artifactId>
@@ -81,6 +83,7 @@
           </configuration>
         </plugin>
 
+        <!-- Set the svn path so release plugin can make new releases in tags -->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
           <configuration>
@@ -89,40 +92,20 @@
             <testmode>false</testmode>
           </configuration>
         </plugin>
-
+  
+         <!-- Automatically download sources -->
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-source-plugin</artifactId>
-          <executions>
-            <execution>
-              <goals>
-                <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-
-        <plugin>
-          <groupId>org.apache.maven.plugin</groupId>
-          <artifactId>maven-source-plugin</artifactId>
+          <artifactId>maven-eclipse-plugin</artifactId>
           <configuration>
-            <attach>true</attach>
+            <downloadSources>true</downloadSources>
           </configuration>
-        </plugin>
+        </plugin> 
 
-         <plugin>
-          <inherited>true</inherited>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-deploy-plugin</artifactId>
-
-          <configuration>
-            <updateReleaseInfo>true</updateReleaseInfo>
-          </configuration>
-         </plugin>
       </plugins>
-    </pluginManagement>
   </build>
 
+  <!-- Schibstedsok Repository , this info is duplicated in all repositories -->
   <repositories>
     <repository>
      <id>schdevrepo</id>
@@ -139,7 +122,6 @@
   </repositories>
 
   <pluginRepositories>
-
     <pluginRepository>
      <id>schdevrepoplugins</id>
      <name>SchibstedSok Plugins</name>
@@ -147,7 +129,7 @@
     </pluginRepository>
   </pluginRepositories>
 
-   <!--
+  <!--
   <reporting>
     <plugins>
       <plugin>
@@ -158,7 +140,8 @@
       </plugin>
     </plugins>
   </reporting>
-  -->
+   -->
+
   <dependencyManagement>
     <dependencies>
       <!-- Portlets -->
@@ -282,7 +265,6 @@
         <version>1.0</version>
         <scope>provided</scope>
       </dependency>
-
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-security-persistence</artifactId>
@@ -711,9 +693,8 @@
     </dependencies>
   </dependencyManagement>
 
-
+  <!-- Common information for all subpoms, needed for release -->
   <distributionManagement>
-
     <site>
       <id>schsite</id>
       <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2/SITE/schibstedsok-commons</url>
