@@ -13,7 +13,7 @@
   <artifactId>commons-main</artifactId>
   <packaging>pom</packaging>
   <name>Schibstedsok Commons</name>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.1-SNAPSHOT</version>
   <url>http://dev.schibstedsok.no/maven2/SITE/schibstedsok</url>
 
   <!-- 
@@ -688,7 +688,7 @@
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-ldap</artifactId>
-        <version>1.0</version>
+        <version>1.1</version>
         <scope>provided</scope>
         <type>jar</type>
       </dependency>
