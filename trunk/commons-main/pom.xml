@@ -682,12 +682,14 @@
         <groupId>jldap</groupId>
         <artifactId>jldap</artifactId>
         <version>novell-devel-20060220</version>
+        <scope>provided</scope>
         <type>jar</type>
       </dependency>
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-ldap</artifactId>
         <version>1.0</version>
+        <scope>provided</scope>
         <type>jar</type>
       </dependency>
 
