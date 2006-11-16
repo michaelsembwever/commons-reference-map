@@ -28,6 +28,8 @@ import org.apache.log4j.Logger;
  *
  * Requires Log4J 1.2.13
  *
+ * TODO i18n
+ *
  * @version $Id: LoggingServlet.java 51 2006-02-13 16:35:10Z mickw $
  */
 public final class LoggingServlet extends HttpServlet {
@@ -58,7 +60,8 @@ public final class LoggingServlet extends HttpServlet {
             : request.getRemoteAddr();
         LOG.debug(DEBUG_CLIENT_IP + ipAddr);
 
-        if (!(ipAddr.startsWith("80.91.33.") || ipAddr.startsWith("127.") || ipAddr.startsWith("10."))) {
+        // TODO Move this into servlet properties
+        if (!(ipAddr.startsWith("80.91.33.") || ipAddr.startsWith("127.") || ipAddr.startsWith("81.93.165."))) {
 
             final ServletOutputStream ss = response.getOutputStream();
             response.setContentType("text/html;charset=UTF-8");
