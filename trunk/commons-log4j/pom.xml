@@ -10,7 +10,7 @@
   <groupId>schibstedsok</groupId>
   <artifactId>commons-log4j</artifactId>
   <packaging>jar</packaging>
-  <version>1.4</version>
+  <version>1.5-SNAPSHOT</version>
   <name>Log4j</name>
     
   <dependencies>
