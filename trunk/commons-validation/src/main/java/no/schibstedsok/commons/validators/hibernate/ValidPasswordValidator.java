@@ -38,7 +38,12 @@ public class ValidPasswordValidator implements Validator<ValidPassword>, Propert
      * @return the validation result
      */
     public boolean isValid(final Object value) {
-        if (value == null || !(value instanceof String) || value.toString().trim().length() < 8) {
+        // Null is valid. Use @NotNull to prevent this in the validation.
+        if (value == null) {
+            return true;
+        }
+
+        if (!(value instanceof String) || value.toString().trim().length() < 8) {
             return false;
         }
 

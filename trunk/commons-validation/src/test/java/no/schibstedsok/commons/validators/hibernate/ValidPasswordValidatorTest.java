@@ -26,7 +26,7 @@ public class ValidPasswordValidatorTest extends TestCase {
     public void testIsValid() {
         final ValidPasswordValidator validator = new ValidPasswordValidator();
 
-        assertFalse(validator.isValid(null));
+        assertTrue(validator.isValid(null));
         assertFalse(validator.isValid(""));
         assertFalse(validator.isValid("   Endre12   "));
         assertFalse(validator.isValid("EndreMeckelborg"));

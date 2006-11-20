@@ -67,7 +67,12 @@ public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, Pro
      * @return the validation result
      */
     public boolean isValid(final Object value) {
-        if (value == null || !(value instanceof Date)) {
+        // Null is valid. Use @NotNull to prevent this in the validation.
+        if (value == null) {
+            return true;
+        }
+
+        if (!(value instanceof Date)) {
             return false;
         }
 
