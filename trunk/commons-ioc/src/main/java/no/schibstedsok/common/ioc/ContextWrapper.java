@@ -41,6 +41,7 @@ public final class ContextWrapper {
             final BaseContext... cxts) {
 
         final BasicInvocationHandler handler = new BasicInvocationHandler(cxts);
+        assert handler.assertContextContract(context) : "Supplied contexts do not satisfy context's contract";
         return (T)Proxy.newProxyInstance(context.getClassLoader(), new Class[]{context}, handler);
     }
 
