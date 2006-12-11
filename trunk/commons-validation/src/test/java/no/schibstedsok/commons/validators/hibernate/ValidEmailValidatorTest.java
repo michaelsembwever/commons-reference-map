@@ -6,6 +6,7 @@ package no.schibstedsok.commons.validators.hibernate;
 import junit.framework.TestCase;
 
 import org.apache.log4j.Logger;
+import org.hibernate.validator.EmailValidator;
 
 /**
  * Test class for <code>ValidEmailValidator</code>.
@@ -33,6 +34,20 @@ public class ValidEmailValidatorTest extends TestCase {
 
         assertTrue(validator.isValid("k@rl-oskar.no"));
         assertTrue(validator.isValid("hang-b@online.no"));
+        //assertTrue(validator.isValid("ola marius hoff sagli <ola@sesam.no>"));
+        //assertTrue(validator.isValid("issues-return-103-jeff=infohazard.org@subetha.tigris.org"));        
+        assertTrue(validator.isValid("_example@192.168.0.1"));                
+        EmailValidator hibvalidator = new EmailValidator();
+        hibvalidator.initialize(null);
+        
+        assertTrue(hibvalidator.isValid("ola@saseam.no"));
+        assertTrue(hibvalidator.isValid("k@rl-oskar.no"));
+        assertTrue(hibvalidator.isValid("hang-b@online.no"));
+        assertTrue(hibvalidator.isValid("1@test.com"));
+        assertTrue(hibvalidator.isValid("_example@test.com"));        
+        assertTrue(hibvalidator.isValid("_example@192.168.0.1"));                
+        
+        
     }
 
 }
