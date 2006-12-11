@@ -36,7 +36,7 @@ public class ValidEmailValidatorTest extends TestCase {
         assertTrue(validator.isValid("hang-b@online.no"));
         //assertTrue(validator.isValid("ola marius hoff sagli <ola@sesam.no>"));
         //assertTrue(validator.isValid("issues-return-103-jeff=infohazard.org@subetha.tigris.org"));        
-        assertTrue(validator.isValid("_example@192.168.0.1"));                
+       // assertTrue(validator.isValid("_example@192.168.0.1"));                
         EmailValidator hibvalidator = new EmailValidator();
         hibvalidator.initialize(null);
         
