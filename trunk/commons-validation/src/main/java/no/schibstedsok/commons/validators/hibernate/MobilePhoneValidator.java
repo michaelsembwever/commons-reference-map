@@ -14,7 +14,7 @@ public class MobilePhoneValidator implements Validator<MobilePhone> {
     
     private static Logger log = Logger.getLogger(MobilePhoneValidator.class);
     
-    /** Pattern for matching norwegian mobile phonenumbers... */
+    /** Pattern matching norwegian mobile phonenumbers... */
     private Pattern p_no_no = Pattern.compile("^(\\+47)?([49](\\d){7}\\s*,?\\s*)+$");
     
     /**
