@@ -25,6 +25,12 @@ public class ValidEmailValidatorTest extends TestCase {
     }
 
     public void testIsValid() {
+        // We should find out what validator we want to use. The validators should have equal tests,
+        // but some don't work. Commented out the not-working tests.
+
+        // --------------------
+        // Our email validator
+        // --------------------
         final ValidEmailValidator validator = new ValidEmailValidator();
         assertTrue(validator.isValid(null));
 
@@ -32,22 +38,29 @@ public class ValidEmailValidatorTest extends TestCase {
         assertFalse(validator.isValid("endre@no"));
         assertFalse(validator.isValid("endre@sesam.no  "));
 
+        assertTrue(validator.isValid("ola@saseam.no"));
         assertTrue(validator.isValid("k@rl-oskar.no"));
         assertTrue(validator.isValid("hang-b@online.no"));
-        //assertTrue(validator.isValid("ola marius hoff sagli <ola@sesam.no>"));
-        //assertTrue(validator.isValid("issues-return-103-jeff=infohazard.org@subetha.tigris.org"));        
-       // assertTrue(validator.isValid("_example@192.168.0.1"));                
-        EmailValidator hibvalidator = new EmailValidator();
+        assertTrue(validator.isValid("1@test.com"));
+        assertTrue(validator.isValid("_example@test.com"));
+//        assertTrue(validator.isValid("_example@192.168.0.1"));
+
+        // -------------------------
+        // Hibernate email validator
+        // -------------------------
+        final EmailValidator hibvalidator = new EmailValidator();
         hibvalidator.initialize(null);
-        
+
+        assertFalse(hibvalidator.isValid(""));
+//        assertFalse(hibvalidator.isValid("endre@no"));
+        assertFalse(hibvalidator.isValid("endre@sesam.no  "));
+
         assertTrue(hibvalidator.isValid("ola@saseam.no"));
         assertTrue(hibvalidator.isValid("k@rl-oskar.no"));
         assertTrue(hibvalidator.isValid("hang-b@online.no"));
         assertTrue(hibvalidator.isValid("1@test.com"));
-        assertTrue(hibvalidator.isValid("_example@test.com"));        
-        assertTrue(hibvalidator.isValid("_example@192.168.0.1"));                
-        
-        
+        assertTrue(hibvalidator.isValid("_example@test.com"));
+        assertTrue(hibvalidator.isValid("_example@192.168.0.1"));
     }
 
 }
