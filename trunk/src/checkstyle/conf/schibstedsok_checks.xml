@@ -20,7 +20,9 @@ Sun Checks (Eclipse) - with these modifications:
     <module name="JavadocType"><property name="scope" value="package"/></module>
     <module name="JavadocVariable"><property name="scope" value="package"/></module>
     <module name="JavadocStyle"><property name="scope" value="package"/></module>
-    <module name="ConstantName"></module>
+    <module name="ConstantName">
+      <property name="format" value="(^log$)|(^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$)"/>
+    </module>
     
     <module name="LocalFinalVariableName"></module>
     <module name="LocalVariableName"></module>
