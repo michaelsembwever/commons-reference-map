@@ -9,6 +9,7 @@ Sun Checks (Eclipse) - with these modifications:
   (*) finalLocalVariable: Warning (local variables that are never changed, should be declared final)
   (*) hiddenField: accepts hidden fields in setters and constructors
   (*) designForExtension: Ignore
+  (*) ConstantName: Allows "log" as a final static
 -->
 
 <!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.2//EN"
