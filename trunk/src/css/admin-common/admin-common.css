@@ -7,9 +7,9 @@ tables etc. Nice, reusable styles can also be defined here.
 ======================================================================
 */
 
-/*
-  Generic with elements used in datatables columnClasses
-*/
+/* ---------------------------------------- */
+/*  Width elements used in columnClasses    */
+/* ---------------------------------------- */
 .width-100 {
   width: 100%;
 }
@@ -19,9 +19,9 @@ tables etc. Nice, reusable styles can also be defined here.
 }
 
 .width-50 {
-  width: 50%
+  width: 50%;
 }
-  
+
 .width-33 {
   width: 33%;
 }
@@ -29,7 +29,6 @@ tables etc. Nice, reusable styles can also be defined here.
 .width-25 {
   width: 25%;
 }
-
 
 /*
 The class "datatable" can be used as a general table to list 
