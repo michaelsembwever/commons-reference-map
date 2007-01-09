@@ -33,7 +33,7 @@ public final class ContextWrapper {
     // Public --------------------------------------------------------
 
     /** Returns a proxy class implementing the context.
-     * It will proxy all methods to the first identical
+     * It will proxy all methods to the first applicable
      * method found in the list of Contexts.
      */
     public static <T extends BaseContext> T wrap(
@@ -41,7 +41,7 @@ public final class ContextWrapper {
             final BaseContext... cxts) {
 
         final BasicInvocationHandler handler = new BasicInvocationHandler(cxts);
-        assert handler.assertContextContract(context) : "Supplied contexts do not satisfy context's contract";
+        assert handler.assertContextContract(context) : "Supplied contexts do not satisfy proxy's contract";
         return (T)Proxy.newProxyInstance(context.getClassLoader(), new Class[]{context}, handler);
     }
 
