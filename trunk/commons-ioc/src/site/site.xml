@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Commons IoC">
+  <body>
+    <links>
+      <item name="Examining the validity of Inversion of Control" 
+            href="http://www.theserverside.com/articles/content/IOCandEJB/article.html" />
+    </links>
+
+    <menu name="About">
+      <item name="Introduction" href="index.html"/>
+    </menu>
+    
+    ${reports}
+    
+  </body>
+</project>
