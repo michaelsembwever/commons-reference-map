@@ -760,9 +760,9 @@
         <artifactId>jxr-maven-plugin</artifactId>
       </plugin>      
 
-       <plugin>
+       <!--plugin>
         <artifactId>maven-clover-plugin</artifactId>
-      </plugin>
+      </plugin-->
     
     </plugins>
   </reporting>
