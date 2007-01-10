@@ -6,7 +6,7 @@
  *
  */
 
-package no.schibstedsok.common.ioc;
+package no.schibstedsok.commons.ioc;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

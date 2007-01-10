@@ -21,6 +21,7 @@
         IoC - Inversion of Control. 
          A light-weight, framework independant, implementation of the Inversion of Control pattern.
     </description>
+    <url>https://dev.schibstedsok.no/maven2/SITE/schibstedsok-commons/commons-ioc/index.html</url>
 
     <developers>
         <developer>
