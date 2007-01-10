@@ -9,6 +9,7 @@ package no.schibstedsok.commons.resourcefeed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,12 +37,6 @@ public final class ResourceServlet extends HttpServlet {
 
     private static final Logger LOG = Logger.getLogger(ResourceServlet.class);
 
-    private static final Map<String,String> CONTENT_TYPES = new HashMap<String,String>();
-    private static final Map<String,String> CONTENT_PATHS = new HashMap<String,String>();
-    private static final Set<String> RESTRICTED = new HashSet<String>();
-
-    private long defaultLastModified = 0;
-
     private static final String REMOTE_ADDRESS_KEY = "REMOTE_ADDR";
     private static final String ERR_RESTRICTED_AREA = "<strong>Restricted Area!</strong>";
     private static final String ERR_TRIED_TO_ACCESS = " tried to access Resource servlet!";
@@ -50,9 +45,17 @@ public final class ResourceServlet extends HttpServlet {
 
     private static final String DEBUG_DEFAULT_MODIFCATION_TIMESTAMP = "Default modified timestamp set to ";
     private static final String DEBUG_CLIENT_IP = "Client ipaddress ";
+    
+    private static final Map<String,String> CONTENT_TYPES = new HashMap<String,String>();
+    private static final Map<String,String> CONTENT_PATHS = new HashMap<String,String>();
+    private static final Set<String> RESTRICTED = new HashSet<String>();
+
+    private long defaultLastModified = 0;
+    private String[] ipaddressesAllowed = new String[]{};
 
     static {
         // The different extension to content type mappings
+        // XXX is there an opensource library to do this?
         CONTENT_TYPES.put("properties", "text/plain");
         CONTENT_TYPES.put("xml", "text/xml");
         CONTENT_TYPES.put("css", "text/css");
@@ -62,21 +65,6 @@ public final class ResourceServlet extends HttpServlet {
         CONTENT_TYPES.put("png", "image/png");
         CONTENT_TYPES.put("vm", "text/plain");
         CONTENT_TYPES.put("html", "text/plain");
-        // The different extension to directory mappings
-        CONTENT_PATHS.put("properties", "conf");
-        CONTENT_PATHS.put("xml", "conf");
-        CONTENT_PATHS.put("css", "css");
-        CONTENT_PATHS.put("js", "javascript");
-        CONTENT_PATHS.put("jpg", "images");
-        CONTENT_PATHS.put("gif", "images");
-        CONTENT_PATHS.put("png", "images");
-        CONTENT_PATHS.put("vm", "templates");
-        CONTENT_PATHS.put("html", "templates");
-        // Resource restricted to search-front-html usage
-        RESTRICTED.add("properties");
-        RESTRICTED.add("xml");
-        RESTRICTED.add("vm");
-        RESTRICTED.add("html");
     }
 
     /**
@@ -180,19 +168,23 @@ public final class ResourceServlet extends HttpServlet {
      * @param ipAddr
      */
     private boolean isIpAllowed(String ipAddr) {
-	     return ipAddr.startsWith("80.91.33.")
-         || ipAddr.startsWith("127.")
-         || ipAddr.startsWith("10.")
-         || ipAddr.equals("0:0:0:0:0:0:0:1%0");
+        
+	 boolean allowed = 
+                 ipAddr.startsWith("127.") || ipAddr.startsWith("10.") || ipAddr.startsWith("0:0:0:0:0:0:0:1%0");
+         
+         for(String s : ipaddressesAllowed){
+             allowed |= ipAddr.startsWith(s);
+         }
+         return allowed;
+             
     }
     
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /** {@inheritDoc}
      */
     protected void doGet(
             final HttpServletRequest request,
             final HttpServletResponse response)
-    throws ServletException, IOException {
+                throws ServletException, IOException {
 
         processRequest(request, response);
     }
@@ -202,7 +194,7 @@ public final class ResourceServlet extends HttpServlet {
     protected void doPost(
             final HttpServletRequest request,
             final HttpServletResponse response)
-    throws ServletException, IOException {
+                throws ServletException, IOException {
 
         processRequest(request, response);
     }
@@ -210,12 +202,33 @@ public final class ResourceServlet extends HttpServlet {
     /** {@inheritDoc}
      */
     public String getServletInfo() {
-        return "Servlet to be used by search-front-html to obtain configuration files.";
+        
+        return "Servlet responsible for serving resources. Goes in hand with search-portal/site-spi";
     }
 
     public void init(final ServletConfig config) {
+        
         defaultLastModified = System.currentTimeMillis();
         LOG.debug(DEBUG_DEFAULT_MODIFCATION_TIMESTAMP + defaultLastModified);
+        
+        final String allowed = config.getInitParameter("ipaddresses.allowed");
+        if( null != allowed && allowed.length() >0 ){
+            ipaddressesAllowed = allowed.split(",");
+        }
+        
+        final String restricted = config.getInitParameter("resources.restricted");
+        if( null != restricted && restricted.length()>0 ){
+            RESTRICTED.addAll(Arrays.asList(restricted.split(",")));
+        }
+        
+        final String paths = config.getInitParameter("content.paths");
+        if( null != paths && paths.length()>0 ){
+            final String[] pathArr = paths.split(",");
+            for( String path : pathArr){
+                final String[] pair = path.split("=");
+                CONTENT_PATHS.put(pair[0], pair[1]);
+            }
+        }
     }
 
 
@@ -224,5 +237,5 @@ public final class ResourceServlet extends HttpServlet {
     protected long getLastModified(final HttpServletRequest req) {
         return defaultLastModified;
     }
-    // </editor-fold>
+
 }
