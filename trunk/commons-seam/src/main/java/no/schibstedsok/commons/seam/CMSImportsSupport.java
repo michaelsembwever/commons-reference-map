@@ -113,18 +113,22 @@ public final class CMSImportsSupport {
         if( null != service ){
             
             final Command cmd 
-                    = service.getCommandFactory().createFileGetCommand(file.getBasePath(), Locale.getDefault());
+                    = service.getCommandFactory().createFileGetCommand(file.getBasePath(), new Locale("no"));
 
             try {
+                LOG.info(file.getBasePath());
                 final File  f = (File) service.execute(cmd);
 
+                LOG.info(f);
                 assert f != null;
+                
+                LOG.info(f.getContent());
                 assert f.getContent() != null;
 
                 return f.getContent().getStream();
 
             } catch (CMSException e) {
-                LOG.debug(e.getMessage(), e);
+                LOG.warn(e.getMessage(), e);
             }
         }
         
