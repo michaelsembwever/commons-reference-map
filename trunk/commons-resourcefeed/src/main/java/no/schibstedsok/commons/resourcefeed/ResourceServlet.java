@@ -209,19 +209,22 @@ public final class ResourceServlet extends HttpServlet {
     public void init(final ServletConfig config) {
         
         defaultLastModified = System.currentTimeMillis();
-        LOG.debug(DEBUG_DEFAULT_MODIFCATION_TIMESTAMP + defaultLastModified);
+        LOG.info(DEBUG_DEFAULT_MODIFCATION_TIMESTAMP + defaultLastModified);
         
         final String allowed = config.getInitParameter("ipaddresses.allowed");
+        LOG.info("allowing ipaddresses " + allowed);
         if( null != allowed && allowed.length() >0 ){
             ipaddressesAllowed = allowed.split(",");
         }
         
         final String restricted = config.getInitParameter("resources.restricted");
+        LOG.info("restricted resources " + restricted);
         if( null != restricted && restricted.length()>0 ){
             RESTRICTED.addAll(Arrays.asList(restricted.split(",")));
         }
         
         final String paths = config.getInitParameter("content.paths");
+        LOG.info("content path mappings " + paths);
         if( null != paths && paths.length()>0 ){
             final String[] pathArr = paths.split(",");
             for( String path : pathArr){
