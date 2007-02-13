@@ -13,18 +13,16 @@ import org.hibernate.validator.Validator;
 /**
  * {@inheritDoc}
  *
- * @deprecated Replaced by {@link UrlValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@Deprecated
-public class ValidUrlValidator implements Validator<ValidUrl>, PropertyConstraint {
+public class UrlValidator implements Validator<Url>, PropertyConstraint {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(ValidUrlValidator.class);
+    private static final Logger LOG = Logger.getLogger(UrlValidator.class);
 
     /** The arguments sent to the validator. */
-    private ValidUrl arguments;
+    private Url arguments;
 
     /** Regex pattern used by this validator. */
     private Pattern pattern =
@@ -35,7 +33,7 @@ public class ValidUrlValidator implements Validator<ValidUrl>, PropertyConstrain
      *
      * @param initArguments the arguments sent to the validator
      */
-    public void initialize(final ValidUrl initArguments) {
+    public void initialize(final Url initArguments) {
         this.arguments = initArguments;
     }
 

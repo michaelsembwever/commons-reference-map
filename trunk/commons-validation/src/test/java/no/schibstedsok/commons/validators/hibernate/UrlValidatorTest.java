@@ -1,5 +1,5 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.validators.hibernate;
 
@@ -8,23 +8,23 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
 /**
- * Test class for <code>ValidPasswordValidator</code>.
+ * Test class for <code>UrlValidator</code>.
  *
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-public class ValidUrlValidatorTest extends TestCase {
+public class UrlValidatorTest extends TestCase {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(ValidUrlValidatorTest.class);
+    private static final Logger LOG = Logger.getLogger(UrlValidatorTest.class);
 
     /** Default constructor. */
-    public ValidUrlValidatorTest() {
+    public UrlValidatorTest() {
         super();
     }
 
     public void testIsValid() {
-        final ValidUrlValidator validator = new ValidUrlValidator();
+        final UrlValidator validator = new UrlValidator();
         assertTrue(validator.isValid(null));
 
         assertFalse(validator.isValid(""));

@@ -14,18 +14,18 @@ import org.hibernate.validator.ValidatorClass;
 /**
  * Validator class that validates a url by using a regexp pattern.
  *
- * @deprecated Replaced by {@link Url}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@ValidatorClass(ValidUrlValidator.class)
+@ValidatorClass(UrlValidator.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Deprecated
-public @interface ValidUrl {
+public @interface Url {
 
-    /** Error message for the validator. */
-    String message() default "Not a valid url.";
+    /**
+     * Default validator message.
+     */
+    String message() default "{validator.url}";
 
 }
