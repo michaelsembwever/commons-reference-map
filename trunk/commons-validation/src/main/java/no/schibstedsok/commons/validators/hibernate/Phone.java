@@ -30,7 +30,7 @@ public @interface Phone {
     PhoneType phoneType() default PhoneType.PHONE_NO;
 
     /**
-     * Default message is validator.mobilephone.
+     * Default validator message.
      */
     String message() default "{validator.phone}";
 
