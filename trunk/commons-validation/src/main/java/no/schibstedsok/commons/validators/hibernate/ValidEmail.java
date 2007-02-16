@@ -14,6 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 /**
  * Validator class that validates an email address by using a regexp pattern.
  *
+ * @deprecated Use the hibernate annotation instead
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
@@ -21,6 +22,7 @@ import org.hibernate.validator.ValidatorClass;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface ValidEmail {
 
     /** Error message for the validator. */

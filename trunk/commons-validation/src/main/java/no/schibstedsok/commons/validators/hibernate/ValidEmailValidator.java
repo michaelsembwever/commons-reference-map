@@ -13,9 +13,11 @@ import org.hibernate.validator.Validator;
 /**
  * {@inheritDoc}
  *
+ * @deprecated Use the hibernate annotation instead
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
+@Deprecated
 public class ValidEmailValidator implements Validator<ValidEmail>, PropertyConstraint {
 
     /** Logger for this class. */
