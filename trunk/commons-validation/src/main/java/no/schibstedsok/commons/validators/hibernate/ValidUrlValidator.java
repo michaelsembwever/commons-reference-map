@@ -21,7 +21,7 @@ import org.hibernate.validator.Validator;
 public class ValidUrlValidator implements Validator<ValidUrl>, PropertyConstraint {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(ValidUrlValidator.class);
+    private static final Logger LOG = Logger.getLogger(ValidUrlValidator.class);
 
     /** The arguments sent to the validator. */
     private ValidUrl arguments;
