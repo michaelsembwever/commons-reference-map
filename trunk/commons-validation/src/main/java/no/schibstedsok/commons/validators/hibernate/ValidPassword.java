@@ -1,5 +1,5 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.validators.hibernate;
 
@@ -14,6 +14,7 @@ import org.hibernate.validator.ValidatorClass;
 /**
  * Validator class that validates a string agains the Schibsted Sok password rules.
  *
+ * @deprecated Replaced by {@link Password}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
@@ -21,6 +22,7 @@ import org.hibernate.validator.ValidatorClass;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface ValidPassword {
 
     // TODO: Change this to use resource bundle?

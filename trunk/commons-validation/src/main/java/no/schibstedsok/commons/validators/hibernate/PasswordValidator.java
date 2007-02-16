@@ -11,25 +11,23 @@ import org.hibernate.validator.Validator;
 /**
  * {@inheritDoc}
  *
- * @deprecated Replaced by {@link PasswordValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@Deprecated
-public class ValidPasswordValidator implements Validator<ValidPassword>, PropertyConstraint {
+public class PasswordValidator implements Validator<Password>, PropertyConstraint {
 
     /** Logger for this class. */
-    private static final Logger LOG = Logger.getLogger(ValidPasswordValidator.class);
+    private static final Logger LOG = Logger.getLogger(PasswordValidator.class);
 
     /** The arguments sent to the validator. */
-    private ValidPassword arguments;
+    private Password arguments;
 
     /**
      * Initialize the validator.
      *
      * @param initArguments the arguments sent to the validator
      */
-    public void initialize(final ValidPassword initArguments) {
+    public void initialize(final Password initArguments) {
         this.arguments = initArguments;
     }
 
