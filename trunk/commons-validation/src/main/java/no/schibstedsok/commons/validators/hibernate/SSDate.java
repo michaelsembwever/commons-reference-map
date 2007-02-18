@@ -1,5 +1,5 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.validators.hibernate;
 
@@ -14,27 +14,30 @@ import org.hibernate.validator.ValidatorClass;
 /**
  * Validator class that validates a date against a min and/or a max date
  * given by text, i.e. "01.01.1900". The dates to validate against, is
- * converted to a date using <code>DateFormatNorway</code> to handle
- * Norwegian time zone etc.
+ * converted to a date using <code>SSDateFormat</code>.
  *
- * @deprecated Replaced by {@link SSDateValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@ValidatorClass(ValidDateNorwayValidator.class)
+@ValidatorClass(SSDateValidator.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Deprecated
-public @interface ValidDateNorway {
+public @interface SSDate {
 
-    /** Date used to validate against a minDate. Defaults to none. */
+    /**
+     * Date used to validate against a minDate. Defaults to none.
+     */
     String minDate() default "";
 
-    /** Date used to validate against a maxDate. Defaults to none. */
+    /**
+     * Date used to validate against a maxDate. Defaults to none.
+     */
     String maxDate() default "";
 
-    /** Error message for the validator. */
-    String message() default "Illegal date.";
+    /**
+     * Default validator message.
+     */
+    String message() default "{validator.ssDate}";
 
 }

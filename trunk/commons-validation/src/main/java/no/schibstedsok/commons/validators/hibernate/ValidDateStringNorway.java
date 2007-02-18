@@ -16,6 +16,7 @@ import org.hibernate.validator.ValidatorClass;
  * fuzzy logic that converts year 80 to 0080 etc. You can also validate
  * the date against a min and max date given by text, i.e. "01.01.1900".
  *
+ * @deprecated Replaced by {@link SSDateValidator}, convert to use dates.
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
@@ -23,6 +24,7 @@ import org.hibernate.validator.ValidatorClass;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
+@Deprecated
 public @interface ValidDateStringNorway {
 
     /** Date used to validate against a minDate. Defaults to none. */

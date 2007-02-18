@@ -1,12 +1,12 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.validators.hibernate;
 
 import java.text.ParseException;
 import java.util.Date;
 
-import no.schibstedsok.commons.formats.DateFormatNorway;
+import no.schibstedsok.commons.formats.SSDateFormat;
 
 import org.apache.log4j.Logger;
 import org.hibernate.mapping.Property;
@@ -16,18 +16,18 @@ import org.hibernate.validator.Validator;
 /**
  * {@inheritDoc}
  *
- * @deprecated Replaced by {@link SSDateValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@Deprecated
-public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, PropertyConstraint {
+public class SSDateValidator implements Validator<ValidDateNorway>, PropertyConstraint {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(ValidDateNorwayValidator.class);
+    private static final Logger LOG = Logger.getLogger(SSDateValidator.class);
+
+    // TODO: Uses default timezone. How should we handle timezones?
 
     /** The date formatter used by this validator. */
-    private DateFormatNorway dateFormat = new DateFormatNorway();
+    private SSDateFormat dateFormat = new SSDateFormat("dd.MM.yyyy");
 
     /** minDate used to validate against if set. */
     private Date minDate = null;
@@ -47,7 +47,7 @@ public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, Pro
             try {
                 minDate = dateFormat.parse(minDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal minDate for ValidDateNorwayValidator.");
+                throw new RuntimeException("Illegal minDate for SSDateValidator.");
             }
         }
 
@@ -57,7 +57,7 @@ public class ValidDateNorwayValidator implements Validator<ValidDateNorway>, Pro
             try {
                 maxDate = dateFormat.parse(maxDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal maxDate for ValidDateNorwayValidator.");
+                throw new RuntimeException("Illegal maxDate for SSDateValidator.");
             }
         }
     }
