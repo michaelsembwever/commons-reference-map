@@ -7,7 +7,7 @@
     <parent>
       <groupId>schibstedsok</groupId>
       <artifactId>commons-main</artifactId>
-      <version>1.3-SNAPSHOT</version>
+      <version>1.5</version>
     </parent>
    
     <modelVersion>4.0.0</modelVersion>
@@ -53,4 +53,11 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>Sesam</id>
+            <name>Local Maven2 Repository</name>
+            <url>https://dev.schibstedsok.no/maven2</url>
+        </repository>
+    </repositories>
 </project>
