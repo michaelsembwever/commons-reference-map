@@ -1,5 +1,5 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.formats;
 
@@ -15,21 +15,21 @@ import junit.framework.TestCase;
 import org.apache.log4j.Logger;
 
 /**
- * Test class for <code>DateFormatNorway</code>.
+ * Test class for <code>SSDateFormat</code>.
  *
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-public class DateFormatNorwayTest extends TestCase {
+public class SSDateFormatTest extends TestCase {
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(DateFormatNorwayTest.class);
+    private static final Logger LOG = Logger.getLogger(SSDateFormatTest.class);
 
     /** Formatter used in tests. */
-    private DateFormatNorway dateFormatNorway = new DateFormatNorway();
+    private SSDateFormat dateFormat = new SSDateFormat("dd.MM.yyyy");
 
     /** Default constructor. */
-    public DateFormatNorwayTest() {
+    public SSDateFormatTest() {
         super();
     }
 
@@ -49,24 +49,24 @@ public class DateFormatNorwayTest extends TestCase {
     }
 
     public void testFormat() {
-        final String result = dateFormatNorway.format(getTestDate());
+        final String result = dateFormat.format(getTestDate());
         assertNotNull(result);
         assertEquals("08.06.2006", result);
     }
 
     public void testParseNull() {
         try {
-            dateFormatNorway.parse(null);
-            fail();
+            final Date result = dateFormat.parse(null);
+            assertNull(result);
         } catch (ParseException e) {
-            // This should happen...
+            fail();
         }
     }
 
     public void testParseInvalid() {
         // Test fuzzy year handling that converts year 80 to 0080.
         try {
-            dateFormatNorway.parse("01.01.80");
+            dateFormat.parse("01.01.80");
             fail();
         } catch (ParseException e) {
             // This should happen...
@@ -74,7 +74,7 @@ public class DateFormatNorwayTest extends TestCase {
 
         // Test fuzzy date handling that converts i.e. 30/2 to 2/3.
         try {
-            dateFormatNorway.parse("30.02.1980");
+            dateFormat.parse("30.02.1980");
             fail();
         } catch (ParseException e) {
             // This should happen...
@@ -87,7 +87,7 @@ public class DateFormatNorwayTest extends TestCase {
         final GregorianCalendar resultCalendar = getCalendar();
 
         try {
-            resultCalendar.setTime(dateFormatNorway.parse("08.06.2006"));
+            resultCalendar.setTime(dateFormat.parse("08.06.2006"));
         } catch (ParseException e) {
             fail();
         }
