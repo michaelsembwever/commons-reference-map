@@ -1,5 +1,5 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
  */
 package no.schibstedsok.commons.formats;
 
@@ -16,16 +16,18 @@ import org.apache.log4j.Logger;
  *
  * Uses the format: dd.MM.yyyy HH:mm
  *
+ * @deprecated Replaced by {@link SSDateFormat}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
+@Deprecated
 public class DateTimeFormatNorway extends SimpleDateFormat {
 
     /** Generated SerialUID. */
     private static final long serialVersionUID = 6935812679039801969L;
 
     /** Logger for this class. */
-    private static Logger logger = Logger.getLogger(DateTimeFormatNorway.class);
+    private static final Logger LOG = Logger.getLogger(DateTimeFormatNorway.class);
 
     /** Default constructor. */
     public DateTimeFormatNorway() {
