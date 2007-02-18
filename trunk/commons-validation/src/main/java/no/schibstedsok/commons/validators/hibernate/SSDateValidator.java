@@ -19,7 +19,7 @@ import org.hibernate.validator.Validator;
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-public class SSDateValidator implements Validator<ValidDateNorway>, PropertyConstraint {
+public class SSDateValidator implements Validator<SSDate>, PropertyConstraint {
 
     /** Logger for this class. */
     private static final Logger LOG = Logger.getLogger(SSDateValidator.class);
@@ -40,7 +40,7 @@ public class SSDateValidator implements Validator<ValidDateNorway>, PropertyCons
      *
      * @param parameters the arguments sent to the validator
      */
-    public void initialize(final ValidDateNorway parameters) {
+    public void initialize(final SSDate parameters) {
         final String minDateString = parameters.minDate();
 
         if (minDateString != null && minDateString.length() > 0) {
