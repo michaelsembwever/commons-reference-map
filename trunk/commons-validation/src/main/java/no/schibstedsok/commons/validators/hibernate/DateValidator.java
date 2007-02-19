@@ -72,7 +72,7 @@ public class DateValidator implements Validator<Date>, PropertyConstraint {
             return true;
         }
 
-        if (!(value instanceof Date)) {
+        if (!(value instanceof java.util.Date)) {
             return false;
         }
 
