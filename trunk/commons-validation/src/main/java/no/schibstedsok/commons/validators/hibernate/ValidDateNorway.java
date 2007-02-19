@@ -17,7 +17,7 @@ import org.hibernate.validator.ValidatorClass;
  * converted to a date using <code>DateFormatNorway</code> to handle
  * Norwegian time zone etc.
  *
- * @deprecated Replaced by {@link SSDateValidator}
+ * @deprecated Replaced by {@link DateValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */

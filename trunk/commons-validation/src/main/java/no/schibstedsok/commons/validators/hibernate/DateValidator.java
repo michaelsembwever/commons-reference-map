@@ -4,9 +4,7 @@
 package no.schibstedsok.commons.validators.hibernate;
 
 import java.text.ParseException;
-import java.util.Date;
-
-import no.schibstedsok.commons.formats.SSDateFormat;
+import java.text.SimpleDateFormat;
 
 import org.apache.log4j.Logger;
 import org.hibernate.mapping.Property;
@@ -19,35 +17,35 @@ import org.hibernate.validator.Validator;
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-public class SSDateValidator implements Validator<SSDate>, PropertyConstraint {
-
-    /** Logger for this class. */
-    private static final Logger LOG = Logger.getLogger(SSDateValidator.class);
+public class DateValidator implements Validator<Date>, PropertyConstraint {
 
     // TODO: Uses default timezone. How should we handle timezones?
 
+    /** Logger for this class. */
+    private static final Logger LOG = Logger.getLogger(DateValidator.class);
+
     /** The date formatter used by this validator. */
-    private SSDateFormat dateFormat = new SSDateFormat("dd.MM.yyyy");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
 
     /** minDate used to validate against if set. */
-    private Date minDate = null;
+    private java.util.Date minDate = null;
 
     /** maxDate used to validate against if set. */
-    private Date maxDate = null;
+    private java.util.Date maxDate = null;
 
     /**
      * Initialize the validator.
      *
      * @param parameters the arguments sent to the validator
      */
-    public void initialize(final SSDate parameters) {
+    public void initialize(final Date parameters) {
         final String minDateString = parameters.minDate();
 
         if (minDateString != null && minDateString.length() > 0) {
             try {
                 minDate = dateFormat.parse(minDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal minDate for SSDateValidator.");
+                throw new RuntimeException("Illegal minDate for DateValidator.");
             }
         }
 
@@ -57,7 +55,7 @@ public class SSDateValidator implements Validator<SSDate>, PropertyConstraint {
             try {
                 maxDate = dateFormat.parse(maxDateString);
             } catch (ParseException e) {
-                throw new RuntimeException("Illegal maxDate for SSDateValidator.");
+                throw new RuntimeException("Illegal maxDate for DateValidator.");
             }
         }
     }
@@ -78,7 +76,7 @@ public class SSDateValidator implements Validator<SSDate>, PropertyConstraint {
             return false;
         }
 
-        final Date date = (Date) value;
+        final java.util.Date date = (java.util.Date) value;
 
         if (minDate != null && date.before(minDate)) {
             return false;

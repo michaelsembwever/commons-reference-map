@@ -13,17 +13,20 @@ import org.hibernate.validator.ValidatorClass;
 
 /**
  * Validator class that validates a date against a min and/or a max date
- * given by text, i.e. "01.01.1900". The dates to validate against, is
- * converted to a date using <code>SSDateFormat</code>.
+ * given by text, i.e. "01.01.1900". The conversion from strings to
+ * dates is done with default time zone. How should we handle different
+ * time zones?
  *
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
-@ValidatorClass(SSDateValidator.class)
+@ValidatorClass(DateValidator.class)
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface SSDate {
+public @interface Date {
+
+    // TODO: Uses default timezone. How should we handle timezones?
 
     /**
      * Date used to validate against a minDate. Defaults to none.
@@ -38,6 +41,6 @@ public @interface SSDate {
     /**
      * Default validator message.
      */
-    String message() default "{validator.ssDate}";
+    String message() default "{validator.date}";
 
 }

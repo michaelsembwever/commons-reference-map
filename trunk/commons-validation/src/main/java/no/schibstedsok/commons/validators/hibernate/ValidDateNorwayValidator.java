@@ -16,7 +16,7 @@ import org.hibernate.validator.Validator;
 /**
  * {@inheritDoc}
  *
- * @deprecated Replaced by {@link SSDateValidator}
+ * @deprecated Replaced by {@link DateValidator}
  * @author <a href="mailto:endre@sesam.no">Endre Midtgård Meckelborg</a>
  * @version <tt>$Revision: $</tt>
  */
