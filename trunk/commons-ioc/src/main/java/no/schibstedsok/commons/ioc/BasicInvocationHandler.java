@@ -31,11 +31,11 @@ import org.apache.log4j.Logger;
  */
 final class BasicInvocationHandler implements InvocationHandler {
 
-    private final Map<Method,Map<List<Class<?>>,Method>> methodCache 
+    private final Map<Method,Map<List<Class<?>>,Method>> methodCache
             = new HashMap<Method,Map<List<Class<?>>,Method>>();
-    private final Map<Method,Map<List<Class<?>>,BaseContext>> contextCache 
+    private final Map<Method,Map<List<Class<?>>,BaseContext>> contextCache
             = new HashMap<Method,Map<List<Class<?>>,BaseContext>>();
-    
+
     /** threading lock to the cache maps since they are not synchronised, and it's overkill to mke them Hashtables. **/
     private final ReentrantReadWriteLock cacheGate = new ReentrantReadWriteLock();
 
@@ -44,15 +44,17 @@ final class BasicInvocationHandler implements InvocationHandler {
     private final List<BaseContext> contexts;
 
    // Static --------------------------------------------------------
-    
+
     private static final Invoker FAIR_DINKUM = new FairDinkumInvoker();
     private static final Invoker CACTUS = new CactusInvoker();
 
     private static final Logger LOG = Logger.getLogger(BasicInvocationHandler.class);
-    private static final Level TRACE = Level.toLevel("TRACE");
+//    private static final Level TRACE = Level.toLevel("TRACE");
 
-    private static final String ERR_METHOD_NOT_IN_INTERFACE = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
-    private static final String ERR_METHOD_NOT_IN_EXACT_INTERFACE = "No exact signature to the contexts associated to this BasicInvocationHandler for ";
+    private static final String ERR_METHOD_NOT_IN_INTERFACE
+            = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
+    private static final String ERR_METHOD_NOT_IN_EXACT_INTERFACE
+            = "No exact signature to the contexts associated to this BasicInvocationHandler for ";
     private static final String DEBUG_LOOKING_FOR = " Looking for ";
     private static final String DEBUG_LOOKING_IN = "Looking in ";
     private static final String DEBUG_FOUND = "Found method while: ";
@@ -104,7 +106,7 @@ final class BasicInvocationHandler implements InvocationHandler {
         //  It is a benefit to keep a cache to remember what method to use.
         final Method cachedMethod = checkCache(method, paramSignature);
         if(cachedMethod != null){
-            LOG.log(TRACE, DEBUG_CACHE_USED_FOR + method);
+            LOG.trace( DEBUG_CACHE_USED_FOR + method);
             return FAIR_DINKUM.invoke(cachedMethod, getContextFromCache(method,paramSignature), objArr);
         }
 
@@ -115,7 +117,7 @@ final class BasicInvocationHandler implements InvocationHandler {
 
             }  catch (NoSuchMethodException ex) {
                 // handled exception
-                LOG.log(TRACE, ex);
+                LOG.trace( ex);
             }
         }
 
@@ -124,9 +126,9 @@ final class BasicInvocationHandler implements InvocationHandler {
     }
 
    // Package protected ---------------------------------------------
-    
+
     boolean assertContextContract(final Class<? extends BaseContext> cxtClass){
-        
+
         try{
             for( Method m : cxtClass.getMethods() ){
                 invokeExactSignature(CACTUS, null, m, Arrays.asList(m.getParameterTypes()), null);
@@ -164,8 +166,8 @@ final class BasicInvocationHandler implements InvocationHandler {
 
                 final Method m = cls.getMethod(method.getName(), paramSignature.toArray(new Class[paramSignature.size()]));
                 if (m != null) {
-                    if(LOG.isEnabledFor(TRACE)){
-                        LOG.log(TRACE, DEBUG_FOUND
+                    if(LOG.isTraceEnabled()){
+                        LOG.trace( DEBUG_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                     }
@@ -175,8 +177,8 @@ final class BasicInvocationHandler implements InvocationHandler {
 
                 }
             }  catch (NoSuchMethodException ex) {
-                if(LOG.isEnabledFor(TRACE)){
-                    LOG.log(TRACE, DEBUG_NOT_FOUND
+                if(LOG.isTraceEnabled()){
+                    LOG.trace( DEBUG_NOT_FOUND
                             + DEBUG_LOOKING_IN + cls.getName()
                             + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                 }
@@ -207,8 +209,8 @@ final class BasicInvocationHandler implements InvocationHandler {
                         assignableFrom = paramSignature.get(k) == null || cArr[k].isAssignableFrom(paramSignature.get(k));
                     }
                     if (assignableFrom) {
-                        if(LOG.isEnabledFor(TRACE)){
-                            LOG.log(TRACE, DEBUG_FOUND
+                        if(LOG.isTraceEnabled()){
+                            LOG.trace( DEBUG_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
@@ -217,8 +219,8 @@ final class BasicInvocationHandler implements InvocationHandler {
                         return invoker.invoke(m, cxt, objArr);
 
                     }else{
-                        if(LOG.isEnabledFor(TRACE)){
-                            LOG.log(TRACE, DEBUG_NOT_FOUND
+                        if(LOG.isTraceEnabled()){
+                            LOG.trace( DEBUG_NOT_FOUND
                                 + DEBUG_LOOKING_IN + cls.getName()
                                 + DEBUG_LOOKING_FOR + method.getName() + toString(paramSignature));
                         }
@@ -231,22 +233,22 @@ final class BasicInvocationHandler implements InvocationHandler {
         throw e;
     }
 
-    
+
 
     /** Check the cache incase this method has already been called once.
      ***/
     private Method checkCache(final Method method, final List<Class<?>> paramSignature){
-        
+
         try{
             cacheGate.readLock().lock();
-        
+
             Method cachedMethod = null;
             final Map<List<Class<?>>,Method> map = methodCache.get(method);
             if(map != null){
                 cachedMethod = map.get(paramSignature);
             }
             return cachedMethod;
-        
+
         }finally{
             cacheGate.readLock().unlock();
         }
@@ -259,7 +261,7 @@ final class BasicInvocationHandler implements InvocationHandler {
 
         try{
             cacheGate.readLock().lock();
-        
+
             final Map<List<Class<?>>,BaseContext> map = contextCache.get(method);
             assert map != null;
 
@@ -267,7 +269,7 @@ final class BasicInvocationHandler implements InvocationHandler {
             assert cachedContext != null;
 
             return cachedContext;
-        
+
         }finally{
             cacheGate.readLock().unlock();
         }
@@ -281,11 +283,11 @@ final class BasicInvocationHandler implements InvocationHandler {
             final Method methodTo,
             final BaseContext contextTo){
 
-        LOG.log(TRACE, DEBUG_ADD_TO_CACHE + methodTo);
+        LOG.trace( DEBUG_ADD_TO_CACHE + methodTo);
 
         try{
             cacheGate.writeLock().lock();
-        
+
             Map<List<Class<?>>,Method> methodMap = methodCache.get(methodFrom);
             if(methodMap == null){
                 methodMap = new HashMap<List<Class<?>>,Method>();
@@ -315,9 +317,9 @@ final class BasicInvocationHandler implements InvocationHandler {
         }
         return sb.toString();
     }
-   
+
    // Inner classes -------------------------------------------------
-    
+
     private static interface Invoker{
         /** A method has been found in a BaseContext.
          * Invoke it.
@@ -337,14 +339,14 @@ final class BasicInvocationHandler implements InvocationHandler {
             return method.invoke(cxt, objArr);
         }
     }
-    
+
     private static class CactusInvoker implements Invoker{
         public Object invoke(
                 final Method method,
                 final BaseContext cxt,
                 final Object[] objArr)
                     throws IllegalAccessException, InvocationTargetException{
-                    
+
             return null;
         }
     }
