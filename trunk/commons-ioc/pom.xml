@@ -45,7 +45,7 @@
         <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
-            <version>1.2.8</version>
+            <version>1.2.14</version>
             <type>jar</type>
             <!-- We can't package this because JBoss dictates the world to you,
               -  And they're lazy bastards that haven't upgraded to log4j-1.2.13 yet.
