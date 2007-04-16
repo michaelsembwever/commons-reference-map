@@ -1,4 +1,4 @@
-/* Copyright (2006) Schibsted Søk AS
+/* Copyright (2006-2007) Schibsted Søk AS
  * ResourceServlet.java
  *
  * Created on 19 January 2006, 13:51
@@ -91,7 +91,6 @@ public final class ResourceServlet extends HttpServlet {
                 throws ServletException, IOException {
 
         ServletOutputStream os = null;
-        InputStream is = null;
         
         try  {
             request.setCharacterEncoding("UTF-8"); // correct encoding
@@ -126,25 +125,7 @@ public final class ResourceServlet extends HttpServlet {
 
                     }  else  {
 
-
-                        /** [TODO] We need to check in some backend if the resource has been modified.
-                         * The defaultLastModified timestamp must be overridden at the same time.
-                         * See getLastModified method.
-                         **/
-                        is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
-
-                        if (is != null) {
-
-                            // Output the resource byte for byte
-                            for (int b = is.read(); b >= 0; b = is.read()) {
-                                 os.write(b);
-                            }
-                            response.setStatus(HttpServletResponse.SC_OK);
-
-                        }  else  {
-                            response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                            LOG.info(ERR_NOT_FOUND + request.getPathInfo());
-                        }
+                        serveResource(configName, request, response);
                     }
                 }  else  {
                     // not allowed to cross-reference resources.
@@ -156,9 +137,6 @@ public final class ResourceServlet extends HttpServlet {
         }  finally  {
             if (os != null) {
                 os.close();
-            }
-            if (is != null) {
-                is.close();
             }
         }
     }
@@ -179,7 +157,7 @@ public final class ResourceServlet extends HttpServlet {
              
     }
     
-    /** {@inheritDoc}
+    /** {@inherit}
      */
     protected void doGet(
             final HttpServletRequest request,
@@ -189,7 +167,7 @@ public final class ResourceServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** {@inheritDoc}
+    /** {@inherit}
      */
     protected void doPost(
             final HttpServletRequest request,
@@ -199,7 +177,7 @@ public final class ResourceServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** {@inheritDoc}
+    /** {@inherit}
      */
     public String getServletInfo() {
         
@@ -235,10 +213,50 @@ public final class ResourceServlet extends HttpServlet {
     }
 
 
-    /** {@inheritDoc}
+    /** {@inherit}
      */
     protected long getLastModified(final HttpServletRequest req) {
         return defaultLastModified;
+    }
+    
+    private void serveResource(
+            final String configName,
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+                throws ServletException, IOException {
+        
+        InputStream is = null;
+        
+        try  {
+
+            is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
+
+            if (is != null) {
+
+                // Output the resource byte for byte
+                for (int b = is.read(); b >= 0; b = is.read()) {
+                     response.getOutputStream().write(b);
+                }
+                
+                // Allow this URL to be cached indefinitely. 
+                //  Each jvm restart alters the number that appears in the URL being enough to ensure
+                //  nothing is cached across deployment versions.
+                response.setHeader("Cache-Control", "Public"); 
+                response.setDateHeader("Expires", Long.MAX_VALUE);
+                
+                response.setStatus(HttpServletResponse.SC_OK);
+
+            }  else  {
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                LOG.info(ERR_NOT_FOUND + request.getPathInfo());
+            }  
+            
+        }  finally  {
+            
+            if (is != null) {
+                is.close();
+            }
+        }
     }
 
 }
