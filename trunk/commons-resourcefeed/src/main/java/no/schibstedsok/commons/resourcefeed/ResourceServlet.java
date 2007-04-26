@@ -63,6 +63,7 @@ public final class ResourceServlet extends HttpServlet {
         CONTENT_TYPES.put("jpg", "image/jpeg");
         CONTENT_TYPES.put("gif", "image/gif");
         CONTENT_TYPES.put("png", "image/png");
+	CONTENT_TYPES.put("ico", "image/x-icon");
         CONTENT_TYPES.put("vm", "text/plain");
         CONTENT_TYPES.put("html", "text/plain");
         CONTENT_TYPES.put("class", "application/java");
