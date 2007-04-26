@@ -61,69 +61,70 @@ public final class LoggingServlet extends HttpServlet {
         LOG.debug(DEBUG_CLIENT_IP + ipAddr);
 
         // TODO Move this into servlet properties
-        if (!(ipAddr.startsWith("80.91.33.") || ipAddr.startsWith("127.") || ipAddr.startsWith("81.93.165."))) {
+        if (!(ipAddr.startsWith("80.91.33.") 
+              || ipAddr.startsWith("127.") 
+              || ipAddr.startsWith("81.93.165.") 
+              || ipAddr.startsWith("0:0:0:0:0:0:0:1%0"))) {
 
             final ServletOutputStream ss = response.getOutputStream();
             response.setContentType("text/html;charset=UTF-8");
-            ss.print(ERR_RESTRICTED_AREA);
+            ss.print(ERR_RESTRICTED_AREA + ": " + ipAddr);
             ss.close();
             LOG.warn(ipAddr + ERR_TRIED_TO_ACCESS);
+            return ; 
+        }  
 
-        }  else  {
+        final Enumeration en = LogManager.getCurrentLoggers();
 
+        Logger log;
+        // Sort first
+        final HashMap<String,Level> unsorted = new HashMap<String,Level>();
+        while (en.hasMoreElements()) {
+            log = (Logger) en.nextElement();
+            unsorted.put(log.getName(), log.getEffectiveLevel());
+        }
+        final List<String> sortedList = new ArrayList<String>(unsorted.keySet());
+        final StringBuilder buffer = new StringBuilder();
+        Collections.sort(sortedList);
 
-            final Enumeration en = LogManager.getCurrentLoggers();
+        try  {
 
-            Logger log;
-            // Sort first
-            final HashMap<String,Level> unsorted = new HashMap<String,Level>();
-            while (en.hasMoreElements()) {
-                log = (Logger) en.nextElement();
-                unsorted.put(log.getName(), log.getEffectiveLevel());
-            }
-            final List<String> sortedList = new ArrayList<String>(unsorted.keySet());
-            final StringBuilder buffer = new StringBuilder();
-            Collections.sort(sortedList);
+            for( String key : sortedList ){
+                Level level = (Level) unsorted.get(key);
+                String value = level.toString();
 
-            try  {
-
-                for( String key : sortedList ){
-                    Level level = (Level) unsorted.get(key);
-                    String value = level.toString();
-
-                    // update if in request parameters
-                    final String param = request.getParameter(key);
-                    if (param != null && !param.equals(value)) {
-                        final Level newLevel = Level.toLevel(param);
-                        Logger.getLogger(key).setLevel(newLevel);
-                        LOG.warn("Logger " + key + " has been changed to level: " + param);
-                        level = newLevel;
-                        value = param;
-                    }
-                    // output html (if it's a schibstedsok logger). 
-                    // developers will get the hang of how to change the non-displayed loggers if they want.
-                    if( key.startsWith("no.schibstedsok.") ){
-                        final int option = getOption(level.toInt());
-                        final String[] values = new String[]{"", "", "", "", "", "", "", ""};
-                        values[option] = SELECTED;
-                        // The MessageFormat constant does not support synchronous usage.
-                        synchronized (OPTIONS) {
-                            buffer.append("<tr><td><b>" + key + "</b></td><td><select size=\"1\" name=\"" + key + "\">" + OPTIONS.format(values) + "</select></td></tr>");
-                        }
+                // update if in request parameters
+                final String param = request.getParameter(key);
+                if (param != null && !param.equals(value)) {
+                    final Level newLevel = Level.toLevel(param);
+                    Logger.getLogger(key).setLevel(newLevel);
+                    LOG.warn("Logger " + key + " has been changed to level: " + param);
+                    level = newLevel;
+                    value = param;
+                }
+                // output html (if it's a schibstedsok logger). 
+                // developers will get the hang of how to change the non-displayed loggers if they want.
+                if( key.startsWith("no.schibstedsok.") ){
+                    final int option = getOption(level.toInt());
+                    final String[] values = new String[]{"", "", "", "", "", "", "", ""};
+                    values[option] = SELECTED;
+                    // The MessageFormat constant does not support synchronous usage.
+                    synchronized (OPTIONS) {
+                        buffer.append("<tr><td><b>" + key + "</b></td><td><select size=\"1\" name=\"" + key + "\">" + OPTIONS.format(values) + "</select></td></tr>");
                     }
                 }
-
-
-                final ServletOutputStream ss = response.getOutputStream();
-                response.setContentType("text/html;charset=UTF-8");
-                ss.print("<form action=\"Log\"><div style=\"float: left;\"><table>");
-                ss.print(buffer.toString());
-                ss.print("</table></div><div style=\"float: right;\"><input class=\"submit\" type=\"submit\" value=\"Update\"/></div></form>");
-                ss.close();
-
-            }  catch (IOException io) {
-                LOG.error("doGet ", io);
             }
+
+
+            final ServletOutputStream ss = response.getOutputStream();
+            response.setContentType("text/html;charset=UTF-8");
+            ss.print("<form action=\"Log\"><div style=\"float: left;\"><table>");
+            ss.print(buffer.toString());
+            ss.print("</table></div><div style=\"float: right;\"><input class=\"submit\" type=\"submit\" value=\"Update\"/></div></form>");
+            ss.close();
+
+        }  catch (IOException io) {
+            LOG.error("doGet ", io);
         }
     }
 
