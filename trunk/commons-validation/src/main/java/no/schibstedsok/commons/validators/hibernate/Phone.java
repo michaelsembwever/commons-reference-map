@@ -30,6 +30,11 @@ public @interface Phone {
     PhoneType phoneType() default PhoneType.PHONE_NO;
 
     /**
+     * Whether the validator should strip blanks before validating.
+     */
+    boolean stripBlanks() default false;
+
+    /**
      * Default validator message.
      */
     String message() default "{validator.phone}";

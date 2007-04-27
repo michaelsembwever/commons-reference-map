@@ -19,7 +19,10 @@ public class PhoneValidator implements Validator<Phone> {
     private static final Logger LOG = Logger.getLogger(PhoneValidator.class);
 
     /** Phone type to use when validating. */
-    private PhoneType phoneType = null;
+    private PhoneType phoneType;
+
+    /** Whether the validator should strip blanks before validating. */
+    private boolean stripBlanks;
 
     /**
      * Initialize the validator.
@@ -28,6 +31,7 @@ public class PhoneValidator implements Validator<Phone> {
      */
     public void initialize(final Phone parameters) {
         phoneType = parameters.phoneType();
+        stripBlanks = parameters.stripBlanks();
     }
 
     /**
@@ -44,17 +48,19 @@ public class PhoneValidator implements Validator<Phone> {
             return false;
         }
 
-        return phoneType.getPattern().matcher(removeBlanks((String) value)).matches();
+        final String toValidate = stripBlanks ? stripBlanks((String) value) : (String) value;
+
+        return phoneType.getPattern().matcher(toValidate).matches();
     }
 
     /**
-     * Method that removes blanks from strings. This is i.e. used to handle phone numbers
+     * Method that strip blanks from strings. This is i.e. used to handle phone numbers
      * like "22 33 44 55".
      *
      * @param value the value to remove blanks from
      * @return the value without blanks
      */
-    private String removeBlanks(final String value) {
+    private String stripBlanks(final String value) {
         if (value == null) {
             return null;
         }

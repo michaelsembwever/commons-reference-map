@@ -113,6 +113,10 @@ public class PhoneValidatorTest extends TestCase {
                 return phoneType;
             }
 
+            public boolean stripBlanks() {
+                return true;
+            }
+
             public Class<? extends Annotation> annotationType() {
                 return null;
             }
