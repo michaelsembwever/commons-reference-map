@@ -13,11 +13,19 @@ import java.util.regex.Pattern;
  */
 public enum PhoneType {
 
+    /** Norwegian phone number with 5 digits. */
+    PHONE_NO_5("^(" + Constants.PREFIX_PHONE_NO + ")?" + Constants.BASE_PHONE_NO_5 + "$"),
+
+    /** Norwegian phone number with 8 digits. */
+    PHONE_NO_8("^(" + Constants.PREFIX_PHONE_NO + ")?" + Constants.BASE_PHONE_NO_8 + "$"),
+
     /** Norwegian general phone number. */
-    PHONE_NO("^(\\+47)?((\\d){8})$"),
+    PHONE_NO("^(" + Constants.PREFIX_PHONE_NO + ")?(("
+        + Constants.BASE_PHONE_NO_5 + ")|(" + Constants.BASE_PHONE_NO_8 + "))$"),
 
     /** Norwegian mobile phone number. */
-    MOBILE_NO("^(\\+47)?([49](\\d){7})$");
+    MOBILE_NO("^(" + Constants.PREFIX_PHONE_NO + ")?" + Constants.BASE_MOBILE_NO + "$");
+
 
     private final Pattern pattern;
 
@@ -30,6 +38,13 @@ public enum PhoneType {
      */
     public Pattern getPattern() {
         return pattern;
+    }
+
+    private static class Constants {
+        private static final String PREFIX_PHONE_NO = "(\\+|00)47";
+        private static final String BASE_PHONE_NO_5 = "0\\d{4}";
+        private static final String BASE_PHONE_NO_8 = "[123456789]\\d{7}";
+        private static final String BASE_MOBILE_NO = "[49]\\d{7}";
     }
 
 }
