@@ -24,13 +24,13 @@ import org.hibernate.validator.ValidatorClass;
 public @interface Url {
 
     /**
-     * Default validator message.
-     */
-    String message() default "{validator.url}";
-
-    /**
      * Whether the validator should trim value before validating.
      */
     boolean trimValue() default false;
+
+    /**
+     * Default validator message.
+     */
+    String message() default "{validator.url}";
 
 }
