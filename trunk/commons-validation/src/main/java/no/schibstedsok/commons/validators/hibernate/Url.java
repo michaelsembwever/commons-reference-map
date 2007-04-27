@@ -28,4 +28,9 @@ public @interface Url {
      */
     String message() default "{validator.url}";
 
+    /**
+     * Whether the validator should trim value before validating.
+     */
+    boolean trimValue() default false;
+
 }

@@ -21,8 +21,8 @@ public class UrlValidator implements Validator<Url>, PropertyConstraint {
     /** Logger for this class. */
     private static final Logger LOG = Logger.getLogger(UrlValidator.class);
 
-    /** The arguments sent to the validator. */
-    private Url arguments;
+    /** Whether the validator should trim value before validating. */
+    private boolean trimValue;
 
     /** Regex pattern used by this validator. */
     private Pattern pattern =
@@ -31,10 +31,10 @@ public class UrlValidator implements Validator<Url>, PropertyConstraint {
     /**
      * Initialize the validator.
      *
-     * @param initArguments the arguments sent to the validator
+     * @param parameters the arguments sent to the validator
      */
-    public void initialize(final Url initArguments) {
-        this.arguments = initArguments;
+    public void initialize(final Url parameters) {
+        trimValue = parameters.trimValue();
     }
 
     /**
@@ -44,7 +44,6 @@ public class UrlValidator implements Validator<Url>, PropertyConstraint {
      * @return the validation result
      */
     public boolean isValid(final Object value) {
-        // Null is valid. Use @NotNull to prevent this in the validation.
         if (value == null) {
             return true;
         }
@@ -52,7 +51,9 @@ public class UrlValidator implements Validator<Url>, PropertyConstraint {
             return false;
         }
 
-        return pattern.matcher((String) value).matches();
+        final String toValidate = trimValue ? ((String) value).trim() : (String) value;
+
+        return pattern.matcher(toValidate).matches();
     }
 
     /**
