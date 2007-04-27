@@ -44,7 +44,30 @@ public class PhoneValidator implements Validator<Phone> {
             return false;
         }
 
-        return phoneType.getPattern().matcher((String) value).matches();
+        return phoneType.getPattern().matcher(removeBlanks((String) value)).matches();
+    }
+
+    /**
+     * Method that removes blanks from strings. This is i.e. used to handle phone numbers
+     * like "22 33 44 55".
+     *
+     * @param value the value to remove blanks from
+     * @return the value without blanks
+     */
+    private String removeBlanks(final String value) {
+        if (value == null) {
+            return null;
+        }
+
+        final StringBuilder withoutBlanks = new StringBuilder();
+
+        for (char c : value.toCharArray()) {
+            if (c != ' ') {
+                withoutBlanks.append(c);
+            }
+        }
+
+        return withoutBlanks.toString();
     }
 
 }
