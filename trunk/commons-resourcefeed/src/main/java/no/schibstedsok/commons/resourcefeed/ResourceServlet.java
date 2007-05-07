@@ -235,11 +235,9 @@ public final class ResourceServlet extends HttpServlet {
             is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
 
             if (is != null) {
-
-                // Output the resource byte for byte
-                for (int b = is.read(); b >= 0; b = is.read()) {
-                     response.getOutputStream().write(b);
-                }
+                
+                // Write response headers before response data according to javadoc to
+                //  HttpServlet.html#doGet(..)
                 
                 // Allow this URL to be cached indefinitely. 
                 //  Each jvm restart alters the number that appears in the URL being enough to ensure
@@ -248,6 +246,11 @@ public final class ResourceServlet extends HttpServlet {
                 response.setDateHeader("Expires", Long.MAX_VALUE);
                 
                 response.setStatus(HttpServletResponse.SC_OK);
+
+                // Output the resource byte for byte
+                for (int b = is.read(); b >= 0; b = is.read()) {
+                     response.getOutputStream().write(b);
+                }                
 
             }  else  {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
