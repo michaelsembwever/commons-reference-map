@@ -250,7 +250,10 @@ public final class ResourceServlet extends HttpServlet {
                 // Output the resource byte for byte
                 for (int b = is.read(); b >= 0; b = is.read()) {
                      response.getOutputStream().write(b);
-                }                
+                } 
+                
+                // commit response now
+                response.getOutputStream().flush();
 
             }  else  {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
