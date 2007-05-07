@@ -45,7 +45,7 @@ public final class ResourceServlet extends HttpServlet {
 
     private static final String DEBUG_DEFAULT_MODIFCATION_TIMESTAMP = "Default modified timestamp set to ";
     private static final String DEBUG_CLIENT_IP = "Client ipaddress ";
-    
+
     private static final Map<String,String> CONTENT_TYPES = new HashMap<String,String>();
     private static final Map<String,String> CONTENT_PATHS = new HashMap<String,String>();
     private static final Set<String> RESTRICTED = new HashSet<String>();
@@ -94,17 +94,17 @@ public final class ResourceServlet extends HttpServlet {
                 throws ServletException, IOException {
 
         ServletOutputStream os = null;
-        
+
         try  {
             request.setCharacterEncoding("UTF-8"); // correct encoding
             os = response.getOutputStream();
-            
+
             // Get resource name. Also strip the version number out of the resource
             final String configName = request.getPathInfo().replaceAll("/(\\d)+/","/");
-            
+
             if( configName != null && configName.trim().length() > 0 ){
-                
-            
+
+
                 final String extension = configName.substring(configName.lastIndexOf('.') + 1).toLowerCase();
                 final String ipAddr = null != request.getAttribute(REMOTE_ADDRESS_KEY)
                     ? (String) request.getAttribute(REMOTE_ADDRESS_KEY)
@@ -115,7 +115,7 @@ public final class ResourceServlet extends HttpServlet {
 
                 // Path check. Resource can only be loaded through correct path.
                 final String directory = request.getServletPath();
-                if (directory.indexOf( CONTENT_PATHS.get(extension)) >= 0) {
+                if (null != CONTENT_PATHS.get(extension) && directory.indexOf(CONTENT_PATHS.get(extension)) >= 0) {
 
                     // ok, check configuration resources are private.
                     LOG.trace(DEBUG_CLIENT_IP + ipAddr);
@@ -143,23 +143,23 @@ public final class ResourceServlet extends HttpServlet {
             }
         }
     }
-    
+
     /**
      * Returns wether we allow the ipaddress or not.
      * @param ipAddr
      */
     private boolean isIpAllowed(String ipAddr) {
-        
-	 boolean allowed = 
+
+	 boolean allowed =
                  ipAddr.startsWith("127.") || ipAddr.startsWith("10.") || ipAddr.startsWith("0:0:0:0:0:0:0:1%0");
-         
+
          for(String s : ipaddressesAllowed){
              allowed |= ipAddr.startsWith(s);
          }
          return allowed;
-             
+
     }
-    
+
     /** {@inherit}
      */
     protected void doGet(
@@ -183,27 +183,27 @@ public final class ResourceServlet extends HttpServlet {
     /** {@inherit}
      */
     public String getServletInfo() {
-        
+
         return "Servlet responsible for serving resources. Goes in hand with search-portal/site-spi";
     }
 
     public void init(final ServletConfig config) {
-        
+
         defaultLastModified = System.currentTimeMillis();
         LOG.info(DEBUG_DEFAULT_MODIFCATION_TIMESTAMP + defaultLastModified);
-        
+
         final String allowed = config.getInitParameter("ipaddresses.allowed");
         LOG.info("allowing ipaddresses " + allowed);
         if( null != allowed && allowed.length() >0 ){
             ipaddressesAllowed = allowed.split(",");
         }
-        
+
         final String restricted = config.getInitParameter("resources.restricted");
         LOG.info("restricted resources " + restricted);
         if( null != restricted && restricted.length()>0 ){
             RESTRICTED.addAll(Arrays.asList(restricted.split(",")));
         }
-        
+
         final String paths = config.getInitParameter("content.paths");
         LOG.info("content path mappings " + paths);
         if( null != paths && paths.length()>0 ){
@@ -221,47 +221,47 @@ public final class ResourceServlet extends HttpServlet {
     protected long getLastModified(final HttpServletRequest req) {
         return defaultLastModified;
     }
-    
+
     private void serveResource(
             final String configName,
             final HttpServletRequest request,
             final HttpServletResponse response)
                 throws ServletException, IOException {
-        
+
         InputStream is = null;
-        
+
         try  {
 
             is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
 
             if (is != null) {
-                
+
                 // Write response headers before response data according to javadoc to
                 //  HttpServlet.html#doGet(..)
-                
-                // Allow this URL to be cached indefinitely. 
+
+                // Allow this URL to be cached indefinitely.
                 //  Each jvm restart alters the number that appears in the URL being enough to ensure
                 //  nothing is cached across deployment versions.
-                response.setHeader("Cache-Control", "Public"); 
+                response.setHeader("Cache-Control", "Public");
                 response.setDateHeader("Expires", Long.MAX_VALUE);
-                
+
                 response.setStatus(HttpServletResponse.SC_OK);
 
                 // Output the resource byte for byte
                 for (int b = is.read(); b >= 0; b = is.read()) {
                      response.getOutputStream().write(b);
-                } 
-                
+                }
+
                 // commit response now
                 response.getOutputStream().flush();
 
             }  else  {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
                 LOG.info(ERR_NOT_FOUND + request.getPathInfo());
-            }  
-            
+            }
+
         }  finally  {
-            
+
             if (is != null) {
                 is.close();
             }
