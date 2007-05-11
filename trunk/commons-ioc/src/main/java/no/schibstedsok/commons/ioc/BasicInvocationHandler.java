@@ -25,19 +25,23 @@ import org.apache.log4j.Logger;
  * Constructed with a list of BaseContexts that are used to proxy to.
  * This is a basic implementation that proxy's between identical method signatures.
  * The order in the BaseContext list is important as the first method with the correct signature is used.
+ * <br/>
+ * 
+ * Serialisation depends on whether all supplied contexts are themselves serialisable.
  *
  * @version $Id$
  * @author <a href="mailto:mick@wever.org">Michael Semb Wever</a>
  */
-final class BasicInvocationHandler implements InvocationHandler {
+final class BasicInvocationHandler implements InvocationHandler, java.io.Serializable {
 
-    private final Map<Method,Map<List<Class<?>>,Method>> methodCache
+    private final transient Map<Method,Map<List<Class<?>>,Method>> methodCache
             = new HashMap<Method,Map<List<Class<?>>,Method>>();
-    private final Map<Method,Map<List<Class<?>>,BaseContext>> contextCache
+    private final transient Map<Method,Map<List<Class<?>>,BaseContext>> contextCache
             = new HashMap<Method,Map<List<Class<?>>,BaseContext>>();
 
-    /** threading lock to the cache maps since they are not synchronised, and it's overkill to mke them Hashtables. **/
-    private final ReentrantReadWriteLock cacheGate = new ReentrantReadWriteLock();
+    /** threading lock to the cache maps since they are not synchronised, 
+     * and it's overkill to make them Hashtables. **/
+    private final transient ReentrantReadWriteLock cacheGate = new ReentrantReadWriteLock();
 
    // Attributes ----------------------------------------------------
 
@@ -49,7 +53,6 @@ final class BasicInvocationHandler implements InvocationHandler {
     private static final Invoker CACTUS = new CactusInvoker();
 
     private static final Logger LOG = Logger.getLogger(BasicInvocationHandler.class);
-//    private static final Level TRACE = Level.toLevel("TRACE");
 
     private static final String ERR_METHOD_NOT_IN_INTERFACE
             = "Unable to proxy to the contexts associated to this BasicInvocationHandler for ";
