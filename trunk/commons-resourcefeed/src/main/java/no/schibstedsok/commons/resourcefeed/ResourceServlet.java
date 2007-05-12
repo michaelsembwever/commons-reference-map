@@ -9,6 +9,7 @@ package no.schibstedsok.commons.resourcefeed;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -24,11 +25,8 @@ import org.apache.log4j.Logger;
 
 /** Resource Provider.
  * Serves configuration files (properties, xml), css, gifs, jpgs, javascript,
- *  and velocity templates for search-front-html.
+ *  and velocity templates for search-portal.
  * Css, images, and javascript require direct access from client.
- * Apache uses rewriting and proxing to double up the virtual hostname to get the correct css/images/javascript
- * for the specified virtual host (SiteSearch).
- *
  *
  * @author <a href="mailto:mick@wever.org">Michael Semb Wever</a>
  * @version $Id: ResourceServlet.java 200 2006-03-30 12:45:10Z mickw $
@@ -63,130 +61,24 @@ public final class ResourceServlet extends HttpServlet {
         CONTENT_TYPES.put("jpg", "image/jpeg");
         CONTENT_TYPES.put("gif", "image/gif");
         CONTENT_TYPES.put("png", "image/png");
-	CONTENT_TYPES.put("ico", "image/x-icon");
+        CONTENT_TYPES.put("ico", "image/x-icon");
         CONTENT_TYPES.put("vm", "text/plain");
         CONTENT_TYPES.put("html", "text/plain");
         CONTENT_TYPES.put("class", "application/java");
         CONTENT_TYPES.put("jar", "application/java-archive");
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-     * This servlet ignores URL parameters and POST content, as all the information is in the path,
-     * so it really doesn't matter if it is a GET or POST.
-     *
-     * Checks:
-     *  - resource exists,
-     *  - correct path is being used,
-     *  - configuration/template resources are only accessed by schibsted machines,
-     *
-     * The resource is served to the ServletOutputStream byte by byte from
-     *  getClass().getResourceAsStream(..)
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws javax.servlet.ServletException if ServletException occurs
-     * @throws java.io.IOException if IOException occurs
-     */
-    protected void processRequest(
-            final HttpServletRequest request,
-            final HttpServletResponse response)
-                throws ServletException, IOException {
-
-        ServletOutputStream os = null;
-
-        try  {
-            request.setCharacterEncoding("UTF-8"); // correct encoding
-            os = response.getOutputStream();
-
-            // Get resource name. Also strip the version number out of the resource
-            final String configName = request.getPathInfo().replaceAll("/(\\d)+/","/");
-
-            if( configName != null && configName.trim().length() > 0 ){
-
-
-                final String extension = configName.substring(configName.lastIndexOf('.') + 1).toLowerCase();
-                final String ipAddr = null != request.getAttribute(REMOTE_ADDRESS_KEY)
-                    ? (String) request.getAttribute(REMOTE_ADDRESS_KEY)
-                    : request.getRemoteAddr();
-
-                // Content-Type
-                response.setContentType(CONTENT_TYPES.get(extension) + ";charset=UTF-8");
-
-                // Path check. Resource can only be loaded through correct path.
-                final String directory = request.getServletPath();
-                if (null != CONTENT_PATHS.get(extension) && directory.indexOf(CONTENT_PATHS.get(extension)) >= 0) {
-
-                    // ok, check configuration resources are private.
-                    LOG.trace(DEBUG_CLIENT_IP + ipAddr);
-
-                    if (RESTRICTED.contains(extension) && !isIpAllowed(ipAddr)) {
-
-                        response.setContentType("text/html;charset=UTF-8");
-                        os.print(ERR_RESTRICTED_AREA);
-                        LOG.warn(ipAddr + ERR_TRIED_TO_ACCESS);
-
-                    }  else  {
-
-                        serveResource(configName, request, response);
-                    }
-                }  else  {
-                    // not allowed to cross-reference resources.
-                    response.sendError(HttpServletResponse.SC_NOT_FOUND);
-                    LOG.warn(ipAddr + ERR_TRIED_TO_CROSS_REFERENCE);
-                }
-            }
-
-        }  finally  {
-            if (os != null) {
-                os.close();
-            }
-        }
-    }
-
-    /**
-     * Returns wether we allow the ipaddress or not.
-     * @param ipAddr
-     */
-    private boolean isIpAllowed(String ipAddr) {
-
-	 boolean allowed =
-                 ipAddr.startsWith("127.") || ipAddr.startsWith("10.") || ipAddr.startsWith("0:0:0:0:0:0:0:1%0");
-
-         for(String s : ipaddressesAllowed){
-             allowed |= ipAddr.startsWith(s);
-         }
-         return allowed;
-
-    }
-
     /** {@inherit}
      */
-    protected void doGet(
-            final HttpServletRequest request,
-            final HttpServletResponse response)
-                throws ServletException, IOException {
-
-        processRequest(request, response);
-    }
-
-    /** {@inherit}
-     */
-    protected void doPost(
-            final HttpServletRequest request,
-            final HttpServletResponse response)
-                throws ServletException, IOException {
-
-        processRequest(request, response);
-    }
-
-    /** {@inherit}
-     */
+    @Override
     public String getServletInfo() {
 
         return "Servlet responsible for serving resources. Goes in hand with search-portal/site-spi";
     }
 
+    /** {@inherit}
+     */
+    @Override
     public void init(final ServletConfig config) {
 
         defaultLastModified = System.currentTimeMillis();
@@ -215,14 +107,105 @@ public final class ResourceServlet extends HttpServlet {
         }
     }
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+     * This servlet ignores URL parameters and POST content, as all the information is in the path,
+     * so it really doesn't matter if it is a GET or POST.
+     *
+     * Checks:
+     *  - resource exists,
+     *  - correct path is being used,
+     *  - configuration/template resources are only accessed by schibsted machines,
+     *
+     * The resource is served to the ServletOutputStream byte by byte from
+     *  getClass().getResourceAsStream(..)
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws javax.servlet.ServletException if ServletException occurs
+     * @throws java.io.IOException if IOException occurs
+     */
+    protected void processRequest(
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+                throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF-8"); // correct encoding
+
+        // Get resource name. Also strip the version number out of the resource
+        final String configName = request.getPathInfo().replaceAll("/(\\d)+/","/");
+
+        if( configName != null && configName.trim().length() > 0 ){
+
+
+            final String extension = configName.substring(configName.lastIndexOf('.') + 1).toLowerCase();
+            final String ipAddr = null != request.getAttribute(REMOTE_ADDRESS_KEY)
+                ? (String) request.getAttribute(REMOTE_ADDRESS_KEY)
+                : request.getRemoteAddr();
+
+            // Content-Type
+            response.setContentType(CONTENT_TYPES.get(extension) + ";charset=UTF-8");
+
+            // Path check. Resource can only be loaded through correct path.
+            final String directory = request.getServletPath();
+            if (null != CONTENT_PATHS.get(extension) && directory.indexOf(CONTENT_PATHS.get(extension)) >= 0) {
+
+                // ok, check configuration resources are private.
+                LOG.trace(DEBUG_CLIENT_IP + ipAddr);
+
+                if (RESTRICTED.contains(extension) && !isIpAllowed(ipAddr)) {
+
+                    response.setContentType("text/html;charset=UTF-8");
+                    response.getOutputStream().print(ERR_RESTRICTED_AREA);
+                    LOG.warn(ipAddr + ERR_TRIED_TO_ACCESS);
+
+                }  else  {
+
+                    serveResource(configName, request, response);
+                }
+            }  else  {
+                // not allowed to cross-reference resources.
+                response.sendError(HttpServletResponse.SC_NOT_FOUND);
+                LOG.warn(ipAddr + ERR_TRIED_TO_CROSS_REFERENCE);
+            }
+        }
+    }
 
     /** {@inherit}
      */
+    @Override
+    protected void doGet(
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+                throws ServletException, IOException {
+
+        processRequest(request, response);
+    }
+
+    /** {@inherit}
+     */
+    @Override
+    protected void doPost(
+            final HttpServletRequest request,
+            final HttpServletResponse response)
+                throws ServletException, IOException {
+
+        processRequest(request, response);
+    }
+
+    /** Assigned to the time when the servlet is initialised via the init(ServletConfig) method.
+     * Any redeployment of the skin results in an update in the last-modified response header.
+     * Editing the files "in-place" on disk will not have any effect on the last-modified header.
+     * 
+     * @param req incoming HttpServletRequest request
+     * @returns last-modified header (in milliseconds)
+     **/
+    @Override
     protected long getLastModified(final HttpServletRequest req) {
         return defaultLastModified;
     }
 
-    private void serveResource(
+    private static void serveResource(
             final String configName,
             final HttpServletRequest request,
             final HttpServletResponse response)
@@ -232,7 +215,7 @@ public final class ResourceServlet extends HttpServlet {
 
         try  {
 
-            is = getClass().getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
+            is = ResourceServlet.class.getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
 
             if (is != null) {
 
@@ -245,15 +228,14 @@ public final class ResourceServlet extends HttpServlet {
                 response.setHeader("Cache-Control", "Public");
                 response.setDateHeader("Expires", Long.MAX_VALUE);
 
-                response.setStatus(HttpServletResponse.SC_OK);
-
                 // Output the resource byte for byte
+                final OutputStream os = response.getOutputStream();
                 for (int b = is.read(); b >= 0; b = is.read()) {
-                     response.getOutputStream().write(b);
+                     os.write(b);
                 }
 
                 // commit response now
-                response.getOutputStream().flush();
+                os.flush();
 
             }  else  {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
@@ -267,4 +249,22 @@ public final class ResourceServlet extends HttpServlet {
             }
         }
     }
+    
+
+    /**
+     * Returns wether we allow the ipaddress or not.
+     * @param ipAddr the ipaddress to check
+     */
+    private boolean isIpAllowed(String ipAddr) {
+
+	 boolean allowed =
+                 ipAddr.startsWith("127.") || ipAddr.startsWith("10.") || ipAddr.startsWith("0:0:0:0:0:0:0:1%0");
+
+         for(String s : ipaddressesAllowed){
+             allowed |= ipAddr.startsWith(s);
+         }
+         return allowed;
+
+    }
+    
 }
