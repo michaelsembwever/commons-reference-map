@@ -205,7 +205,7 @@ public final class ResourceServlet extends HttpServlet {
         return defaultLastModified;
     }
 
-    private static void serveResource(
+    private void serveResource(
             final String configName,
             final HttpServletRequest request,
             final HttpServletResponse response)
@@ -219,8 +219,7 @@ public final class ResourceServlet extends HttpServlet {
 
             if (is != null) {
 
-                // Write response headers before response data according to javadoc to
-                //  HttpServlet.html#doGet(..)
+                // Write response headers before response data according to javadoc for HttpServlet.html#doGet(..)
 
                 // Allow this URL to be cached indefinitely.
                 //  Each jvm restart alters the number that appears in the URL being enough to ensure
@@ -228,14 +227,21 @@ public final class ResourceServlet extends HttpServlet {
                 response.setHeader("Cache-Control", "Public");
                 response.setDateHeader("Expires", Long.MAX_VALUE);
 
-                // Output the resource byte for byte
-                final OutputStream os = response.getOutputStream();
-                for (int b = is.read(); b >= 0; b = is.read()) {
-                     os.write(b);
-                }
+                // Avoid writing out the response body if it's a HEAD request or a GET that the browser has cache for
+                boolean writeBody = !"HEAD".equals(request.getMethod());
+                writeBody &= request.getDateHeader("If-Modified-Since") <= defaultLastModified;
+                        
+                if( writeBody ){
+                    
+                    // Output the resource byte for byte
+                    final OutputStream os = response.getOutputStream();
+                    for (int b = is.read(); b >= 0; b = is.read()) {
+                         os.write(b);
+                    }
 
-                // commit response now
-                os.flush();
+                    // commit response now
+                    os.flush();
+                }
 
             }  else  {
                 response.sendError(HttpServletResponse.SC_NOT_FOUND);
