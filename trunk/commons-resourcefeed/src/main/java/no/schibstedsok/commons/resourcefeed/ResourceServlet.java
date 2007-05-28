@@ -10,14 +10,14 @@ package no.schibstedsok.commons.resourcefeed;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.jar.JarFile;
+import java.util.jar.JarEntry;
+import java.net.URL;
+import java.lang.reflect.Method;
+import java.lang.reflect.InvocationTargetException;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,7 +25,7 @@ import org.apache.log4j.Logger;
 
 /** Resource Provider.
  * Serves configuration files (properties, xml), css, gifs, jpgs, javascript,
- *  and velocity templates for search-portal.
+ * classes, jar files and velocity templates for search-portal.
  * Css, images, and javascript require direct access from client.
  *
  * @author <a href="mailto:mick@wever.org">Michael Semb Wever</a>
@@ -50,6 +50,8 @@ public final class ResourceServlet extends HttpServlet {
 
     private long defaultLastModified = 0;
     private String[] ipaddressesAllowed = new String[]{};
+
+    private ServletConfig servletConfig;
 
     static {
         // The different extension to content type mappings
@@ -80,6 +82,8 @@ public final class ResourceServlet extends HttpServlet {
      */
     @Override
     public void init(final ServletConfig config) {
+
+        this.servletConfig = config;
 
         defaultLastModified = System.currentTimeMillis();
         LOG.info(DEBUG_DEFAULT_MODIFCATION_TIMESTAMP + defaultLastModified);
@@ -160,7 +164,6 @@ public final class ResourceServlet extends HttpServlet {
                     LOG.warn(ipAddr + ERR_TRIED_TO_ACCESS);
 
                 }  else  {
-
                     serveResource(configName, request, response);
                 }
             }  else  {
@@ -214,8 +217,8 @@ public final class ResourceServlet extends HttpServlet {
         InputStream is = null;
 
         try  {
-
-            is = ResourceServlet.class.getResourceAsStream( (configName.startsWith("/") ? "" :  '/') + configName);
+            is = configName.endsWith(".jar")
+                    ? getJarStream(configName) : ResourceServlet.class.getResourceAsStream(configName);
 
             if (is != null) {
 
@@ -255,7 +258,30 @@ public final class ResourceServlet extends HttpServlet {
             }
         }
     }
-    
+
+    private InputStream getJarStream(final String resource) {
+        Set paths = servletConfig.getServletContext().getResourcePaths("/WEB-INF/lib");
+
+        final String baseName = resource.replace(".jar", "");
+
+        try {
+            for (Iterator iterator = paths.iterator(); iterator.hasNext();) {
+
+                final String path = (String) iterator.next();
+
+                // Req. for jars can be done without the version suffix. A request for query-transform.jar might
+                // return the file query-transform-2.11-SNAPSHOT.jar. 
+                if (path.contains(baseName)) {
+                    final URL url = servletConfig.getServletContext().getResource(path);
+                    return url.openConnection().getInputStream();
+                }
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
 
     /**
      * Returns wether we allow the ipaddress or not.
@@ -272,5 +298,5 @@ public final class ResourceServlet extends HttpServlet {
          return allowed;
 
     }
-    
+
 }
