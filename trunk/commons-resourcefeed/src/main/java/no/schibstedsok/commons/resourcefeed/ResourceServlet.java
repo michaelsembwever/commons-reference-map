@@ -7,21 +7,23 @@
 package no.schibstedsok.commons.resourcefeed;
 
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.*;
-import java.util.jar.JarFile;
-import java.util.jar.JarEntry;
-import java.net.URL;
-import java.lang.reflect.Method;
-import java.lang.reflect.InvocationTargetException;
+import org.apache.log4j.Logger;
+
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.log4j.Logger;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.URL;
+import java.util.HashMap;
+import java.util.Set;
+import java.util.Map;
+import java.util.HashSet;
+import java.util.Arrays;
+import java.util.Iterator;
 
 /** Resource Provider.
  * Serves configuration files (properties, xml), css, gifs, jpgs, javascript,
@@ -70,7 +72,8 @@ public final class ResourceServlet extends HttpServlet {
         CONTENT_TYPES.put("jar", "application/java-archive");
     }
 
-    /** {@inherit}
+    /**
+     * {@inheritDoc}
      */
     @Override
     public String getServletInfo() {
@@ -78,7 +81,8 @@ public final class ResourceServlet extends HttpServlet {
         return "Servlet responsible for serving resources. Goes in hand with search-portal/site-spi";
     }
 
-    /** {@inherit}
+    /**
+     * {@inheritDoc}
      */
     @Override
     public void init(final ServletConfig config) {
@@ -90,21 +94,21 @@ public final class ResourceServlet extends HttpServlet {
 
         final String allowed = config.getInitParameter("ipaddresses.allowed");
         LOG.info("allowing ipaddresses " + allowed);
-        if( null != allowed && allowed.length() >0 ){
+        if (null != allowed && allowed.length() >0) {
             ipaddressesAllowed = allowed.split(",");
         }
 
         final String restricted = config.getInitParameter("resources.restricted");
         LOG.info("restricted resources " + restricted);
-        if( null != restricted && restricted.length()>0 ){
+        if (null != restricted && restricted.length()>0) {
             RESTRICTED.addAll(Arrays.asList(restricted.split(",")));
         }
 
         final String paths = config.getInitParameter("content.paths");
         LOG.info("content path mappings " + paths);
-        if( null != paths && paths.length()>0 ){
+        if (null != paths && paths.length()>0) {
             final String[] pathArr = paths.split(",");
-            for( String path : pathArr){
+            for (String path : pathArr) {
                 final String[] pair = path.split("=");
                 CONTENT_PATHS.put(pair[0], pair[1]);
             }
@@ -139,7 +143,7 @@ public final class ResourceServlet extends HttpServlet {
         // Get resource name. Also strip the version number out of the resource
         final String configName = request.getPathInfo().replaceAll("/(\\d)+/","/");
 
-        if( configName != null && configName.trim().length() > 0 ){
+        if (configName != null && configName.trim().length() > 0) {
 
 
             final String extension = configName.substring(configName.lastIndexOf('.') + 1).toLowerCase();
@@ -174,7 +178,8 @@ public final class ResourceServlet extends HttpServlet {
         }
     }
 
-    /** {@inherit}
+    /**
+     * {@inheritDoc}
      */
     @Override
     protected void doGet(
@@ -185,7 +190,8 @@ public final class ResourceServlet extends HttpServlet {
         processRequest(request, response);
     }
 
-    /** {@inherit}
+    /**
+     * {@inheritDoc}
      */
     @Override
     protected void doPost(
@@ -199,9 +205,9 @@ public final class ResourceServlet extends HttpServlet {
     /** Assigned to the time when the servlet is initialised via the init(ServletConfig) method.
      * Any redeployment of the skin results in an update in the last-modified response header.
      * Editing the files "in-place" on disk will not have any effect on the last-modified header.
-     * 
+     *
      * @param req incoming HttpServletRequest request
-     * @returns last-modified header (in milliseconds)
+     * @return last-modified header (in milliseconds)
      **/
     @Override
     protected long getLastModified(final HttpServletRequest req) {
@@ -233,9 +239,9 @@ public final class ResourceServlet extends HttpServlet {
                 // Avoid writing out the response body if it's a HEAD request or a GET that the browser has cache for
                 boolean writeBody = !"HEAD".equals(request.getMethod());
                 writeBody &= request.getDateHeader("If-Modified-Since") <= defaultLastModified;
-                        
-                if( writeBody ){
-                    
+
+                if (writeBody) {
+
                     // Output the resource byte for byte
                     final OutputStream os = response.getOutputStream();
                     for (int b = is.read(); b >= 0; b = is.read()) {
@@ -260,17 +266,17 @@ public final class ResourceServlet extends HttpServlet {
     }
 
     private InputStream getJarStream(final String resource) {
-        Set paths = servletConfig.getServletContext().getResourcePaths("/WEB-INF/lib");
+        final Set paths = servletConfig.getServletContext().getResourcePaths("/WEB-INF/lib");
 
         final String baseName = resource.replace(".jar", "");
 
         try {
-            for (Iterator iterator = paths.iterator(); iterator.hasNext();) {
+            for (final Iterator iterator = paths.iterator(); iterator.hasNext();) {
 
                 final String path = (String) iterator.next();
 
                 // Req. for jars can be done without the version suffix. A request for query-transform.jar might
-                // return the file query-transform-2.11-SNAPSHOT.jar. 
+                // return the file query-transform-2.11-SNAPSHOT.jar.
                 if (path.contains(baseName)) {
                     final URL url = servletConfig.getServletContext().getResource(path);
                     return url.openConnection().getInputStream();
@@ -285,9 +291,11 @@ public final class ResourceServlet extends HttpServlet {
 
     /**
      * Returns wether we allow the ipaddress or not.
-     * @param ipAddr the ipaddress to check
+     * @param ipAddr the ipaddress to check.
+     *
+     * @return returns true if the ip address is trusted.
      */
-    private boolean isIpAllowed(String ipAddr) {
+   private boolean isIpAllowed(final String ipAddr) {
 
 	 boolean allowed =
                  ipAddr.startsWith("127.") || ipAddr.startsWith("10.") || ipAddr.startsWith("0:0:0:0:0:0:0:1%0");
