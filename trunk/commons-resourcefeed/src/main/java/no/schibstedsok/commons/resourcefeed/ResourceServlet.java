@@ -268,7 +268,7 @@ public final class ResourceServlet extends HttpServlet {
     private InputStream getJarStream(final String resource) {
         final Set paths = servletConfig.getServletContext().getResourcePaths("/WEB-INF/lib");
 
-        final String baseName = resource.replace(".jar", "");
+        final String baseName = resource.replace(".jar", "").replace("/", "");
 
         try {
             for (final Iterator iterator = paths.iterator(); iterator.hasNext();) {
