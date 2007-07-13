@@ -13,7 +13,7 @@
   <artifactId>commons-main</artifactId>
   <packaging>pom</packaging>
   <name>Schibstedsok Commons</name>
-  <version>1.11-SNAPSHOT</version>
+  <version>1.7-SNAPSHOT</version>
   <url>http://dev.schibstedsok.no/maven2/SITE/schibstedsok</url>
 
   <!-- 
