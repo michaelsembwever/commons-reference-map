@@ -712,7 +712,7 @@
   <distributionManagement>
     <site>
       <id>schsite</id>
-      <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2/SITE/schibstedsok-commons</url>
+      <url>scp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2/SITE/schibstedsok-commons</url>
     </site>
 
     <repository>
