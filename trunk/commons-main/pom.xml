@@ -718,13 +718,13 @@
     <repository>
       <id>schdevrepo</id>
       <name>Schibsted Sok Repository</name>
-      <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
+      <url>scp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
     </repository>
 
     <snapshotRepository>
       <id>schdevreposnapshots</id>
       <name>Schibsted Sok Snapshot</name>
-      <url>sftp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
+      <url>scp://sch-login01.osl.basefarm.net:/www/schibstedsok/data/httpd/dev.schibstedsok.no_443/htdocs/maven2</url>
     </snapshotRepository>
   </distributionManagement>
 
