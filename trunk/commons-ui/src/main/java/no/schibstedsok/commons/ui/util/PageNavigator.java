@@ -1,7 +1,7 @@
 /*
  * Copyright (2005-2006) Schibsted Søk AS
  */
-package no.schibstedsok.commons.ui.pagination;
+package no.schibstedsok.commons.ui.util;
 
 import java.util.ArrayList;
 import java.util.List;
