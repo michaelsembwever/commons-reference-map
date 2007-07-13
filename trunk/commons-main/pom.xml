@@ -47,6 +47,7 @@
           <!--
           <module>../commons-ioc</module>
           -->
+          <module>../commons-ui</module>
           <module>../commons-ldap</module>
           <module>../commons-ldap-sar</module>
           <module>../commons-log4j</module>
@@ -240,6 +241,13 @@
         <artifactId>bean-property-util</artifactId>
         <version>1.0.0</version>
         <scope>provided</scope>
+  
+      <dependency>
+        <groupId>schibstedsok</groupId>
+        <artifactId>commons-ui</artifactId>
+        <version>1.0</version>
+        <scope>provided</scope>
+      </dependency>
       </dependency>
   
       <dependency>
