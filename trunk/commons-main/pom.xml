@@ -86,6 +86,7 @@
         <!-- Set the svn path so release plugin can make new releases in tags -->
         <plugin>
           <artifactId>maven-release-plugin</artifactId>
+	  <version>2.0-beta-5</version>
           <configuration>
             <tagBase>https://dev.schibstedsok.no/svn/schibstedsok-commons/tags</tagBase>
             <generateReleasePom>false</generateReleasePom>
