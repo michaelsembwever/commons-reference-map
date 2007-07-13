@@ -241,15 +241,13 @@
         <artifactId>bean-property-util</artifactId>
         <version>1.0.0</version>
         <scope>provided</scope>
-  
+      </dependency>
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-ui</artifactId>
         <version>1.0</version>
         <scope>provided</scope>
       </dependency>
-      </dependency>
-  
       <dependency>
         <groupId>schibstedsok</groupId>
         <artifactId>commons-filters</artifactId>
