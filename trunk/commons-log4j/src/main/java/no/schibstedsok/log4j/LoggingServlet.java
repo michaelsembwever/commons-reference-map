@@ -45,6 +45,7 @@ public final class LoggingServlet extends HttpServlet {
 
     /** {@inheritDoc}
      */
+    @Override
     public void doGet(
             final HttpServletRequest request,
             final HttpServletResponse response) throws ServletException, IOException {
@@ -92,7 +93,7 @@ public final class LoggingServlet extends HttpServlet {
             for( String key : sortedList ){
                 Level level = (Level) unsorted.get(key);
                 String value = level.toString();
-
+                
                 // update if in request parameters
                 final String param = request.getParameter(key);
                 if (param != null && !param.equals(value)) {
@@ -104,7 +105,7 @@ public final class LoggingServlet extends HttpServlet {
                 }
                 // output html (if it's a schibstedsok logger). 
                 // developers will get the hang of how to change the non-displayed loggers if they want.
-                if( key.startsWith("no.schibstedsok.") ){
+                if( key.startsWith("no.sesat.") ){
                     final int option = getOption(level.toInt());
                     final String[] values = new String[]{"", "", "", "", "", "", "", ""};
                     values[option] = SELECTED;
@@ -161,6 +162,7 @@ public final class LoggingServlet extends HttpServlet {
         return option;
     }
 
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         doGet(req, resp);
     }
