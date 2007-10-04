@@ -8,7 +8,8 @@
 
 package no.schibstedsok.commons.ioc;
 
-import java.lang.reflect.Proxy;
+import no.sesat.commons.reflect.ConcurrentProxy;
+
 
 /** Utility class to create Proxy wrappers to a single defined context class from a list of context subclasses.
  *  Will fail if the list of contexts does not provide the complete implementation to the required proxy'd context.
@@ -36,13 +37,14 @@ public final class ContextWrapper {
      * It will proxy all methods to the first applicable
      * method found in the list of Contexts.
      */
+    @SuppressWarnings("unchecked")
     public static <T extends BaseContext> T wrap(
             final Class<T> context,
             final BaseContext... cxts) {
 
         final BasicInvocationHandler handler = new BasicInvocationHandler(cxts);
         assert handler.assertContextContract(context) : "Supplied contexts do not satisfy proxy's contract";
-        return (T)Proxy.newProxyInstance(context.getClassLoader(), new Class[]{context}, handler);
+        return (T)ConcurrentProxy.newProxyInstance(context.getClassLoader(), new Class<?>[]{context}, handler);
     }
 
    // Z implementation ----------------------------------------------

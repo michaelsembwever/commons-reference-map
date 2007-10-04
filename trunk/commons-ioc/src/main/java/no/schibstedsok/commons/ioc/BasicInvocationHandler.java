@@ -1,4 +1,4 @@
-/* Copyright (2005-2006) Schibsted Søk AS
+/* Copyright (2005-2007) Schibsted Søk AS
  *
  * BasicInvocationHandler.java
  *
@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
-import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 /** InvocationHandler implementation to be used by ContextWrapper.
