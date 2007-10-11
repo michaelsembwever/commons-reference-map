@@ -1,5 +1,19 @@
 /*
- * Copyright (2005-2006) Schibsted Søk AS
+ * Copyright (2005-2007) Schibsted Søk AS
+ *   This file is part of SESAT.
+ *
+ *   SESAT is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Affero General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   SESAT is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Affero General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Affero General Public License
+ *   along with SESAT.  If not, see <http://www.gnu.org/licenses/>.
  */
 package no.schibstedsok.log4j;
 
@@ -14,7 +28,7 @@ import org.apache.log4j.spi.LoggingEvent;
  * of emails.
  *
  * @author <a href="mailto:endre@sesam.no">Endre Meckelborg Rognerud</a>
- * @version <tt>$Revision: $</tt>
+ * @version <tt>$Id$</tt>
  */
 public final class Log4jDelayFilter extends Filter {
 
