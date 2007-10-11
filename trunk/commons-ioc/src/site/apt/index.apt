@@ -1,6 +1,8 @@
 IoC - Inversion of Control. 
 
-    A light-weight, framework independant, implementation of the Inversion of Control pattern.
+    "Context IOC on the other hand is *Inversion of Control at its purest* - just a pattern for design without any baggage."
+
+    A light-weight, framework independant, addition to the Contextual Inversion of Control pattern.
 
     Uses the contextual approach where classes with dependency requirements define an inner "Context" interface
 extending the BaseContext interface and accept an implementation of it in the constructor.
@@ -11,16 +13,15 @@ better.
     For projects with a deep IoC rather than a broad but shallow chain, where common dependencies are defined and
 used at each level the utility class ContextWrapper allows BaseContext implementations to be 'wrapped' into
 a different BaseContext implementation. This provides an ordered Proxy stack on contexts where the first
-matching method signature is used for any method invocation. Methods matched are cached per proxy instance
-to improve performance. A ~10% performance improvement was achieved against the search-portal project.
+matching method signature is used for any method invocation. Reflection results are cached per proxy instance
+to improve performance(~10%).
 
     Because compile-time safety is lost against this proxy stack, by enabling assertions it is possible to check
 that all methods that the top-level Proxy is intended to implement are infact found somewhere down the stack
-on the first invocation call on the Proxy. It is hoped that this can be achieved through compile-time
-annotations and the JSR 269 "Pluggable Annotation Processing API".
+on the first invocation call on the Proxy.
 
     The primary benefit of using this library over other IoC libraries is that it is incredibly light-weight, and
-completely framework independant, unlike both Spring's and JBoss's IoC Containers.
+completely framework independant, unlike implementations from Spring, Plexus, and JBoss.
 
     A secondary benefit is its simplity. With only two public classes and only one public method in total it is a
 straight forward API to use.
