@@ -133,7 +133,8 @@ public final class ReferenceMap<K,V> {
             }
         }
 
-        return cache.put(key, type.createReference(this, key, value)).get();
+        final Reference<V> change = cache.put(key, type.createReference(this, key, value));
+        return null != change ? change.get() : null;
     }
 
     /**
