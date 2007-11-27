@@ -20,9 +20,9 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
-      <groupId>schibstedsok</groupId>
+      <groupId>sesat</groupId>
       <artifactId>commons-main</artifactId>
-      <version>1.5</version>
+      <version>1.9-SNAPSHOT</version>
     </parent>
    
     <modelVersion>4.0.0</modelVersion>
@@ -36,7 +36,7 @@
         IoC - Inversion of Control. 
          A light-weight, framework independant, implementation of the Inversion of Control pattern.
     </description>
-    <url>https://dev.schibstedsok.no/maven2/SITE/schibstedsok-commons/commons-ioc/</url>
+    <url>https://sesat.no/sesat-commons/commons-ioc/</url>
 
     <developers>
         <developer>
@@ -75,9 +75,9 @@
     </dependencies>
     <repositories>
         <repository>
-            <id>Sesam</id>
-            <name>Local Maven2 Repository</name>
-            <url>https://dev.schibstedsok.no/maven2</url>
+            <id>Sesat</id>
+            <name>Sesat Maven2 Repository</name>
+            <url>https://sesat.no/maven2</url>
         </repository>
     </repositories>
 </project>
