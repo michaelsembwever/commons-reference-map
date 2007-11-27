@@ -58,6 +58,17 @@
     </license>
   </licenses>
 
+        <mailingList>
+            <name>User & Development List</name>
+            <post>commons-development@sesat.no</post>
+            <archive>http://sesat.no/pipermail/commons-development/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commit List</name>
+            <archive>http://sesat.no/pipermail/commons-commits/</archive>
+        </mailingList>
+
+
   <build>
       <plugins>
         <!-- Set the source to UTF 8 -->
