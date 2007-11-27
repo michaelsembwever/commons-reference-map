@@ -58,8 +58,9 @@
     </license>
   </licenses>
 
+     <mailingLists>
         <mailingList>
-            <name>User & Development List</name>
+            <name>User &amp; Development List</name>
             <post>commons-development@sesat.no</post>
             <archive>http://sesat.no/pipermail/commons-development/</archive>
         </mailingList>
@@ -67,7 +68,7 @@
             <name>Commit List</name>
             <archive>http://sesat.no/pipermail/commons-commits/</archive>
         </mailingList>
-
+     </mailingLists>
 
   <build>
       <plugins>
