@@ -45,9 +45,9 @@
   </organization>
 
   <scm>
-    <connection>scm:svn:http://sesat.no/svn/sesat-commons/${artifactId}/trunk</connection>
-    <developerConnection>scm:svn:http://sesat.no/svn/schibstedsok-commons/${artifactId}/trunk</developerConnection>
-    <url>http://sesat.no/svn/sesat-commons/${artifactId}/trunk</url>
+    <connection>scm:svn:http://sesat.no/svn/sesat-commons/</connection>
+    <developerConnection>scm:svn:http://sesat.no/svn/schibstedsok-commons/</developerConnection>
+    <url>http://sesat.no/svn/sesat-commons/${artifactId}</url>
   </scm>  
 
   <licenses>
@@ -675,7 +675,7 @@
         <plugin>
           <artifactId>maven-checkstyle-plugin</artifactId>
           <configuration>
-            <configLocation>http://sesat.no/checkstyle/conf/schibstedsok_checks.xml</configLocation>
+            <configLocation>http://sesat.no/svn/sesat-commons/checkstyle/conf/schibstedsok_checks.xml</configLocation>
           </configuration>
         </plugin>
         <plugin>
