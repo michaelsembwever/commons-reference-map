@@ -36,7 +36,7 @@
         IoC - Inversion of Control. 
          A light-weight, framework independant, implementation of the Inversion of Control pattern.
     </description>
-    <url>https://sesat.no/sesat-commons/commons-ioc/</url>
+    <url>http://sesat.no/sesat-commons/commons-ioc/</url>
 
     <developers>
         <developer>
@@ -77,7 +77,7 @@
         <repository>
             <id>Sesat</id>
             <name>Sesat Maven2 Repository</name>
-            <url>https://sesat.no/maven2</url>
+            <url>http://sesat.no/maven2</url>
         </repository>
     </repositories>
 </project>
