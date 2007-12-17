@@ -649,20 +649,20 @@
   <!-- Common information for all subpoms, needed for release -->
   <distributionManagement>
     <site>
-      <id>Sesat</id>
-      <url>scp://sesat.no:/var/www/sesat.no/htdocs/projects/sesat-commons</url>
+      <id>Sesat ssh-repo</id>
+      <url>scpexe://sesat.no:/var/www/sesat.no/htdocs/projects/sesat-commons</url>
     </site>
 
     <repository>
-      <id>Sesat</id>
+      <id>Sesat ssh-repo</id>
       <name>Sesat Repository</name>
-      <url>scp://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
+      <url>scpexe://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
     </repository>
 
     <snapshotRepository>
-      <id>Sesat</id>
+      <id>Sesat ssh-repo</id>
       <name>Sesat Snapshot</name>
-      <url>scp://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
+      <url>scpexe://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
     </snapshotRepository>
   </distributionManagement>
 
