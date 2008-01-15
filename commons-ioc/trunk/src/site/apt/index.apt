@@ -26,4 +26,4 @@ completely framework independant, unlike implementations from Spring, Plexus, an
     A secondary benefit is its simplity. With only two public classes and only one public method in total it is a
 straight forward API to use.
 
-    Read {{apidocs/no/schibstedsok/common/ioc/package-summary.html}} for more.
+    Read {{apidocs/}} for more.
