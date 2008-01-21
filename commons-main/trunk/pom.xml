@@ -663,6 +663,7 @@
       <id>Sesat ssh-repo</id>
       <name>Sesat Snapshot</name>
       <url>scpexe://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
+      <uniqueVersion>false</uniqueVersion>
     </snapshotRepository>
   </distributionManagement>
 
