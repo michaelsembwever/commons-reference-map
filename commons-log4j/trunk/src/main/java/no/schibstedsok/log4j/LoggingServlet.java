@@ -126,6 +126,15 @@ public final class LoggingServlet extends HttpServlet {
 
         try  {
 
+            // developers will get the hang of how to change the non-displayed loggers if they want.
+            final String pakage = request.getParameter(PACKAGE_FILTER);
+            if(null == pakage || 0 == pakage.length()){
+                buffer.append("<tr><td>"
+                        + "<b>Use the <i>show</i> parameter to display loggers.</b><br/>"
+                        + "For example <i>show=no.sesat</i> to display all no.sesat.. loggers."
+                        + "</td></tr>");
+            }
+
             for( String key : sortedList ){
                 Level level = unsorted.get(key);
                 String value = level.toString();
@@ -140,14 +149,6 @@ public final class LoggingServlet extends HttpServlet {
                     value = param;
                 }
                 // output html
-                // developers will get the hang of how to change the non-displayed loggers if they want.
-                final String pakage = request.getParameter(PACKAGE_FILTER);
-                if(null != pakage && 0 < pakage.length()){
-                    buffer.append("<tr><td>"
-                            + "<b>Use the <i>show</i> parameter to display loggers.</b><br/>"
-                            + "For example <i>show=no.sesat</i> to display all no.sesat.. loggers."
-                            + "</td></tr>");
-                }
                 if(null != pakage && 0 < pakage.length() && key.startsWith(pakage) ){
                     final int option = getOption(level.toInt());
                     final String[] values = new String[]{"", "", "", "", "", "", "", ""};
