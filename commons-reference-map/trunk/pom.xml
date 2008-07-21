@@ -32,18 +32,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <description>
-        Weak or Soft Reference Map implementation.
-Provides a Map where values are referenced either weakly or softly. This can be used to cache immutable objects without preventing them from bing garbaged collected.
-
-Concurrency and synchronisation of this class fallbacks to the Map implementation passed in as the cache parameter in the constructor. For example: use a Hashtable for synchronised access, 
-a ConcurrentHashMap for concurrent access, and a HashMap for single threaded access (make sure to specify the argument indicating single thread use).
-
-This implementation improves over org.apache.commons.collections.map.ReferenceMap in that the synchronisation and concurrency is determined through delegation to the map supplied in the 
-constructor as described above. 
-
-Typically used by flyweight pattern implementations where the object itself cannot be used as the key in the cache due to object creation costs.
-    </description>
+    <description> Weak and Soft Key+Value Reference Map implementation.</description>
     <url>https://sesat.no/sesat-commons/commons-reference-map/</url>
 
     <developers>
