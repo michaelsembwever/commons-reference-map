@@ -1,4 +1,4 @@
-/* Copyright (2007) Schibsted Søk AS
+/* Copyright (2007-2008) Schibsted Søk AS
  * This file is part of SESAT.
  *
  *   SESAT is free software: you can redistribute it and/or modify
@@ -15,14 +15,11 @@
  *   along with SESAT.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-
 package no.sesat.commons.ref;
 
-import java.lang.ref.Reference;
-import java.lang.ref.ReferenceQueue;
+import java.lang.ref.*;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Level;
+
 import org.apache.log4j.Logger;
 
 /** Provides a Map where values are referenced either weakly or softly.
@@ -31,7 +28,7 @@ import org.apache.log4j.Logger;
  * Concurrency and synchronisation of this class fallbacks to the Map implementation passed in as the cache parameter
  *  in the constructor. For example: use a Hashtable for synchronised access, a ConcurrentHashMap for concurrent access,
  *  and a HashMap for single threaded access (make sure to specify the argument indicating single thread use).
- * 
+ *
  * <br/><br/>
  *
  * This implementation improves over org.apache.commons.collections.map.ReferenceMap in that the synchronisation and
@@ -39,10 +36,9 @@ import org.apache.log4j.Logger;
  *
  * @param K
  * @param V
- * @author mick semb wever  - mick@semb.wever.org
  * @version $Id$
  */
-public final class ReferenceMap<K,V> {
+public final class ReferenceMap<K,V extends Object> {
 
     public enum Type {
         WEAK,
@@ -61,7 +57,6 @@ public final class ReferenceMap<K,V> {
             }
             throw new IllegalStateException("Please implement createReference(..) for " + toString());
         }
-
     }
 
     // Constants -----------------------------------------------------
@@ -72,41 +67,38 @@ public final class ReferenceMap<K,V> {
 
     private final Type type;
     private final Map<K,Reference<V>> cache;
-    private final ReferenceQueue<V> queue = new ReferenceQueue<V>();
     private final boolean singleThreaded;
-    private final ReferenceCleaner cleaner;
 
     // Static --------------------------------------------------------
+
+    private static final ReferenceQueue<Object> queue = new ReferenceQueue<Object>();
+    private static final ReferenceCleaner cleaner = new ReferenceCleaner(queue);
+
+    static {
+        cleaner.start();
+    }
 
     // Constructors --------------------------------------------------
 
     /**
-     * 
+     *
      * @param type
      * @param cache
      */
     public ReferenceMap(final Type type, final Map<K,Reference<V>> cache) {
         this(type, cache, false);
     }
-    
+
     /**
-     * 
+     *
      * @param type
      * @param cache
      * @param singleThreaded
      */
     public ReferenceMap(final Type type, final Map<K,Reference<V>> cache, final boolean singleThreaded) {
-
         this.type = type;
         this.cache = cache;
         this.singleThreaded = singleThreaded;
-        
-        if(singleThreaded){
-            cleaner = null;
-        }else{
-            cleaner = new ReferenceCleaner();
-            cleaner.start();
-        }
     }
 
     // Public --------------------------------------------------------
@@ -118,18 +110,17 @@ public final class ReferenceMap<K,V> {
      * @return
      */
     public V put(final K key, final V value) {
-
         // log cache size every 100 increments
         if(LOG.isInfoEnabled() && cache.size() % 100 == 0){
             LOG.info(value.getClass().getSimpleName() + " cache size is "  + cache.size());
         }
-        
+
         // clean if in single threaded mode
         if(singleThreaded){
-            Reference<? extends V> reference = queue.poll();
+            Reference<?> reference = (Reference<?>)queue.poll();
             while(null != reference){
                 reference.clear();
-                reference = queue.poll();
+                reference = (Reference<?>)queue.poll();
             }
         }
 
@@ -200,27 +191,26 @@ public final class ReferenceMap<K,V> {
         }
     }
 
-    private final class ReferenceCleaner extends Thread{
+    private final static class ReferenceCleaner extends Thread{
 
-        ReferenceCleaner(){
+        private final ReferenceQueue<?> queue;
 
+        ReferenceCleaner(ReferenceQueue<?> queue){
+            super("ReferenceMap.ReferenceCleaner");
+            this.queue = queue;
             setPriority(Thread.MAX_PRIORITY);
             setDaemon(true);
         }
 
         @Override
         public void run() {
-
             while(true){
                 try {
                     queue.remove().clear();
-
                 }catch (InterruptedException ex) {
                     LOG.error(ex.getMessage(), ex);
                 }
             }
         }
-
-
     }
 }
