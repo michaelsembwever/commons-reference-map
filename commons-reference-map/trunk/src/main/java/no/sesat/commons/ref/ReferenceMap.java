@@ -139,6 +139,11 @@ public final class ReferenceMap<K,V extends Object> {
         return null != reference ? reference.get() : null;
     }
 
+    @Override
+    public String toString() {
+        return super.toString() + " Type:" + type + " Size:" + cache.size();
+    }
+
     // Package protected ---------------------------------------------
 
     // Protected -----------------------------------------------------
