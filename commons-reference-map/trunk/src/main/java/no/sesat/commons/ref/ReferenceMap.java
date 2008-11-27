@@ -34,8 +34,8 @@ import org.apache.log4j.Logger;
  * This implementation improves over org.apache.commons.collections.map.ReferenceMap in that the synchronisation and
  *  concurrency is determined through delegation to the map supplied in the constructor as described above.   <br/><br/>
  *
- * @param K
- * @param V
+ * @param <K> key type
+ * @param <V> value type
  * @version $Id$
  */
 public final class ReferenceMap<K,V extends Object> {
@@ -111,8 +111,8 @@ public final class ReferenceMap<K,V extends Object> {
      */
     public V put(final K key, final V value) {
         // log cache size every 100 increments
-        if(LOG.isInfoEnabled() && cache.size() % 100 == 0){
-            LOG.info(value.getClass().getSimpleName() + " cache size is "  + cache.size());
+        if(LOG.isDebugEnabled() && cache.size() % 100 == 0){
+            LOG.debug(value.getClass().getSimpleName() + " cache size is "  + cache.size());
         }
 
         // clean if in single threaded mode
