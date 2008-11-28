@@ -19,7 +19,7 @@
  * Created on 21 February 2006, 18:38
  */
 
-package no.schibstedsok.commons.ioc;
+package no.sesat.commons.ioc;
 
 /** The Base Context all contexts describing a class's contextual 'inversion-of-control' (dependencies) must extend.
  * This interface does not enforce any behaviour. It is only used so BasicInvocationHandler deals with contexts

@@ -20,7 +20,7 @@
  *
  */
 
-package no.schibstedsok.commons.ioc;
+package no.sesat.commons.ioc;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;

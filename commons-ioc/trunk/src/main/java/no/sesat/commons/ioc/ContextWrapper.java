@@ -20,7 +20,7 @@
  *
  */
 
-package no.schibstedsok.commons.ioc;
+package no.sesat.commons.ioc;
 
 import no.sesat.commons.reflect.ConcurrentProxy;
 
