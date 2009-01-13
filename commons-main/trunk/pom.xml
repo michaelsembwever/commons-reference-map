@@ -41,8 +41,8 @@
 
     <scm>
         <connection>scm:svn:http://sesat.no/svn/sesat-commons/</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/schibstedsok-commons/</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/${artifactId}</url>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/</url>
     </scm>
 
     <licenses>
