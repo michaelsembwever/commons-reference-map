@@ -695,17 +695,17 @@
             <plugin>
                 <artifactId>maven-project-info-reports-plugin</artifactId>
             </plugin>
-            <plugin>
+            <!--plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-changelog-plugin</artifactId>
-             <!-- maven-changelog-plugin disabled on children. see http://jira.codehaus.org/browse/MCHANGELOG-75 -->
+              maven-changelog-plugin disabled on children. see http://jira.codehaus.org/browse/MCHANGELOG-75 
                 <inherited>false</inherited>
                 <configuration>
                     <aggregate>true</aggregate>
                     <type>range</type>
                     <range>3650</range>
                 </configuration>
-            </plugin>
+            </plugin-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>jdepend-maven-plugin</artifactId>
