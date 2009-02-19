@@ -101,12 +101,12 @@
         <!-- Reporting -->
                <plugin>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.3</version>
+                    <version>2.5</version>
                </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>jdepend-maven-plugin</artifactId>
-                    <version>2.0-beta-1</version>
+                    <version>2.0-beta-2</version>
                 </plugin>
         </plugins>
     </build>
@@ -116,9 +116,7 @@
             <id>Sesat</id>
             <name>Sesat Repository</name>
             <url>http://sesat.no/maven2</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
+            <snapshots><enabled>true</enabled></snapshots>
         </repository>
         <repository>
             <id>Central</id>
@@ -136,11 +134,9 @@
             <url>http://builds.osafoundation.org/maven2</url>
         </repository>
         <repository>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
             <id>Maven Snapshots</id>
             <url>http://snapshots.maven.codehaus.org/maven2/</url>
+            <releases><enabled>false</enabled></releases>
         </repository>
     </repositories>
 
