@@ -138,6 +138,11 @@
             <url>http://snapshots.maven.codehaus.org/maven2/</url>
             <releases><enabled>false</enabled></releases>
         </repository>
+        <repository>
+          <id>jboss</id>
+          <name>JBoss Repository for Maven2</name>
+          <url>http://repository.jboss.com/maven2</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
