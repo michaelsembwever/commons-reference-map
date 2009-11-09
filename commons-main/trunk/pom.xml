@@ -14,7 +14,7 @@
  *   GNU Lesser General Public License for more details.
  *
  *   You should have received a copy of the GNU Lesser General Public License
- *   along with Sesat Commons.  If not, see <http://www.gnu.org/licenses/>.
+ *   along with Sesat Commons.  If not, see <http://www.gnu.org/licenses />.
  -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
@@ -23,7 +23,7 @@
     <artifactId>commons-main</artifactId>
     <packaging>pom</packaging>
     <name>Sesat Commons</name>
-    <version>1.9-SNAPSHOT</version>
+    <version>1.9</version>
     <url>http://sesat.no/projects/sesat-commons</url>
 
   <!-- 
@@ -40,9 +40,9 @@
     </organization>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/</url>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main-1.9</connection>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/null/tags/commons-main-1.9</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/commons-main-1.9</url>
     </scm>
 
     <licenses>
