@@ -23,7 +23,7 @@
     <artifactId>commons-main</artifactId>
     <packaging>pom</packaging>
     <name>Sesat Commons</name>
-    <version>1.9</version>
+    <version>1.10-SNAPSHOT</version>
     <url>http://sesat.no/projects/sesat-commons</url>
 
   <!-- 
@@ -40,9 +40,9 @@
     </organization>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</url>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/trunk</connection>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/trunk</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/commons-main/trunk</url>
     </scm>
 
     <licenses>
