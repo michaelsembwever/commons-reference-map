@@ -1,0 +1,810 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Copyright (2005-2007) Schibsted Søk AS
+ *   This file is part of Sesat Commons.
+ *
+ *   Sesat Commons is free software: you can redistribute it and/or modify
+ *   it under the terms of the GNU Lesser General Public License as published by
+ *   the Free Software Foundation, either version 3 of the License, or
+ *   (at your option) any later version.
+ *
+ *   Sesat Commons is distributed in the hope that it will be useful,
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *   GNU Lesser General Public License for more details.
+ *
+ *   You should have received a copy of the GNU Lesser General Public License
+ *   along with Sesat Commons.  If not, see <http://www.gnu.org/licenses />.
+ -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>sesat</groupId>
+    <artifactId>commons-main</artifactId>
+    <packaging>pom</packaging>
+    <name>Sesat Commons</name>
+    <version>1.9</version>
+    <url>http://sesat.no/projects/sesat-commons</url>
+
+  <!-- 
+   |  Default Scm Paths.. 
+   |  The applications that inherits this pom must set groupId and artifatId so they
+   |  match the subversion paths... 
+  -->
+  
+    <description> All common settings for Sesat  </description>
+  
+    <organization>
+        <name>Schibsted Søk AS</name>
+        <url>http://sesat.no/</url>
+    </organization>
+
+    <scm>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</connection>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</url>
+    </scm>
+
+    <licenses>
+        <license>
+            <name>LGPLv3</name>
+            <url>LICENSE.txt</url>
+            <distribution>manual</distribution>
+        </license>
+    </licenses>
+
+    <mailingLists>
+        <mailingList>
+            <name>User &amp; Development List</name>
+            <post>commons-development@sesat.no</post>
+            <archive>http://sesat.no/pipermail/commons-development/</archive>
+        </mailingList>
+        <mailingList>
+            <name>Commit List</name>
+            <archive>http://sesat.no/pipermail/commons-commits/</archive>
+        </mailingList>
+    </mailingLists>
+
+    <build>
+        <plugins>
+        <!-- Set the source to UTF 8 -->
+            <plugin>
+                <inherited>true</inherited>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+
+        <!-- Set the svn path so release plugin can make new releases in tags -->
+            <plugin>
+                <artifactId>maven-release-plugin</artifactId>
+                <configuration>
+                    <tagBase>http://sesat.no/svn/sesat-commons/${artifactId}/tags</tagBase>
+                    <generateReleasePom>false</generateReleasePom>
+                    <testmode>false</testmode>
+                </configuration>
+            </plugin>
+  
+        <!-- Reporting -->
+               <plugin>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>2.5</version>
+               </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>jdepend-maven-plugin</artifactId>
+                    <version>2.0-beta-2</version>
+                </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>Sesat</id>
+            <name>Sesat Repository</name>
+            <url>http://sesat.no/maven2</url>
+            <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+        <repository>
+            <id>Central</id>
+            <name>Maven Central Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
+        <repository>
+            <id>SourceForge</id>
+            <name>Sourceforge Maven Repository</name>
+            <url>http://maven-plugins.sourceforge.net/maven</url>
+        </repository>
+        <repository>
+            <id>osafoundation</id>
+            <name>Open Source Applications Foundation</name>
+            <url>http://builds.osafoundation.org/maven2</url>
+        </repository>
+        <repository>
+            <id>Maven Snapshots</id>
+            <url>http://snapshots.maven.codehaus.org/maven2/</url>
+            <releases><enabled>false</enabled></releases>
+        </repository>
+        <repository>
+          <id>java.net</id>
+          <name>Java.net Repository for Maven2</name>
+          <url>http://download.java.net/maven/2</url>
+        </repository>
+        <repository>
+          <id>jboss</id>
+          <name>JBoss Repository for Maven2</name>
+          <url>http://repository.jboss.com/maven2</url>
+        </repository>
+    </repositories>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>Sesat</id>
+            <name>Sesat Plugins</name>
+            <url>http://sesat.no/maven2</url>
+        </pluginRepository>
+        <pluginRepository>
+            <snapshots />
+            <id>Codehaus Snapshots</id>
+            <url>http://snapshots.repository.codehaus.org/</url>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <dependencyManagement>
+        <dependencies>
+      <!-- Portlets -->
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>jboss-portlet-api-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>portal-common-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>portal-identity-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>portal-core-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>portal-portlet-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal</groupId>
+                <artifactId>portlet-api-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-portal-cms</groupId>
+                <artifactId>portal-cms-lib</artifactId>
+                <version>2.4.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+    <!-- Jboss Embeddable -->
+            <dependency>
+                <groupId>jboss-EJB-3_0_Embeddable</groupId>
+                <artifactId>hibernate-all</artifactId>
+                <version>ALPHA_8</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jboss-EJB-3_0_Embeddable</groupId>
+                <artifactId>jboss-ejb3-all</artifactId>
+                <version>ALPHA_8</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jboss-EJB-3_0_Embeddable</groupId>
+                <artifactId>thirdparty-all</artifactId>
+                <version>ALPHA_8</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jbpm</artifactId>
+                <version>3.1.1</version>
+            </dependency>
+
+     <!-- Must only be included in the ear file , NOT in html/WEB-INF/lib -->
+            <dependency>
+                <groupId>jboss-seam</groupId>
+                <artifactId>jboss-seam</artifactId>
+                <version>1.0.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss-seam</groupId>
+                <artifactId>jboss-seam-ui</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>jboss-seam</groupId>
+                <artifactId>jboss-seam-debug</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>jboss-seam</groupId>
+                <artifactId>jboss-ejb3-all</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>bsh</groupId>
+                <artifactId>bsh</artifactId>
+                <version>1.3.0</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>sesat</groupId>
+                <artifactId>commons-validation</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-aop</artifactId>
+                <version>1.1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-aspect-library</artifactId>
+                <version>1.1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jbosssx</artifactId>
+                <version>4.0.4RC1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-common</artifactId>
+                <version>4.0.4RC1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-jmx</artifactId>
+                <version>4.0.4RC1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jboss</groupId>
+                <artifactId>jboss-system</artifactId>
+                <version>4.0.4RC1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>concurrent</groupId>
+                <artifactId>concurrent</artifactId>
+                <version>1.3.3</version>
+            </dependency>
+            <dependency>
+                <groupId>javassist</groupId>
+                <artifactId>javassist</artifactId>
+                <version>3.0</version>
+            </dependency>
+            <dependency>
+                <groupId>trove</groupId>
+                <artifactId>trove</artifactId>
+                <version>1.0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>jexcelapi</groupId>
+                <artifactId>jxl</artifactId>
+                <version>2.4.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>1.8.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-fileupload</groupId>
+                <artifactId>commons-fileupload</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-httpclient</groupId>
+                <artifactId>commons-httpclient</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>qdox</groupId>
+                <artifactId>qdox</artifactId>
+                <version>1.6.1</version>
+            </dependency>
+            <dependency>
+                <groupId>jcaptcha</groupId>
+                <artifactId>jcaptcha</artifactId>
+                <version>all-1.0-RC3-cvs-20060215</version>
+            </dependency>
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis</artifactId>
+                <version>1.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis-jaxrpc</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis-saaj</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis-wsdl4j</artifactId>
+                <version>1.5.1</version>
+            </dependency>
+            <dependency>
+                <groupId>axis</groupId>
+                <artifactId>axis-ant</artifactId>
+                <version>1.3</version>
+            </dependency>
+            <dependency>
+                <groupId>xdoclet</groupId>
+                <artifactId>xjavadoc</artifactId>
+                <version>1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>ehcache</groupId>
+                <artifactId>ehcache</artifactId>
+                <version>1.2.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>3.1.11</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-discovery</groupId>
+                <artifactId>commons-discovery</artifactId>
+                <version>0.2</version>
+            </dependency>
+            <dependency>
+                <groupId>commons-collections</groupId>
+                <artifactId>commons-collections</artifactId>
+                <version>3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>hibernate</groupId>
+                <artifactId>hibernate-tools</artifactId>
+                <version>3.0.0.alpha4a</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.1.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.transaction</groupId>
+                <artifactId>jta</artifactId>
+                <version>1.0.1b</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+                <version>1.2.14</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+                <version>1.0.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>xdoclet</groupId>
+                <artifactId>xjavadoc</artifactId>
+                <version>1.5</version>
+            </dependency>
+            <dependency>
+                <groupId>javamail</groupId>
+                <artifactId>mailapi</artifactId>
+                <version>1.3.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.mail</groupId>
+                <artifactId>mail</artifactId>
+                <version>1.3.3_01</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-email</groupId>
+                <artifactId>commons-email</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>dumbster</groupId>
+                <artifactId>dumbster</artifactId>
+                <version>1.6</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>1.0.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.activation</groupId>
+                <artifactId>activation</artifactId>
+                <version>1.0.2</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>jsf</groupId>
+                <artifactId>jsf-facelets</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>el</groupId>
+                <artifactId>el-api</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>el</groupId>
+                <artifactId>el-ri</artifactId>
+                <version>1.0</version>
+            </dependency>
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>webwork</artifactId>
+                <version>2.1.7</version>
+            </dependency>
+            <dependency>
+                <groupId>ognl</groupId>
+                <artifactId>ognl</artifactId>
+                <version>2.6.5</version>
+            </dependency>
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>oscore</artifactId>
+                <version>2.2.4</version>
+            </dependency>
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>xwork</artifactId>
+                <version>1.0.5</version>
+            </dependency>
+            <dependency>
+                <groupId>velocity</groupId>
+                <artifactId>velocity</artifactId>
+                <version>1.4</version>
+            </dependency>
+            <dependency>
+                <groupId>opensymphony</groupId>
+                <artifactId>sitemesh</artifactId>
+                <version>2.2.1</version>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>taglibs</groupId>
+                <artifactId>standard</artifactId>
+                <version>1.1.2</version>
+            </dependency>
+            <dependency>
+                <groupId>freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>2.3.6</version>
+            </dependency>
+            <dependency>
+                <groupId>tomcat</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>5.0.18</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>servlet-api</artifactId>
+                <version>2.4</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.0</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>asm</groupId>
+                <artifactId>asm</artifactId>
+                <version>1.5.3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>dbunit</groupId>
+                <artifactId>dbunit</artifactId>
+                <version>2.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>dom4j</groupId>
+                <artifactId>dom4j</artifactId>
+                <version>1.6.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>antlr</groupId>
+                <artifactId>antlr</artifactId>
+                <version>2.7.5</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>cglib</groupId>
+                <artifactId>cglib</artifactId>
+                <version>2.1_3</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>hsqldb</groupId>
+                <artifactId>hsqldb</artifactId>
+                <version>1.8.0.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>mockmaker</groupId>
+                <artifactId>mmmockobjects</artifactId>
+                <version>1.11.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>mockmaker</groupId>
+                <artifactId>mockmaker</artifactId>
+                <version>1.10.0</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>3.8.1</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.testng</groupId>
+                <artifactId>testng</artifactId>
+                <version>4.7</version>
+                <classifier>jdk15</classifier>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>myfaces</groupId>
+                <artifactId>tomahawk</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>myfaces</groupId>
+                <artifactId>myfaces-impl</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>myfaces</groupId>
+                <artifactId>myfaces-api</artifactId>
+                <version>1.1.1</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>commons-net</groupId>
+                <artifactId>commons-net</artifactId>
+                <version>1.4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>jldap</groupId>
+                <artifactId>jldap</artifactId>
+                <version>novell-devel-20060220</version>
+                <scope>provided</scope>
+                <type>jar</type>
+            </dependency>
+            <dependency>
+                <groupId>sesat</groupId>
+                <artifactId>commons-ldap</artifactId>
+                <version>1.2</version>
+                <scope>provided</scope>
+                <type>jar</type>
+            </dependency>
+
+       <!-- Mock frameworks -->   
+            <dependency>
+                <groupId>easygloss</groupId>
+                <artifactId>easygloss</artifactId>
+                <version>1.0</version>
+                <scope>test</scope>
+            </dependency>
+  
+            <dependency>
+                <groupId>easymock</groupId>
+                <artifactId>easymock</artifactId>
+                <version>2.2</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+  <!-- Common information for all subpoms, needed for release -->
+    <distributionManagement>
+        <site>
+            <id>Sesat ssh-repo</id>
+            <url>scp://sesat.no:/var/www/sesat.no/htdocs/projects/sesat-commons</url>
+        </site>
+
+        <repository>
+            <id>Sesat ssh-repo</id>
+            <name>Sesat Repository</name>
+            <url>scp://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>Sesat ssh-repo</id>
+            <name>Sesat Snapshot</name>
+            <url>scp://sesat.no:/var/www/sesat.no/htdocs/maven2</url>
+            <uniqueVersion>false</uniqueVersion>
+        </snapshotRepository>
+    </distributionManagement>
+
+
+    <reporting>
+        <plugins>
+            <plugin>
+                <artifactId>maven-project-info-reports-plugin</artifactId>
+            </plugin>
+            <!--plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+              maven-changelog-plugin disabled on children. see http://jira.codehaus.org/browse/MCHANGELOG-75 
+                <inherited>false</inherited>
+                <configuration>
+                    <aggregate>true</aggregate>
+                    <type>range</type>
+                    <range>3650</range>
+                </configuration>
+            </plugin-->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <reportSets>
+                    <reportSet>
+                        <id>html</id>
+                        <configuration>
+                            <aggregate>true</aggregate>
+                            <charset>UTF-8</charset>
+                            <docencoding>UTF-8</docencoding>
+                            <source>1.6</source>
+                            <docfilessubdirs>true</docfilessubdirs>
+                            <links>
+                                <link>http://java.sun.com/javase/6/docs/api/</link>
+                                <link>http://java.sun.com/javaee/5/docs/api/</link>
+                                <link>http://logging.apache.org/log4j/docs/api/</link>
+                            </links>
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                    <reportSet>
+                        <id>doccheck</id>
+                        <configuration>
+                            <doclet>com.sun.tools.doclets.doccheck.DocCheck</doclet>
+                            <docletArtifact>
+                                <groupId>com.sun.tools.doclets</groupId>
+                                <artifactId>doccheck</artifactId>
+                                <version>1.2b2</version>
+                            </docletArtifact>
+                            <aggregate>true</aggregate>
+                            <charset>UTF-8</charset>
+                            <docencoding>UTF-8</docencoding>
+                            <source>1.6</source>
+                            <docfilessubdirs>true</docfilessubdirs>
+                            <additionalparam>
+                        -d ${project.build.directory}/site/doccheck -evident 3 -skipPkg no.sesat.search.query.parser
+                            </additionalparam>
+                      <!-- Other dir than apidocs -->
+                            <destDir>doccheck</destDir>
+                      <!-- For the project-reports page-->
+                            <name>DocCheck</name>
+                            <description>DocCheck documentation.</description>
+                        </configuration>
+                        <reports>
+                            <report>javadoc</report>
+                        </reports>
+                    </reportSet>
+                </reportSets>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>surefire-report-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-site-plugin</artifactId>
+                <configuration>
+                    <locales>en</locales>
+                    <inputEncoding>UTF-8</inputEncoding>
+                    <outputEncoding>UTF-8</outputEncoding>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <aggregate>true</aggregate>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <configuration>
+                    <configLocation>http://sesat.no/svn/sesat-commons/checkstyle/conf/schibstedsok_checks.xml</configLocation>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>dashboard-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+
+</project>
+
