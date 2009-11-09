@@ -40,9 +40,9 @@
     </organization>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/tags/commons-main-1.9</connection>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</connection>
         <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/tags/commons-main-1.9</url>
+        <url>http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</url>
     </scm>
 
     <licenses>
