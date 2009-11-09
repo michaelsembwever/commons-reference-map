@@ -40,9 +40,9 @@
     </organization>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main-1.9</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/null/tags/commons-main-1.9</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/commons-main-1.9</url>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/tags/commons-main-1.9</connection>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-main/tags/commons-main-1.9</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/tags/commons-main-1.9</url>
     </scm>
 
     <licenses>
@@ -83,7 +83,7 @@
             <plugin>
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
-                    <tagBase>http://sesat.no/svn/sesat-commons/${artifacId}/tags</tagBase>
+                    <tagBase>http://sesat.no/svn/sesat-commons/${artifactId}/tags</tagBase>
                     <generateReleasePom>false</generateReleasePom>
                     <testmode>false</testmode>
                 </configuration>
