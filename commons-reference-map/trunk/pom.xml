@@ -29,7 +29,7 @@
     <modelVersion>4.0.0</modelVersion>
     <name>Commons Reference Map</name>
     <artifactId>commons-reference-map</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
 <!-- - - - - - - - - - - -->
@@ -40,9 +40,9 @@
     <url>http://commons-ref-map.sourceforge.net</url>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/tags/commons-reference-map-1.0</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/tags/commons-reference-map-1.0</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/commons-reference-map/tags/commons-reference-map-1.0</url>
+        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</connection>
+        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</developerConnection>
+        <url>http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</url>
     </scm>
 
     <licenses>
