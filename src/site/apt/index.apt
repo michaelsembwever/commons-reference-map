@@ -1,0 +1,17 @@
+Very Simple Library for creating Weak or Soft Key and/or Value Reference Maps.
+
+        Provides a Map where values are referenced either weakly or softly. This can be used to cache immutable objects without preventing them from being garbaged collected.
+
+        Concurrency and synchronisation of this class fallbacks to the Map implementation passed in as the cache parameter in the constructor. For example: use a Hashtable for synchronised access,
+a ConcurrentHashMap for concurrent access, and a HashMap for single threaded access (make sure to specify the argument indicating single thread use).
+
+        This implementation improves over org.apache.commons.collections.map.ReferenceMap in that the synchronisation and concurrency is determined through delegation to the map supplied in the
+constructor as described above.
+
+        Typically used by flyweight pattern implementations where the object itself cannot be used as the key in the cache due to object creation costs.
+
+        This is also somewhat an implementation of JSR166.
+
+
+
+        Why not use WeahHashMap\<K,WeakReference\<V>> ? When the value is garbage collected you still end up with a WeakReference holding a null and a Map.Entry\<K,WeakReference\<V>> in the jvm. So a ReferenceQueue is required to clear these things up too. This is all done for you (either in the foreground or background) by the ReferenceMap class.
