@@ -40,9 +40,9 @@
     <url>http://commons-ref-map.sourceforge.net</url>
 
     <scm>
-        <connection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</connection>
-        <developerConnection>scm:svn:http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</developerConnection>
-        <url>http://sesat.no/svn/sesat-commons/commons-reference-map/trunk</url>
+        <connection>scm:svn:https://commons-ref-map.svn.sourceforge.net/svnroot/commons-ref-map/trunk</connection>
+        <developerConnection>scm:svn:https://commons-ref-map.svn.sourceforge.net/svnroot/commons-ref-map/trunk</developerConnection>
+        <url>http://commons-ref-map.svn.sourceforge.net/viewvc/commons-ref-map/trunk/</url>
     </scm>
 
     <licenses>
@@ -67,11 +67,11 @@
         <mailingList>
             <name>User &amp; Development List</name>
             <post>commons-ref-map-user@lists.sourceforge.net</post>
-            <archive>http://sourceforge.net/mailarchive/forum.php?forum_name=commons-ref-map-user</archive>
+            <archive>https://sourceforge.net/mailarchive/forum.php?forum_name=commons-ref-map-user</archive>
         </mailingList>
         <mailingList>
             <name>Commit List</name>
-            <archive>http://sesat.no/pipermail/commons-commits/</archive>
+            <archive>https://sourceforge.net/mailarchive/forum.php?forum_name=commons-ref-map-commits</archive>
         </mailingList>
     </mailingLists>
 
